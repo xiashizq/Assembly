@@ -20,8 +20,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private FlagsType _type;
 		private ulong _value;
 
-		public FlagData(string name, uint offset, long address, FlagsType type, uint pluginLine, string tooltip)
-			: base(name, offset, address, pluginLine, tooltip)
+		public FlagData(string name, uint offset, long address, FlagsType type, uint pluginLine, string tooltip,string tra)
+			: base(name, offset, address, pluginLine, tooltip,tra)
 		{
 			_type = type;
 			CheckAllCommand = new QuickCheckCommand(this, true);
@@ -64,9 +64,9 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public ICommand UncheckAllCommand { get; private set; }
 
-		public void DefineBit(int index, string name, string tooltip)
+		public void DefineBit(int index, string name, string tooltip,string tra)
 		{
-			var data = new BitData(this, name, index, tooltip);
+			var data = new BitData(this, name, index, tooltip,tra);
 			_bits[index] = data;
 		}
 
@@ -77,9 +77,9 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public override MetaField CloneValue()
 		{
-			var result = new FlagData(Name, Offset, FieldAddress, _type, PluginLine, ToolTip);
+			var result = new FlagData(Name, Offset, FieldAddress, _type, PluginLine, ToolTip,Tra);
 			foreach (var bit in _bits)
-				result.DefineBit(bit.Key, bit.Value.Name, bit.Value.ToolTip);
+				result.DefineBit(bit.Key, bit.Value.Name, bit.Value.ToolTip, Tra);
 			result.Value = _value;
 			return result;
 		}
@@ -168,16 +168,18 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private readonly FlagData _parent;
 		private string _name;
 		private string _tooltip;
-		private int _index;
+        private string _tra;
+        private int _index;
 
-		public BitData(FlagData parent, string name, int index, string tooltip)
+		public BitData(FlagData parent, string name, int index, string tooltip,string tra)
 		{
 			_parent = parent;
 			_name = name;
 			_index = index;
 			_mask = (ulong)1U << index;
 			_tooltip = tooltip;
-		}
+            _tra = tra;
+        }
 
 		public string Name
 		{
@@ -188,8 +190,19 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 				NotifyPropertyChanged("Name");
 			}
 		}
-
-		public string ToolTip
+        public string Tra
+        {
+            get
+            {
+                return _tra;
+            }
+            set
+            {
+                _tra = value;
+                NotifyPropertyChanged("Tra");
+            }
+        }
+        public string ToolTip
 		{
 			get
 			{

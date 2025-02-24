@@ -17,8 +17,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private EnumType _type;
 		private int _value;
 
-		public EnumData(string name, uint offset, long address, EnumType type, int value, uint pluginLine, string tooltip)
-			: base(name, offset, address, pluginLine, tooltip)
+		public EnumData(string name, uint offset, long address, EnumType type, int value, uint pluginLine, string tooltip,string tra)
+			: base(name, offset, address, pluginLine, tooltip,tra)
 		{
 			_type = type;
 			_value = value;
@@ -71,10 +71,10 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public override MetaField CloneValue()
 		{
-			var result = new EnumData(Name, Offset, FieldAddress, _type, _value, PluginLine, ToolTip);
+			var result = new EnumData(Name, Offset, FieldAddress, _type, _value, PluginLine, ToolTip,Tra);
 			foreach (EnumValue option in Values)
 			{
-				var copiedValue = new EnumValue(option.Name, option.Value, option.ToolTip);
+				var copiedValue = new EnumValue(option.Name, option.Value, option.ToolTip, option.Tra);
 				result.Values.Add(copiedValue);
 				if (_selectedValue != null && copiedValue.Value == _selectedValue.Value)
 					result._selectedValue = copiedValue;
@@ -103,13 +103,15 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private string _name;
 		private int _value;
 		private string _tooltip;
+        private string _tra;
 
-		public EnumValue(string name, int value, string tooltip)
+        public EnumValue(string name, int value, string tooltip,string tra)
 		{
 			_name = name;
 			_value = value;
 			_tooltip = tooltip;
-		}
+			_tra = tra;
+        }
 
 		public string Name
 		{
@@ -124,7 +126,19 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 			}
 		}
 
-		public string ToolTip
+        public string Tra
+        {
+            get
+            {
+                return _tra;
+            }
+            set
+            {
+                _tra = value;
+                NotifyPropertyChanged("Tra");
+            }
+        }
+        public string ToolTip
 		{
 			get
 			{

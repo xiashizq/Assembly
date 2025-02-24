@@ -132,15 +132,15 @@ namespace Blamite.Injection
 		{
 		}
 
-		public void VisitUInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitUInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitUInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitUInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			// haxhaxhaxhax
 			// TODO: Fix this if/when cross-tag references are added to plugins
@@ -154,12 +154,12 @@ namespace Blamite.Injection
 			}
 		}
 
-		public void VisitInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
-			VisitUInt16(name, offset, visible, pluginLine, tooltip);
+			VisitUInt16(name, offset, visible, pluginLine, tooltip,tra);
 		}
 
-		public void VisitUInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitUInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			// haxhaxhaxhax
 			// TODO: Fix this if/when cross-tag references are added to plugins
@@ -204,140 +204,140 @@ namespace Blamite.Injection
 			}
 		}
 
-		public void VisitInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
-			VisitUInt32(name, offset, visible, pluginLine, tooltip);
+			VisitUInt32(name, offset, visible, pluginLine, tooltip, tra);
 		}
 
-		public void VisitUInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip)
-		{
-		}
-
-		public void VisitInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip)
-		{
-			VisitUInt64(name, offset, visible, pluginLine, tooltip);
-		}
-
-		public void VisitFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitUInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitUndefined(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		{
+			VisitUInt64(name, offset, visible, pluginLine, tooltip,tra);
+		}
+
+		public void VisitFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitPoint2(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitUndefined(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitPoint3(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitPoint2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitVector2(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitPoint3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitVector3(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitVector2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitVector4(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitVector3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitVector4(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitDegree2(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitDegree3(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitDegree2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitPlane2(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitDegree3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitPlane3(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitPlane2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitRect16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitPlane3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitQuat16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitRect16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitPoint16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitQuat16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitPoint16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		{
+		}
+
+		public void VisitStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			ReadReferences(offset, ReadStringId);
 		}
 
-		public void VisitTagReference(string name, uint offset, bool visible, bool withGroup, uint pluginLine, string tooltip)
+		public void VisitTagReference(string name, uint offset, bool visible, bool withGroup, uint pluginLine, string tooltip, string tra)
 		{
 			ReadReferences(offset, (b, o) => ReadTagReference(b, o, withGroup));
 		}
 
-		public void VisitDataReference(string name, uint offset, string format, bool visible, int align, uint pluginLine, string tooltip)
+		public void VisitDataReference(string name, uint offset, string format, bool visible, int align, uint pluginLine, string tooltip, string tra)
 		{
 			ReadReferences(offset, (b, o) => ReadDataReference(b, o, align));
 		}
 
-		public void VisitRawData(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip)
+		public void VisitRawData(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip,string tra)
 		{
 		}
 
-		public void VisitAscii(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip)
+		public void VisitAscii(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip,string tra)
 		{
 		}
 
-		public void VisitUtf16(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip)
+		public void VisitUtf16(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitHexString(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip)
+		public void VisitHexString(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitColorInt(string name, uint offset, bool visible, bool alpha, uint pluginLine, string tooltip)
+		public void VisitColorInt(string name, uint offset, bool visible, bool alpha, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitColorF(string name, uint offset, bool visible, bool alpha, bool basic, uint pluginLine, string tooltip)
+		public void VisitColorF(string name, uint offset, bool visible, bool alpha, bool basic, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public bool EnterFlags8(string name, uint offset, bool visible, uint pluginLine, string tooltip)
-		{
-			return false;
-		}
-
-		public bool EnterFlags16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterFlags8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			return false;
 		}
 
-		public bool EnterFlags32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterFlags16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			return false;
 		}
 
-		public bool EnterFlags64(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterFlags32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			return false;
 		}
 
-		public void VisitBit(string name, int index, string tooltip)
+		public bool EnterFlags64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		{
+			return false;
+		}
+
+		public void VisitBit(string name, int index, string tooltip, string tra)
 		{
 		}
 
@@ -345,22 +345,22 @@ namespace Blamite.Injection
 		{
 		}
 
-		public bool EnterEnum8(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterEnum8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			return false;
 		}
 
-		public bool EnterEnum16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterEnum16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			return false;
 		}
 
-		public bool EnterEnum32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterEnum32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			return false;
 		}
 
-		public void VisitOption(string name, int value, string tooltip)
+		public void VisitOption(string name, int value, string tooltip, string tra)
 		{
 		}
 
@@ -368,7 +368,7 @@ namespace Blamite.Injection
 		{
 		}
 
-		public bool EnterTagBlock(string name, uint offset, bool visible, uint entrySize, int align, bool sort, uint pluginLine, string tooltip)
+		public bool EnterTagBlock(string name, uint offset, bool visible, uint entrySize, int align, bool sort, uint pluginLine, string tooltip, string tra)
 		{
 			_tagBlocks = new List<DataBlock>();
 			ReadReferences(offset, (b, o) => ReadTagBlock(b, o, entrySize, align, sort));
@@ -383,20 +383,20 @@ namespace Blamite.Injection
 			_blockStack.Pop();
 		}
 
-		public void VisitShader(string name, uint offset, bool visible, ShaderType type, uint pluginLine, string tooltip)
+		public void VisitShader(string name, uint offset, bool visible, ShaderType type, uint pluginLine, string tooltip, string tra)
 		{
 			ReadReferences(offset, (b, o) => ReadShader(b, o, type));
 		}
 
-		public void VisitRangeInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitRangeInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitRangeFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitRangeFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
-		public void VisitRangeDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitRangeDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 		}
 
@@ -411,7 +411,7 @@ namespace Blamite.Injection
 			return new UnicListFixupString("", str.Value);
 		}
 
-		public void VisitUnicList(string name, uint offset, bool visible, int languages, uint pluginLine, string tooltip)
+		public void VisitUnicList(string name, uint offset, bool visible, int languages, uint pluginLine, string tooltip,string tra)
 		{
 			for (var i = 0; i < languages; i++)
 			{
@@ -424,7 +424,7 @@ namespace Blamite.Injection
 			}
 		}
 
-		public void VisitDatum(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitDatum(string name, uint offset, bool visible, uint pluginLine, string tooltip,string tra)
 		{
 			// haxhaxhaxhax
 			// TODO: Fix this if/when cross-tag references are added to plugins
@@ -438,7 +438,7 @@ namespace Blamite.Injection
 			}
 		}
 
-		public void VisitOldStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitOldStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			ReadReferences(offset, ReadOldStringId);
 		}

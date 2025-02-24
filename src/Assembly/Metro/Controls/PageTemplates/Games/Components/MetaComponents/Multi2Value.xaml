@@ -5,78 +5,80 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:local="clr-namespace:Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents"
              mc:Ignorable="d" Height="28" Width="534" HorizontalAlignment="Left">
-	<UserControl.Resources>
-		<local:CustomBooleanToVisibilityConverter x:Key="cb2v" />
-	</UserControl.Resources>
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="200"/>
-			<ColumnDefinition Width="Auto" />
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="Auto" />
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="100"/>
-		</Grid.ColumnDefinitions>
+    <UserControl.Resources>
+        <local:CustomBooleanToVisibilityConverter x:Key="cb2v" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100*" />
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="70"/>
+        </Grid.ColumnDefinitions>
 
-		<DockPanel Grid.Column="0" Background="Transparent">
-			<DockPanel.ToolTip>
-				<StackPanel MaxWidth="500">
-					<TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
-					<TextBlock Text="{Binding Offset, StringFormat='Field Offset: 0x{0:X}'}" Foreground="#CCC" />
-					<TextBlock Text="{Binding FieldAddress, StringFormat='Address: 0x{0:X}'}" Foreground="#CCC" />
-					<TextBlock Text="{Binding PluginLine, StringFormat='Plugin Line: {0}'}" Foreground="#CCC" />
-					<TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" 
+        <DockPanel Grid.Column="0" Background="Transparent" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
+            <DockPanel.ToolTip>
+                <StackPanel MaxWidth="500">
+                    <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Offset, StringFormat='Field Offset: 0x{0:X}'}" Foreground="#CCC" />
+                    <TextBlock Text="{Binding FieldAddress, StringFormat='Address: 0x{0:X}'}" Foreground="#CCC" />
+                    <TextBlock Text="{Binding PluginLine, StringFormat='Plugin Line: {0}'}" Foreground="#CCC" />
+                    <TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" 
 							   Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}, ConverterParameter={x:Static Visibility.Collapsed}}" />
-				</StackPanel>
-			</DockPanel.ToolTip>
-			<TextBlock Text="?" Foreground="{DynamicResource ExtryzeAccentBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,2,0"
+                    <TextBlock Text="{Binding Tra}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
+                </StackPanel>
+            </DockPanel.ToolTip>
+            <TextBlock Text="?" Foreground="{DynamicResource ExtryzeAccentBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,2,0"
 					   VerticalAlignment="Center" FontFamily="{DynamicResource MetroFontRegular}" Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}}" />
-			<TextBlock x:Name="lblValueName" Text="{Binding Path=Name}"
+            <TextBlock x:Name="lblValueName" Text="{Binding Path=Name}"
 			           Style="{DynamicResource GenericTextblock}" VerticalAlignment="Center"
 			           TextTrimming="CharacterEllipsis" />
-		</DockPanel>
+        </DockPanel>
 
-		<TextBlock Grid.Column="1" x:Name="lblAValueName" TextAlignment="Right" Width="10" VerticalAlignment="Center" Margin="0,0,4,0">
-			<TextBlock.Style>
-				<Style TargetType="TextBlock" BasedOn="{StaticResource GenericTextblock}">
-					<Setter Property="Text" Value="x" />
-					<Setter Property="ToolTip" Value="X Axis Value" />
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding Type}" Value="vector2">
-							<Setter Property="Text" Value="i" />
-							<Setter Property="ToolTip" Value="Yaw Value" />
-						</DataTrigger>
-						<DataTrigger Binding="{Binding Type}" Value="degree2">
-							<Setter Property="Text" Value="y" />
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</TextBlock.Style>
-		</TextBlock>
+        <TextBlock Grid.Column="1" x:Name="lblAValueName" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Height="16">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource GenericTextblock}">
+                    <Setter Property="Text" Value="x" />
+                    <Setter Property="ToolTip" Value="X Axis Value" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Type}" Value="vector2">
+                            <Setter Property="Text" Value="i" />
+                            <Setter Property="ToolTip" Value="Yaw Value" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="degree2">
+                            <Setter Property="Text" Value="y" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
-		<TextBox Grid.Column="2" x:Name="txtAValue" Text="{Binding A}" Language="" VerticalAlignment="Center" />
+        <TextBox Grid.Column="1" x:Name="txtAValue" Text="{Binding A}" Language="" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="22" Margin="10,0,0,0" />
 
-		<TextBlock Grid.Column="3" x:Name="lblBValueName" TextAlignment="Right" Width="12" VerticalAlignment="Center" Margin="4,0,4,0">
-			<TextBlock.Style>
-				<Style TargetType="TextBlock" BasedOn="{StaticResource GenericTextblock}">
-					<Setter Property="Text" Value="y" />
-					<Setter Property="ToolTip" Value="Y Axis Value" />
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding Type}" Value="vector2">
-							<Setter Property="Text" Value="j" />
-							<Setter Property="ToolTip" Value="Pitch Value" />
-						</DataTrigger>
-						<DataTrigger Binding="{Binding Type}" Value="degree2">
-							<Setter Property="Text" Value="p" />
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</TextBlock.Style>
-		</TextBlock>
+        <TextBlock Grid.Column="3" x:Name="lblBValueName" TextAlignment="Right" VerticalAlignment="Center" Margin="4,0,4,0" Height="16">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource GenericTextblock}">
+                    <Setter Property="Text" Value="y" />
+                    <Setter Property="ToolTip" Value="Y Axis Value" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Type}" Value="vector2">
+                            <Setter Property="Text" Value="j" />
+                            <Setter Property="ToolTip" Value="Pitch Value" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="degree2">
+                            <Setter Property="Text" Value="p" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
-		<TextBox Grid.Column="4" x:Name="txtBValue" Text="{Binding B}" Language="" VerticalAlignment="Center" />
-		
-		<TextBlock Grid.Column="5" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
-				           VerticalAlignment="Center" Margin="10,0,0,0" />
-	</Grid>
+        <TextBox Grid.Column="3" x:Name="txtBValue" Text="{Binding B}" Language="" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="22" Margin="14,0,0,0" />
+        <Button  Grid.Column="5" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
+        <TextBlock Grid.Column="6" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
+				           VerticalAlignment="Center" Margin="10,0,0,0" Height="16" />
+    </Grid>
 </UserControl>

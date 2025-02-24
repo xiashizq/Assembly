@@ -26,7 +26,8 @@
     "debugType": "portable"
   },
   "dependencies": {
-    "Antlr4.Runtime.Standard": "4.8.0"
+    "Antlr4.Runtime.Standard": "4.8.0",
+    "Newtonsoft.Json": "13.0.2"
   },
   "frameworks": {
     "net48": {

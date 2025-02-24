@@ -17,10 +17,11 @@
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition Width="*" />
+            <ColumnDefinition Width="30"/>
 			<ColumnDefinition Width="100"/>
 		</Grid.ColumnDefinitions>
 
-		<DockPanel Grid.Column="0" Background="Transparent">
+        <DockPanel Grid.Column="0" Background="Transparent" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 			<DockPanel.ToolTip>
 				<StackPanel MaxWidth="500">
 					<TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
@@ -29,6 +30,7 @@
 					<TextBlock Text="{Binding PluginLine, StringFormat='Plugin Line: {0}'}" Foreground="#CCC" />
 					<TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" 
 							   Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}, ConverterParameter={x:Static Visibility.Collapsed}}" />
+                    <TextBlock Text="{Binding Tra}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
 				</StackPanel>
 			</DockPanel.ToolTip>
 			<TextBlock Text="?" Foreground="{DynamicResource ExtryzeAccentBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,2,0"
@@ -98,8 +100,8 @@
 
 		<TextBox Grid.Column="6" x:Name="txtCValue" Text="{Binding C}" Language="" VerticalAlignment="Center" />
 
-
-		<TextBlock Grid.Column="7" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
+        <Button  Grid.Column="7" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
+        <TextBlock Grid.Column="8" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
 				           VerticalAlignment="Center" Margin="10,0,0,0" />
 	</Grid>
 </UserControl>

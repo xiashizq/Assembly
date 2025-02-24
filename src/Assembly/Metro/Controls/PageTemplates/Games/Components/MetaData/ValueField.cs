@@ -12,15 +12,17 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private string _name;
 		private uint _offset;
 		private string _tooltip;
+        private string _tra;
 
-		public ValueField(string name, uint offset, long address, uint pluginLine, string tooltip)
+        public ValueField(string name, uint offset, long address, uint pluginLine, string tooltip,string tra)
 		{
 			_name = name;
 			_offset = offset;
 			_address = address;
 			PluginLine = pluginLine;
 			_tooltip = tooltip;
-		}
+			_tra = tra;
+        }
 
 		/// <summary>
 		///     The value's name.
@@ -35,10 +37,20 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 			}
 		}
 
-		/// <summary>
-		///     The offset, from the start of the current meta block or tag block, of the field's value.
-		/// </summary>
-		public uint Offset
+        public string Tra
+        {
+            get { return _tra; }
+            set
+            {
+                _tra = value;
+                NotifyPropertyChanged("Tra");
+            }
+        }
+
+        /// <summary>
+        ///     The offset, from the start of the current meta block or tag block, of the field's value.
+        /// </summary>
+        public uint Offset
 		{
 			get { return _offset; }
 			set

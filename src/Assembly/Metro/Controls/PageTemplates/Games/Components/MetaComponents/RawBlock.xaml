@@ -19,7 +19,7 @@
 			<ColumnDefinition Width="200"/>
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
-		<DockPanel Grid.Column="0" Background="Transparent" Height="28" VerticalAlignment="Top">
+        <DockPanel Grid.Column="0" Background="Transparent" Height="28" VerticalAlignment="Top" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 			<DockPanel.ToolTip>
 				<StackPanel MaxWidth="500">
 					<TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
@@ -28,6 +28,7 @@
 					<TextBlock Text="{Binding PluginLine, StringFormat='Plugin Line: {0}'}" Foreground="#CCC" />
 					<TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" 
 							   Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}, ConverterParameter={x:Static Visibility.Collapsed}}" />
+                    <TextBlock Text="{Binding Tra}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
 				</StackPanel>
 			</DockPanel.ToolTip>
 			<TextBlock Text="?" Foreground="{DynamicResource ExtryzeAccentBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,2,0"

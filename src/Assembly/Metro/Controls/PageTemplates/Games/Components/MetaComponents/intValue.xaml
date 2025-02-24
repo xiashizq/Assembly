@@ -5,35 +5,38 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents"
              mc:Ignorable="d" Height="28" Width="580" HorizontalAlignment="Left">
-	<UserControl.Resources>
-		<local:CustomBooleanToVisibilityConverter x:Key="cb2v" />
-	</UserControl.Resources>
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="200"/>
-			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="200"/>
-		</Grid.ColumnDefinitions>
+    <UserControl.Resources>
+        <local:CustomBooleanToVisibilityConverter x:Key="cb2v" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="130"/>
+        </Grid.ColumnDefinitions>
 
-		<DockPanel Grid.Column="0" Background="Transparent">
-			<DockPanel.ToolTip>
-				<StackPanel MaxWidth="500">
-					<TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
-					<TextBlock Text="{Binding Offset, StringFormat='Field Offset: 0x{0:X}'}" Foreground="#CCC" />
-					<TextBlock Text="{Binding FieldAddress, StringFormat='Address: 0x{0:X}'}" Foreground="#CCC" />
-					<TextBlock Text="{Binding PluginLine, StringFormat='Plugin Line: {0}'}" Foreground="#CCC" />
-					<TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" 
+        <DockPanel Grid.Column="0" Background="Transparent" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
+            <DockPanel.ToolTip>
+                <StackPanel MaxWidth="500">
+                    <TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Offset, StringFormat='Field Offset: 0x{0:X}'}" Foreground="#CCC" />
+                    <TextBlock Text="{Binding FieldAddress, StringFormat='Address: 0x{0:X}'}" Foreground="#CCC" />
+                    <TextBlock Text="{Binding PluginLine, StringFormat='Plugin Line: {0}'}" Foreground="#CCC" />
+                    <TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" 
 							   Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}, ConverterParameter={x:Static Visibility.Collapsed}}" />
-				</StackPanel>
-			</DockPanel.ToolTip>
-			<TextBlock Text="?" Foreground="{DynamicResource ExtryzeAccentBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,2,0"
+                    <TextBlock Text="{Binding Tra}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
+                </StackPanel>
+            </DockPanel.ToolTip>
+            <TextBlock Text="?" Foreground="{DynamicResource ExtryzeAccentBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,2,0"
 					   VerticalAlignment="Center" FontFamily="{DynamicResource MetroFontRegular}" Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}}" />
-			<TextBlock x:Name="lblValueName" Text="{Binding Path=Name}"
+            <TextBlock x:Name="lblValueName" Text="{Binding Path=Name}"
 			           Style="{DynamicResource GenericTextblock}" VerticalAlignment="Center"
 			           TextTrimming="CharacterEllipsis" />
-		</DockPanel>
-		<TextBox Grid.Column="1" x:Name="txtValue" Text="{Binding Value}" Language="" VerticalAlignment="Center" Padding="0,0,0,0" />
-		<TextBlock Grid.Column="2" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
-			           VerticalAlignment="Center" Margin="10,0,0,0" />
-	</Grid>
+        </DockPanel>
+        <TextBox Grid.Column="1" x:Name="txtValue" Text="{Binding Value}" Language="" VerticalAlignment="Center" Padding="0,0,0,0" Height="22" />
+        <Button Grid.Column="2" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,4,3" Click="btnAI_Click"/>
+        <TextBlock Grid.Column="3" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
+			           VerticalAlignment="Center" Margin="10,0,24,0" Height="16" />
+    </Grid>
 </UserControl>

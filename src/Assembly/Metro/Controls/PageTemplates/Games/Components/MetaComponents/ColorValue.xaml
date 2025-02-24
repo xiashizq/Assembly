@@ -13,10 +13,11 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="200"/>
 			<ColumnDefinition Width="*" />
+            <ColumnDefinition Width="40"/>
 			<ColumnDefinition Width="200"/>
 		</Grid.ColumnDefinitions>
 
-		<DockPanel Grid.Column="0" Background="Transparent">
+        <DockPanel Grid.Column="0" Background="Transparent" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 			<DockPanel.ToolTip>
 				<StackPanel MaxWidth="500">
 					<TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
@@ -25,6 +26,7 @@
 					<TextBlock Text="{Binding PluginLine, StringFormat='Plugin Line: {0}'}" Foreground="#CCC" />
 					<TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" 
 							   Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}, ConverterParameter={x:Static Visibility.Collapsed}}" />
+                    <TextBlock Text="{Binding Tra}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
 				</StackPanel>
 			</DockPanel.ToolTip>
 			<TextBlock Text="?" Foreground="{DynamicResource ExtryzeAccentBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,2,0"
@@ -36,7 +38,8 @@
 		<xctk:ColorPicker Grid.Column="1" DisplayColorAndName="True" SelectedColor="{Binding Value}" VerticalAlignment="Center" Height="22"
 				                  Padding="0,0,0,0" ShowRecentColors="True"
 				                  ShowStandardColors="False" UsingAlphaChannel="{Binding Alpha}" />
-		<TextBlock Grid.Column="2" x:Name="lblType" Text="{Binding DataType}" Style="{DynamicResource GenericTextblock}"
+        <Button  Grid.Column="2" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
+        <TextBlock Grid.Column="3" x:Name="lblType" Text="{Binding DataType}" Style="{DynamicResource GenericTextblock}"
 				           VerticalAlignment="Center" Margin="10,0,0,0" />
 	</Grid>
 </UserControl>

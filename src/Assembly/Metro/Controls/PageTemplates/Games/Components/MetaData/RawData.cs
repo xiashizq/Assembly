@@ -23,8 +23,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private static string _allocateTooltip = "Opens the Data Reference Allocator tool to properly increase or decrease the length of this data. (Original data will not be copied.)";
 		private static string _isolateTooltip = "Copy this dataref to a new address, isolating it from any shared instances.";
 
-		public RawData(string name, uint offset, long address, string value, int length, uint pluginLine, string tooltip, FileSegmentGroup metaArea, TagDataCommandState tagCommandState)
-			: base(name, offset, address, pluginLine, tooltip)
+		public RawData(string name, uint offset, long address, string value, int length, uint pluginLine, string tooltip,string tra, FileSegmentGroup metaArea, TagDataCommandState tagCommandState)
+			: base(name, offset, address, pluginLine, tooltip,tra)
 		{
 			_value = value;
 			_length = length;
@@ -32,8 +32,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 			_tagCommandState = tagCommandState;
 		}
 
-		public RawData(string name, uint offset, string format, long address, string value, int length, uint pluginLine, string tooltip, FileSegmentGroup metaArea, TagDataCommandState tagCommandState)
-			: base(name, offset, address, pluginLine, tooltip)
+		public RawData(string name, uint offset, string format, long address, string value, int length, uint pluginLine, string tooltip, string tra, FileSegmentGroup metaArea, TagDataCommandState tagCommandState)
+			: base(name, offset, address, pluginLine, tooltip,tra)
 		{
 			_value = value;
 			_length = length;
@@ -166,7 +166,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public override MetaField CloneValue()
 		{
-			return new RawData(Name, Offset, FieldAddress, _value, _length, PluginLine, ToolTip, _metaArea, _tagCommandState);
+			return new RawData(Name, Offset, FieldAddress, _value, _length, PluginLine, ToolTip,Tra, _metaArea, _tagCommandState);
 		}
 
 		public override string AsString()

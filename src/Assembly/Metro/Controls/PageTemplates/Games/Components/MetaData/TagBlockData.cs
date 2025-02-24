@@ -103,8 +103,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private static string _isolateTooltip = "Isolates this block from other shared instances by copying to a new address.";
 
 		public TagBlockData(string name, uint offset, long address, uint elementSize, int align,
-			bool sort, uint pluginLine, string tooltip, FileSegmentGroup metaArea, TagDataCommandState tagCommandState)
-			: base(name, offset, address, pluginLine, tooltip)
+			bool sort, uint pluginLine, string tooltip, string tra, FileSegmentGroup metaArea, TagDataCommandState tagCommandState)
+			: base(name, offset, address, pluginLine, tooltip,tra)
 		{
 			_elementSize = elementSize;
 			_metaArea = metaArea;
@@ -255,7 +255,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public override MetaField CloneValue()
 		{
-			var result = new TagBlockData(Name, Offset, FieldAddress, ElementSize, Align, Sort, PluginLine, ToolTip, _metaArea, _tagCommandState);
+			var result = new TagBlockData(Name, Offset, FieldAddress, ElementSize, Align, Sort, PluginLine, ToolTip,Tra, _metaArea, _tagCommandState);
 			result._expanded = _expanded;
 			result._width = _width;
 			result._currentIndex = _currentIndex;

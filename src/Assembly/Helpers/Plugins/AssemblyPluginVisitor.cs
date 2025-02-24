@@ -72,216 +72,216 @@ namespace Assembly.Helpers.Plugins
 				AddValue(new CommentData(title, text, pluginLine));
 		}
 
-		public void VisitPoint2(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitPoint2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Point2Data(name, offset, 0, "point2", 0, 0, pluginLine, tooltip));
+				AddValue(new Point2Data(name, offset, 0, "point2", 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitPoint3(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitPoint3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Point3Data(name, offset, 0, "point3", 0, 0, 0, pluginLine, tooltip));
+				AddValue(new Point3Data(name, offset, 0, "point3", 0, 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitVector2(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitVector2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Vector2Data(name, offset, 0, "vector2", 0, 0, pluginLine, tooltip));
+				AddValue(new Vector2Data(name, offset, 0, "vector2", 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitVector3(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitVector3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Vector3Data(name, offset, 0, "vector3", 0, 0, 0, pluginLine, tooltip));
+				AddValue(new Vector3Data(name, offset, 0, "vector3", 0, 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitVector4(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitVector4(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Vector4Data(name, offset, 0, "quaternion", 0, 0, 0, 0, pluginLine, tooltip));
+				AddValue(new Vector4Data(name, offset, 0, "quaternion", 0, 0, 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitDegree2(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitDegree2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Degree2Data(name, offset, 0, "degree2", 0, 0, pluginLine, tooltip));
+				AddValue(new Degree2Data(name, offset, 0, "degree2", 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitDegree3(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitDegree3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Degree3Data(name, offset, 0, "degree3", 0, 0, 0, pluginLine, tooltip));
+				AddValue(new Degree3Data(name, offset, 0, "degree3", 0, 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitPlane2(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitPlane2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Plane2Data(name, offset, 0, "plane2", 0, 0, 0, pluginLine, tooltip));
+				AddValue(new Plane2Data(name, offset, 0, "plane2", 0, 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitPlane3(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitPlane3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Plane3Data(name, offset, 0, "plane3", 0, 0, 0, 0, pluginLine, tooltip));
+				AddValue(new Plane3Data(name, offset, 0, "plane3", 0, 0, 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitRect16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitRect16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new RectangleData(name, offset, 0, "rectangle16", 0, 0, 0, 0, pluginLine, tooltip));
+				AddValue(new RectangleData(name, offset, 0, "rectangle16", 0, 0, 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitQuat16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitQuat16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Quaternion16Data(name, offset, 0, "quaternion16", 0, 0, 0, 0, pluginLine, tooltip));
+				AddValue(new Quaternion16Data(name, offset, 0, "quaternion16", 0, 0, 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitPoint16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitPoint16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Point16Data(name, offset, 0, "point16", 0, 0, pluginLine, tooltip));
+				AddValue(new Point16Data(name, offset, 0, "point16", 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new DegreeData(name, offset, 0, "degree", 0, pluginLine, tooltip));
+				AddValue(new DegreeData(name, offset, 0, "degree", 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitColorInt(string name, uint offset, bool visible, bool alpha, uint pluginLine, string tooltip)
+		public void VisitColorInt(string name, uint offset, bool visible, bool alpha, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new ColorData(name, offset, 0, alpha, true, "color32", Colors.Transparent, pluginLine, tooltip));
+				AddValue(new ColorData(name, offset, 0, alpha, true, "color32", Colors.Transparent, pluginLine, tooltip, tra));
 		}
 
-		public void VisitColorF(string name, uint offset, bool visible, bool alpha, bool basic, uint pluginLine, string tooltip)
+		public void VisitColorF(string name, uint offset, bool visible, bool alpha, bool basic, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new ColorData(name, offset, 0, alpha, basic || _alwaysBasicColors, "colorf", Colors.Transparent, pluginLine, tooltip));
+				AddValue(new ColorData(name, offset, 0, alpha, basic || _alwaysBasicColors, "colorf", Colors.Transparent, pluginLine, tooltip,tra));
 		}
 
-		public void VisitStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new StringIDData(name, offset, 0, "", _stringIDTrie, pluginLine, tooltip));
+				AddValue(new StringIDData(name, offset, 0, "", _stringIDTrie, pluginLine, tooltip,tra));
 		}
 
-		public void VisitAscii(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip)
+		public void VisitAscii(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new StringData(name, offset, 0, StringType.ASCII, "", size, pluginLine, tooltip));
+				AddValue(new StringData(name, offset, 0, StringType.ASCII, "", size, pluginLine, tooltip, tra));
 		}
 
-		public void VisitUtf16(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip)
+		public void VisitUtf16(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new StringData(name, offset, 0, StringType.UTF16, "", size, pluginLine, tooltip));
+				AddValue(new StringData(name, offset, 0, StringType.UTF16, "", size, pluginLine, tooltip, tra));
 		}
 
-		public void VisitHexString(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip)
+		public void VisitHexString(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new StringData(name, offset, 0, StringType.Hex, "", size, pluginLine, tooltip));
+				AddValue(new StringData(name, offset, 0, StringType.Hex, "", size, pluginLine, tooltip, tra));
 		}
 
-		public void VisitRawData(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip)
+		public void VisitRawData(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip,string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new RawData(name, offset, "bytes", 0, "", size, pluginLine, tooltip, _metaArea, _tagCommandState));
+				AddValue(new RawData(name, offset, "bytes", 0, "", size, pluginLine, tooltip, tra,_metaArea, _tagCommandState));
 		}
 
-		public void VisitTagReference(string name, uint offset, bool visible, bool withGroup, uint pluginLine, string tooltip)
+		public void VisitTagReference(string name, uint offset, bool visible, bool withGroup, uint pluginLine, string tooltip,string tra)
 		{
 			if (!visible && !_showInvisibles) return;
 
-			AddValue(new TagRefData(name, offset, 0, _tags, !_viewValueAs, withGroup, pluginLine, tooltip));
+			AddValue(new TagRefData(name, offset, 0, _tags, !_viewValueAs, withGroup, pluginLine, tooltip,tra));
 		}
 
-		public void VisitDataReference(string name, uint offset, string format, bool visible, int align, uint pluginLine, string tooltip)
+		public void VisitDataReference(string name, uint offset, string format, bool visible, int align, uint pluginLine, string tooltip,string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new DataRef(name, offset, format, 0, 0, "", 0, pluginLine, tooltip, _metaArea, _tagCommandState));
+				AddValue(new DataRef(name, offset, format, 0, 0, "", 0, pluginLine, tooltip,tra, _metaArea, _tagCommandState));
 		}
 
-		public void VisitShader(string name, uint offset, bool visible, ShaderType type, uint pluginLine, string tooltip)
+		public void VisitShader(string name, uint offset, bool visible, ShaderType type, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new ShaderRef(name, offset, 0, type, null, pluginLine, tooltip));
+				AddValue(new ShaderRef(name, offset, 0, type, null, pluginLine, tooltip, tra));
 		}
 
-		public void VisitUnicList(string name, uint offset, bool visible, int languages, uint pluginLine, string tooltip)
+		public void VisitUnicList(string name, uint offset, bool visible, int languages, uint pluginLine, string tooltip, string tra)
 		{
 			if (!visible && !_showInvisibles)
 				return;
 			for (var i = 0; i < languages; i++)
 			{
-				AddValue(new Uint16Data("Language " + i + " " + name + " Index", (uint)(offset + i * 4), 0, "uint16", 0, pluginLine, tooltip));
-				AddValue(new Uint16Data("Language " + i + " " + name + " Count", (uint)(offset + i * 4 + 2), 0, "uint16", 0, pluginLine, tooltip));
+				AddValue(new Uint16Data("Language " + i + " " + name + " Index", (uint)(offset + i * 4), 0, "uint16", 0, pluginLine, tooltip,tra));
+				AddValue(new Uint16Data("Language " + i + " " + name + " Count", (uint)(offset + i * 4 + 2), 0, "uint16", 0, pluginLine, tooltip,tra));
 			}
 		}
 
-		public void VisitDatum(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitDatum(string name, uint offset, bool visible, uint pluginLine, string tooltip,string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new DatumData(name, offset, 0, 0, 0, pluginLine, tooltip));
+				AddValue(new DatumData(name, offset, 0, 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitOldStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitOldStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new OldStringIDData(name, offset, 0, "", _stringIDTrie, pluginLine, tooltip));
+				AddValue(new OldStringIDData(name, offset, 0, "", _stringIDTrie, pluginLine, tooltip,tra));
 		}
 
 		#region Range
 
-		public void VisitRangeInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitRangeInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new RangeInt16Data(name, offset, 0, "range16", 0, 0, pluginLine, tooltip));
+				AddValue(new RangeInt16Data(name, offset, 0, "range16", 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitRangeFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitRangeFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new RangeFloat32Data(name, offset, 0, "rangeF", 0, 0, pluginLine, tooltip));
+				AddValue(new RangeFloat32Data(name, offset, 0, "rangeF", 0, 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitRangeDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitRangeDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new RangeDegreeData(name, offset, 0, "rangeD", 0, 0, pluginLine, tooltip));
+				AddValue(new RangeDegreeData(name, offset, 0, "rangeD", 0, 0, pluginLine, tooltip,tra));
 		}
 
 		#endregion
 
 		#region Flags
 
-		public bool EnterFlags8(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterFlags8(string name, uint offset, bool visible, uint pluginLine, string tooltip,string tra)
 		{
-			return EnterFlags(FlagsType.Flags8, name, offset, visible, pluginLine, tooltip);
+			return EnterFlags(FlagsType.Flags8, name, offset, visible, pluginLine, tooltip,tra);
 		}
 
-		public bool EnterFlags16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterFlags16(string name, uint offset, bool visible, uint pluginLine, string tooltip,string tra)
 		{
-			return EnterFlags(FlagsType.Flags16, name, offset, visible, pluginLine, tooltip);
+			return EnterFlags(FlagsType.Flags16, name, offset, visible, pluginLine, tooltip,tra);
 		}
 
-		public bool EnterFlags32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterFlags32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
-			return EnterFlags(FlagsType.Flags32, name, offset, visible, pluginLine, tooltip);
+			return EnterFlags(FlagsType.Flags32, name, offset, visible, pluginLine, tooltip, tra);
 		}
 
-		public bool EnterFlags64(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterFlags64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
-			return EnterFlags(FlagsType.Flags64, name, offset, visible, pluginLine, tooltip);
+			return EnterFlags(FlagsType.Flags64, name, offset, visible, pluginLine, tooltip, tra);
 		}
 
-		public void VisitBit(string name, int index, string tooltip)
+		public void VisitBit(string name, int index, string tooltip,string tra)
 		{
 			if (_currentFlags != null)
-				_currentFlags.DefineBit(index, name, tooltip);
+				_currentFlags.DefineBit(index, name, tooltip,tra);
 			else
 				throw new InvalidOperationException("Cannot add a bit to a non-existant flags field");
 		}
@@ -295,11 +295,11 @@ namespace Assembly.Helpers.Plugins
 			_currentFlags = null;
 		}
 
-		private bool EnterFlags(FlagsType type, string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		private bool EnterFlags(FlagsType type, string name, uint offset, bool visible, uint pluginLine, string tooltip,string tra)
 		{
 			if (visible || _showInvisibles)
 			{
-				_currentFlags = new FlagData(name, offset, 0, type, pluginLine, tooltip);
+				_currentFlags = new FlagData(name, offset, 0, type, pluginLine, tooltip,tra);
 				return true;
 			}
 			return false;
@@ -309,25 +309,25 @@ namespace Assembly.Helpers.Plugins
 
 		#region Enum
 
-		public bool EnterEnum8(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterEnum8(string name, uint offset, bool visible, uint pluginLine, string tooltip,string tra)
 		{
-			return EnterEnum(EnumType.Enum8, name, offset, visible, pluginLine, tooltip);
+			return EnterEnum(EnumType.Enum8, name, offset, visible, pluginLine, tooltip,tra);
 		}
 
-		public bool EnterEnum16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterEnum16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
-			return EnterEnum(EnumType.Enum16, name, offset, visible, pluginLine, tooltip);
+			return EnterEnum(EnumType.Enum16, name, offset, visible, pluginLine, tooltip,tra);
 		}
 
-		public bool EnterEnum32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public bool EnterEnum32(string name, uint offset, bool visible, uint pluginLine, string tooltip,string tra)
 		{
-			return EnterEnum(EnumType.Enum32, name, offset, visible, pluginLine, tooltip);
+			return EnterEnum(EnumType.Enum32, name, offset, visible, pluginLine, tooltip,tra);
 		}
 
-		public void VisitOption(string name, int value, string tooltip)
+		public void VisitOption(string name, int value, string tooltip,string tra)
 		{
 			if (_currentEnum != null)
-				_currentEnum.Values.Add(new EnumValue(name, value, tooltip));
+				_currentEnum.Values.Add(new EnumValue(name, value, tooltip,tra));
 			else
 				throw new InvalidOperationException("Cannot add an option to a non-existant enum");
 		}
@@ -341,11 +341,11 @@ namespace Assembly.Helpers.Plugins
 			_currentEnum = null;
 		}
 
-		private bool EnterEnum(EnumType type, string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		private bool EnterEnum(EnumType type, string name, uint offset, bool visible, uint pluginLine, string tooltip,string tra)
 		{
 			if (visible || _showInvisibles)
 			{
-				_currentEnum = new EnumData(name, offset, 0, type, 0, pluginLine, tooltip);
+				_currentEnum = new EnumData(name, offset, 0, type, 0, pluginLine, tooltip,tra);
 				return true;
 			}
 			return false;
@@ -355,11 +355,11 @@ namespace Assembly.Helpers.Plugins
 
 		#region Tag Block
 
-		public bool EnterTagBlock(string name, uint offset, bool visible, uint elementSize, int align, bool sort, uint pluginLine, string tooltip)
+		public bool EnterTagBlock(string name, uint offset, bool visible, uint elementSize, int align, bool sort, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
 			{
-				var data = new TagBlockData(name, offset, 0, elementSize, align, sort, pluginLine, tooltip, _metaArea, _tagCommandState);
+				var data = new TagBlockData(name, offset, 0, elementSize, align, sort, pluginLine, tooltip,tra, _metaArea, _tagCommandState);
 				AddValue(data);
 
 				_tagBlocks.Add(data);
@@ -383,64 +383,64 @@ namespace Assembly.Helpers.Plugins
 
 		#region Integers
 
-		public void VisitUInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitUInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Uint8Data(name, offset, 0, "uint8", 0, pluginLine, tooltip));
+				AddValue(new Uint8Data(name, offset, 0, "uint8", 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Int8Data(name, offset, 0, "int8", 0, pluginLine, tooltip));
+				AddValue(new Int8Data(name, offset, 0, "int8", 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitUInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitUInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Uint16Data(name, offset, 0, "uint16", 0, pluginLine, tooltip));
+				AddValue(new Uint16Data(name, offset, 0, "uint16", 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Int16Data(name, offset, 0, "int16", 0, pluginLine, tooltip));
+				AddValue(new Int16Data(name, offset, 0, "int16", 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitUInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitUInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Uint32Data(name, offset, 0, "uint32", 0, pluginLine, tooltip));
+				AddValue(new Uint32Data(name, offset, 0, "uint32", 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Int32Data(name, offset, 0, "int32", 0, pluginLine, tooltip));
+				AddValue(new Int32Data(name, offset, 0, "int32", 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitUInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitUInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Uint64Data(name, offset, 0, "uint64", 0, pluginLine, tooltip));
+				AddValue(new Uint64Data(name, offset, 0, "uint64", 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Int64Data(name, offset, 0, "int64", 0, pluginLine, tooltip));
+				AddValue(new Int64Data(name, offset, 0, "int64", 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Float32Data(name, offset, 0, "float32", 0, pluginLine, tooltip));
+				AddValue(new Float32Data(name, offset, 0, "float32", 0, pluginLine, tooltip,tra));
 		}
 
-		public void VisitUndefined(string name, uint offset, bool visible, uint pluginLine, string tooltip)
+		public void VisitUndefined(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
 		{
 			if (visible || _showInvisibles)
-				AddValue(new Float32Data(name, offset, 0, "undefined", 0, pluginLine, tooltip));
+				AddValue(new Float32Data(name, offset, 0, "undefined", 0, pluginLine, tooltip,tra));
 		}
 
 		#endregion

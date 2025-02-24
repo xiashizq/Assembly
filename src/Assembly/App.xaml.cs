@@ -3,6 +3,7 @@ using Assembly.Metro.Dialogs;
 #endif
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using Assembly.Helpers;
@@ -37,13 +38,47 @@ namespace Assembly
 			var application = new App();
 
 			application.InitializeComponent();
-			application.Run();
+            
 
+            application.Run();
 			// Allow single instance code to perform cleanup operations
 			SingleInstance<App>.Cleanup();
-		}
+            Application_Config();
+        }
 
-		protected override void OnStartup(StartupEventArgs e)
+        private static void Application_Config()
+        {
+            // 应用程序名称
+            string appName = "Assembly";
+            // 获取AppData路径
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            // 构建应用特定的文件夹路径
+            string appSpecificFolderPath = Path.Combine(appDataPath, appName);
+            // 检查文件夹是否存在，如果不存在则创建
+            if (!Directory.Exists(appSpecificFolderPath))
+            {
+                Directory.CreateDirectory(appSpecificFolderPath);
+            }
+            // 配置文件路径
+            string configFilePath = Path.Combine(appSpecificFolderPath, "config.ini");
+            // 检查配置文件是否存在，若不存在则创建并写入默认内容
+            if (!File.Exists(configFilePath))
+            {
+                using (StreamWriter sw = File.CreateText(configFilePath))
+                {
+                    sw.WriteLine("[Settings]");
+                    sw.WriteLine("TranslationApp=Baidu");
+                    sw.WriteLine("TranslationAppId=");
+                    sw.WriteLine("TranslationSecretKey=");
+                    sw.WriteLine("TranslationTargetlanguage=zh");
+                    sw.WriteLine("GptApp=Qwen");
+                    sw.WriteLine("GptAppId=");
+                    sw.WriteLine("GptAppKey=");
+                }
+            }
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
 

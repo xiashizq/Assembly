@@ -8,12 +8,15 @@ using System.Windows.Input;
 using Assembly.Metro.Dialogs.ControlDialogs;
 using Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData;
 using Assembly.Metro.Dialogs;
+using Assembly.Tool.TranslateService;
+using Assembly.Tool.GPTservice;
+using XboxChaos.Models;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 {
-	/// <summary>
-	///     Interaction logic for TagValue.xaml
-	/// </summary>
+    /// <summary>
+    ///     Interaction logic for TagValue.xaml
+    /// </summary>
 	public partial class TagValue : UserControl
 	{
 		private static RoutedCommand _jumpToCommand = new RoutedCommand();
@@ -29,7 +32,38 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 
 		}
 
-		private void ValueChanged(object sender, SelectionChangedEventArgs e)
+        private async void btnAI_Click(object sender, RoutedEventArgs e)
+        {
+            string name = lblValueName.Text;
+            await GPTstreamClient.GPT_Async(name);
+        }
+
+        private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // 这里获取绑定的文本值
+            var dockPanel = sender as DockPanel;
+            var dataContext = dockPanel?.DataContext;
+            var name = dataContext?.GetType().GetProperty("Name")?.GetValue(dataContext)?.ToString();
+            var tooltip = dataContext?.GetType().GetProperty("ToolTip")?.GetValue(dataContext)?.ToString();
+			string result = "";
+            if (!string.IsNullOrEmpty(name))
+            {
+				if (!string.IsNullOrEmpty(tooltip))
+				{
+                    result = PublicTranslateService.TranslateAsync(name+"（"+ tooltip + "）");
+                }
+				else
+				{
+                    result = PublicTranslateService.TranslateAsync(name);
+                }
+
+                MetroMessageBox.Show($"{result}");
+            }
+        }
+
+        
+
+        private void ValueChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (cbTagEntry.SelectedIndex < 0)
 				cbTagEntry.SelectedIndex = 0;
@@ -61,7 +95,14 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 			e.CanExecute = true;
 		}
 
-		private void btnNullTag_Click(object sender, RoutedEventArgs e)
+
+
+
+
+
+
+
+        private void btnNullTag_Click(object sender, RoutedEventArgs e)
 		{
 			cbTagGroup.SelectedIndex = 0;
 		}

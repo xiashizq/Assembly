@@ -8,8 +8,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		protected string _value;
 		protected string _type;
 
-		public StringIDData(string name, uint offset, long address, string val, Trie autocompleteTrie, uint pluginLine, string tooltip)
-			: base(name, offset, address, pluginLine, tooltip)
+		public StringIDData(string name, uint offset, long address, string val, Trie autocompleteTrie, uint pluginLine, string tooltip, string tra)
+			: base(name, offset, address, pluginLine, tooltip, tra)
 		{
 			_value = val;
 			_autocompleteTrie = autocompleteTrie;
@@ -53,7 +53,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public override MetaField CloneValue()
 		{
-			return new StringIDData(Name, Offset, FieldAddress, _value, _autocompleteTrie, PluginLine, ToolTip);
+			return new StringIDData(Name, Offset, FieldAddress, _value, _autocompleteTrie, PluginLine, ToolTip,Tra);
 		}
 
 		public override string AsString()
@@ -69,8 +69,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 	public class OldStringIDData : StringIDData
 	{
-		public OldStringIDData(string name, uint offset, long address, string val, Trie autocompleteTrie, uint pluginLine, string tooltip)
-			: base(name, offset, address, val, autocompleteTrie, pluginLine, tooltip)
+		public OldStringIDData(string name, uint offset, long address, string val, Trie autocompleteTrie, uint pluginLine, string tooltip, string tra)
+			: base(name, offset, address, val, autocompleteTrie, pluginLine, tooltip, tra)
 		{
 			_type = "oldstringid";
 		}
@@ -82,7 +82,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public override MetaField CloneValue()
 		{
-			return new OldStringIDData(Name, Offset, FieldAddress, _value, _autocompleteTrie, PluginLine, ToolTip);
+			return new OldStringIDData(Name, Offset, FieldAddress, _value, _autocompleteTrie, PluginLine, ToolTip,Tra);
 		}
 
 		public override string AsString()

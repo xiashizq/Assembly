@@ -48,10 +48,11 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="200"/>
 			<ColumnDefinition Width="*" />
+            <ColumnDefinition Width="40"/>
 			<ColumnDefinition Width="100"/>
 		</Grid.ColumnDefinitions>
 
-		<DockPanel Grid.Column="0" Height="28" VerticalAlignment="Top" Background="Transparent">
+        <DockPanel Grid.Column="0" Height="28" VerticalAlignment="Top" Background="Transparent" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 			<DockPanel.ToolTip>
 				<StackPanel MaxWidth="500">
 					<TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
@@ -60,6 +61,7 @@
 					<TextBlock Text="{Binding PluginLine, StringFormat='Plugin Line: {0}'}" Foreground="#CCC" />
 					<TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" 
 							   Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}, ConverterParameter={x:Static Visibility.Collapsed}}" />
+                    <TextBlock Text="{Binding Tra}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
 				</StackPanel>
 			</DockPanel.ToolTip>
 			<TextBlock Text="?" Foreground="{DynamicResource ExtryzeAccentBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,2,0"
@@ -81,8 +83,8 @@
 							<StackPanel MaxWidth="500">
 								<TextBlock Text="{Binding Name}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
 								<TextBlock Text="{Binding Index, StringFormat=Bit {0}}" Foreground="#CCC" />
-								<TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" 
-							   Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}, ConverterParameter={x:Static Visibility.Collapsed}}" />
+								<TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}, ConverterParameter={x:Static Visibility.Collapsed}}" />
+                                <TextBlock Text="{Binding Tra}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
 							</StackPanel>
 						</CheckBox.ToolTip>
 						<DockPanel>
@@ -100,7 +102,8 @@
 				</ContextMenu>
 			</ListBox.ContextMenu>
 		</ListBox>
-		<DockPanel Grid.Column="2" Height="28" VerticalAlignment="Top">
+        <Button Grid.Column="2" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
+        <DockPanel Grid.Column="3" Height="28" VerticalAlignment="Top">
 			<TextBlock  x:Name="lblType" Text="{Binding TypeStr}" Style="{DynamicResource GenericTextblock}"
 			           VerticalAlignment="Center" Margin="10,0,0,0"/>
 		</DockPanel>

@@ -833,6 +833,18 @@
 	<engine name="Halo 4 TU7" version="12" build="21501.13.08.06.2311.main" inherits="Halo 4" />
 	<engine name="Halo 4 TU8" version="12" build="21522.13.10.17.1936.main" inherits="Halo 4" />
 
+	<!-- Halo 4 Testchambers -->
+	<engine name="Halo 4 TC 16316" version="12" build="16316.12.06.29.0200.main" inherits="Halo 4 E3 Keynote" />
+	<engine name="Halo 4 TC 16531" version="12" build="16531.12.07.05.0200.main" inherits="Halo 4 E3 Keynote" />
+	<engine name="Halo 4 TC 16587" version="12" build="16587.12.07.05.2141.precert" inherits="Halo 4 E3 Keynote" />
+	<engine name="Halo 4 TC Jul17" version="12" build="Jul 17 2012 19.41.27" inherits="Halo 4 E3 Keynote" />
+	<engine name="Halo 4 TC 17539" version="12" build="17539.12.07.24.0200.main" inherits="Halo 4 E3 Keynote" />
+	<engine name="Halo 4 TC 18223" version="12" build="18223.12.08.06.0200.main" inherits="Halo 4 E3 Keynote" />
+	<engine name="Halo 4 TC 18845" version="12" build="18845.12.08.16.0200.main" inherits="Halo 4" />
+	<engine name="Halo 4 TC 20190" version="12" build="20190.12.09.05.0200.main" inherits="Halo 4" />
+	<engine name="Halo 4 TC 20703" version="12" build="20703.12.09.16.0400.main" inherits="Halo 4" />
+	<engine name="Halo 4 TC 20744" version="12" build="20744.12.09.18.0100.main" inherits="Halo 4" />
+
 	<!-- Reach MCC -->
 	<engine name="Halo: Reach MCC Flight 1" version="12" build="Jun 24 2019 00:36:03">
 		<shortName>ReachMCC_F1</shortName>

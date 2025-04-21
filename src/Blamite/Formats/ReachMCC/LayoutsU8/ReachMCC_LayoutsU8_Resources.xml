@@ -5,6 +5,18 @@
 		<int32 name="number of resource types" offset="0x4" />
 		<uint32 name="resource type table address" offset="0x8" />
 
+		<int32 name="number of external cache files" offset="0x28" />
+		<uint32 name="external cache file table address" offset="0x2C" />
+
+		<int32 name="number of raw pages" offset="0x34" />
+		<uint32 name="raw page table address" offset="0x38" />
+
+		<int32 name="number of raw sizes" offset="0x40" />
+		<uint32 name="raw size table address" offset="0x44" />
+
+		<int32 name="number of raw segments" offset="0x58" />
+		<uint32 name="raw segment table address" offset="0x5C" />
+
 		<int32 name="number of resources" offset="0x64" />
 		<uint32 name="resource table address" offset="0x68" />
 
@@ -146,20 +158,6 @@
 
 		<int32 name="number of raw segments" offset="0x3C" />
 		<uint32 name="raw segment table address" offset="0x40" />
-	</layout>
-	<!-- zone version of (cache_file_resource_layout_table) -->
-	<layout for="resource layout table alt">
-		<int32 name="number of external cache files" offset="0x28" />
-		<uint32 name="external cache file table address" offset="0x2C" />
-
-		<int32 name="number of raw pages" offset="0x34" />
-		<uint32 name="raw page table address" offset="0x38" />
-
-		<int32 name="number of raw sizes" offset="0x40" />
-		<uint32 name="raw size table address" offset="0x44" />
-
-		<int32 name="number of raw segments" offset="0x58" />
-		<uint32 name="raw segment table address" offset="0x5C" />
 	</layout>
 
 	<!-- Block at 0xC in play -->

@@ -132,7 +132,6 @@
 	</layout>
 
 	<layout for="hsdt">
-
 		<int32 name="script string table size" offset="0x54" />
 		<uint32 name="script string table address" offset="0x60" />
 
@@ -147,7 +146,6 @@
 
 		<int32 name="number of script expressions" offset="0x48" />
 		<uint32 name="script expression table address" offset="0x4C" />
-
 	</layout>
 
 	<layout for="script element" size="0x20">

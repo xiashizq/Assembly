@@ -152,7 +152,7 @@
 	</layout>
 
 	<layout for="script element" size="0x20">
-		<int32 name="name index" offset="0x0" />
+		<int32 name="name stringid" offset="0x0" />
 		<int16 name="execution type" offset="0x4" />
 		<int32 name="return type" offset="0x8" />
 		<int32 name="first expression index" offset="0xC" />
@@ -167,13 +167,13 @@
 	</layout>
 
 	<layout for="script global element" size="0xC">
-		<int32 name="name index" offset="0x0" />
+		<int32 name="name stringid" offset="0x0" />
 		<int32 name="type" offset="0x4" />
 		<uint32 name="expression index" offset="0x8" />
 	</layout>
 	
 	<layout for="script variable element" size="0xC">
-		<int32 name="name index" offset="0x0" />
+		<int32 name="name stringid" offset="0x0" />
 		<int32 name="type" offset="0x4" />
 		<uint32 name="expression index" offset="0x8" />
 	</layout>

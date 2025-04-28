@@ -1,148 +1,153 @@
 ﻿using Blamite.IO;
 using Blamite.Serialization;
+using System;
 
 namespace Blamite.Blam.FirstGen.Structures
 {
-	public class FirstGenHeader
-	{
-		private FileSegment _eofSegment;
-		public FirstGenHeader(StructureValueCollection values, EngineDescription info, FileSegmenter segmenter)
-		{
-			if (info.LooseBuildCheck)
-				BuildString = values.GetString("build string");
-			else
-				BuildString = info.BuildVersion;
-			HeaderSize = info.HeaderSize;
-			Load(values, segmenter);
-		}
-		public int HeaderSize { get; private set; }
-		public uint FileSize
-		{
-			get { return _eofSegment.Offset; }
-		}
+    public class FirstGenHeader
+    {
+        private FileSegment _eofSegment;
+        public FirstGenHeader(StructureValueCollection values, EngineDescription info, FileSegmenter segmenter)
+        {
+            if (info.LooseBuildCheck)
+                BuildString = values.GetString("build string");
+            else
+                BuildString = info.BuildVersion;
+            HeaderSize = info.HeaderSize;
+            Load(values, segmenter);
+        }
+        public int HeaderSize { get; private set; }
+        public uint FileSize
+        {
+            get { return _eofSegment.Offset; }
+        }
 
-		public CacheFileType Type { get; private set; }
-		public string InternalName { get; private set; }
+        public CacheFileType Type { get; private set; }
+        public string InternalName { get; private set; }
 
-		// leaving set public so we can grab the scenario name
-		// from the filenames on cache load
-		public string ScenarioName { get; set; }
+        // leaving set public so we can grab the scenario name
+        // from the filenames on cache load
+        public string ScenarioName { get; set; }
 
-		public string BuildString { get; private set; }
-		public int XDKVersion { get; set; }
+        public string BuildString { get; private set; }
+        public int XDKVersion { get; set; }
 
-		public FileSegmentGroup MetaArea { get; private set; }
-		public SegmentPointer IndexHeaderLocation { get; set; }
-		public Partition[] Partitions { get; private set; }
+        public FileSegmentGroup MetaArea { get; private set; }
+        public SegmentPointer IndexHeaderLocation { get; set; }
+        public Partition[] Partitions { get; private set; }
 
-		public FileSegment RawTable { get; private set; }
+        public FileSegment RawTable { get; private set; }
 
-		public FileSegmentGroup LocaleArea { get; private set; }
-		public FileSegmentGroup StringArea { get; private set; }
+        public FileSegmentGroup LocaleArea { get; private set; }
+        public FileSegmentGroup StringArea { get; private set; }
 
-		public int StringIDCount { get; set; }
-		public FileSegment StringIDIndexTable { get; set; }
-		public SegmentPointer StringIDIndexTableLocation { get; set; }
-		public FileSegment StringIDData { get; set; }
-		public SegmentPointer StringIDDataLocation { get; set; }
+        public int StringIDCount { get; set; }
+        public FileSegment StringIDIndexTable { get; set; }
+        public SegmentPointer StringIDIndexTableLocation { get; set; }
+        public FileSegment StringIDData { get; set; }
+        public SegmentPointer StringIDDataLocation { get; set; }
 
-		public int FileNameCount { get; set; }
-		public FileSegment FileNameIndexTable { get; set; }
-		public SegmentPointer FileNameIndexTableLocation { get; set; }
-		public FileSegment FileNameData { get; set; }
-		public SegmentPointer FileNameDataLocation { get; set; }
+        public int FileNameCount { get; set; }
+        public FileSegment FileNameIndexTable { get; set; }
+        public SegmentPointer FileNameIndexTableLocation { get; set; }
+        public FileSegment FileNameData { get; set; }
+        public SegmentPointer FileNameDataLocation { get; set; }
 
-		public uint Checksum { get; set; }
+        public uint Checksum { get; set; }
 
-		private uint _bsp_size_hack = 0;
+        public DateTime? BuildDate { get; set; }
 
-		public StructureValueCollection Serialize()
-		{
-			var result = new StructureValueCollection();
-			result.SetInteger("file size", FileSize);
-			result.SetInteger("meta offset", (uint)MetaArea.Offset);
+        private uint _bsp_size_hack = 0;
 
-			if (_bsp_size_hack > 0)
-				result.SetInteger("meta size", MetaArea.Size + _bsp_size_hack);
-			else
-				result.SetInteger("meta size", MetaArea.VirtualSize);
+        public StructureValueCollection Serialize()
+        {
+            var result = new StructureValueCollection();
+            result.SetInteger("file size", FileSize);
+            result.SetInteger("meta offset", (uint)MetaArea.Offset);
 
-			result.SetString("internal name", InternalName);
-			result.SetString("build string", BuildString);
-			result.SetInteger("type", (uint)Type);
-			result.SetInteger("checksum", Checksum);
-			return result;
-		}
+            if (_bsp_size_hack > 0)
+                result.SetInteger("meta size", MetaArea.Size + _bsp_size_hack);
+            else
+                result.SetInteger("meta size", MetaArea.VirtualSize);
 
-		private void Load(StructureValueCollection values, FileSegmenter segmenter)
-		{
-			//some opensauce maps were found to have the size set to 0.
-			uint filesize = (uint)values.GetInteger("file size");
-			if (filesize == 0)
-				filesize = (uint)values.GetInteger("true filesize");
+            result.SetString("internal name", InternalName);
+            result.SetString("build string", BuildString);
+            result.SetInteger("type", (uint)Type);
+            result.SetInteger("checksum", Checksum);
+            return result;
+        }
 
-			_eofSegment = segmenter.WrapEOF(filesize);
+        private void Load(StructureValueCollection values, FileSegmenter segmenter)
+        {
+            //some opensauce maps were found to have the size set to 0.
+            uint filesize = (uint)values.GetInteger("file size");
+            if (filesize == 0)
+                filesize = (uint)values.GetInteger("true filesize");
 
-			uint metaOffset = (uint)values.GetInteger("meta offset");
+            _eofSegment = segmenter.WrapEOF(filesize);
 
-			uint metaSize;
-			if (values.HasInteger("tag data offset"))
-			{
-				metaSize = (uint)values.GetInteger("tag data offset") + (uint)values.GetInteger("tag data size");
-			}
-			else
-				metaSize = (uint)values.GetInteger("meta size");
+            uint metaOffset = (uint)values.GetInteger("meta offset");
 
-			var metaSegment = new FileSegment(
-				segmenter.DefineSegment(metaOffset, metaSize, 0x4, SegmentResizeOrigin.Beginning), segmenter);
+            uint metaSize;
+            if (values.HasInteger("tag data offset"))
+            {
+                metaSize = (uint)values.GetInteger("tag data offset") + (uint)values.GetInteger("tag data size");
+            }
+            else
+                metaSize = (uint)values.GetInteger("meta size");
 
-			uint metaOffsetMask;
-			if (values.HasInteger("xbox meta offset mask"))
-				metaOffsetMask = (uint)values.GetInteger("xbox meta offset mask");
-			else
-				metaOffsetMask = (uint)(values.GetInteger("tag table offset") - values.GetInteger("meta header size"));
+            var metaSegment = new FileSegment(
+                segmenter.DefineSegment(metaOffset, metaSize, 0x4, SegmentResizeOrigin.Beginning), segmenter);
 
-			MetaArea = new FileSegmentGroup(new MetaOffsetConverter(metaSegment, metaOffsetMask));
+            uint metaOffsetMask;
+            if (values.HasInteger("xbox meta offset mask"))
+                metaOffsetMask = (uint)values.GetInteger("xbox meta offset mask");
+            else
+                metaOffsetMask = (uint)(values.GetInteger("tag table offset") - values.GetInteger("meta header size"));
 
-			// Until proper BSP support is merged in, we have to math the BSP size.
-			if (values.HasInteger("xbox bsp mask"))
-				_bsp_size_hack = (uint)MetaArea.PointerMask - (uint)values.GetInteger("xbox bsp mask");
+            MetaArea = new FileSegmentGroup(new MetaOffsetConverter(metaSegment, metaOffsetMask));
 
-			IndexHeaderLocation = MetaArea.AddSegment(metaSegment);
+            // Until proper BSP support is merged in, we have to math the BSP size.
+            if (values.HasInteger("xbox bsp mask"))
+                _bsp_size_hack = (uint)MetaArea.PointerMask - (uint)values.GetInteger("xbox bsp mask");
 
-			Type = (CacheFileType)values.GetInteger("type");
-			var headerGroup = new FileSegmentGroup();
-			headerGroup.AddSegment(segmenter.WrapSegment(0, (uint)HeaderSize, 1, SegmentResizeOrigin.None));
+            IndexHeaderLocation = MetaArea.AddSegment(metaSegment);
 
-			//h2 alpha forcing this to be shoved in
-			if (values.HasInteger("string table count"))
-			{
-				StringIDCount = (int)values.GetInteger("string table count");
-				var sidDataSize = (uint)values.GetInteger("string table size");
-				StringIDData = segmenter.WrapSegment((uint)values.GetInteger("string table offset"), sidDataSize, 1,
-					SegmentResizeOrigin.End);
-				StringIDIndexTable = segmenter.WrapSegment((uint)values.GetInteger("string index table offset"), (uint)StringIDCount * 4, 4,
-					SegmentResizeOrigin.End);
+            Type = (CacheFileType)values.GetInteger("type");
+            var headerGroup = new FileSegmentGroup();
+            headerGroup.AddSegment(segmenter.WrapSegment(0, (uint)HeaderSize, 1, SegmentResizeOrigin.None));
 
-				StringArea = new FileSegmentGroup();
-				if (values.HasInteger("string block offset"))
-					StringArea.AddSegment(segmenter.WrapSegment((uint)values.GetInteger("string block offset"), (uint)StringIDCount * 0x80, 0x80,
-						SegmentResizeOrigin.End));
-				StringArea.AddSegment(StringIDIndexTable);
-				StringArea.AddSegment(StringIDData);
+            //h2 alpha forcing this to be shoved in
+            if (values.HasInteger("string table count"))
+            {
+                StringIDCount = (int)values.GetInteger("string table count");
+                var sidDataSize = (uint)values.GetInteger("string table size");
+                StringIDData = segmenter.WrapSegment((uint)values.GetInteger("string table offset"), sidDataSize, 1,
+                    SegmentResizeOrigin.End);
+                StringIDIndexTable = segmenter.WrapSegment((uint)values.GetInteger("string index table offset"), (uint)StringIDCount * 4, 4,
+                    SegmentResizeOrigin.End);
 
-				StringIDIndexTableLocation = SegmentPointer.FromOffset(StringIDIndexTable.Offset, StringArea);
-				StringIDDataLocation = SegmentPointer.FromOffset(StringIDData.Offset, StringArea);
-			}
+                StringArea = new FileSegmentGroup();
+                if (values.HasInteger("string block offset"))
+                    StringArea.AddSegment(segmenter.WrapSegment((uint)values.GetInteger("string block offset"), (uint)StringIDCount * 0x80, 0x80,
+                        SegmentResizeOrigin.End));
+                StringArea.AddSegment(StringIDIndexTable);
+                StringArea.AddSegment(StringIDData);
 
-			InternalName = values.GetString("internal name");
+                StringIDIndexTableLocation = SegmentPointer.FromOffset(StringIDIndexTable.Offset, StringArea);
+                StringIDDataLocation = SegmentPointer.FromOffset(StringIDData.Offset, StringArea);
+            }
 
-			Checksum = (uint)values.GetIntegerOrDefault("checksum", 0);
+            InternalName = values.GetString("internal name");
 
-			// dummy partition
-			Partitions = new Partition[1];
-			Partitions[0] = new Partition(SegmentPointer.FromOffset(MetaArea.Offset, MetaArea), (uint)MetaArea.Size);
+            Checksum = (uint)values.GetIntegerOrDefault("checksum", 0);
 
-		}
-	}
+            BuildDate = CacheFileExtensions.AssembleFileTime(values, "cache build date high", "cache build date low");
+
+            // dummy partition
+            Partitions = new Partition[1];
+            Partitions[0] = new Partition(SegmentPointer.FromOffset(MetaArea.Offset, MetaArea), (uint)MetaArea.Size);
+
+        }
+    }
 }

@@ -1,4 +1,5 @@
-这是中文辅助版的一个分支
+这是中文辅助版的一个分支 9f31910
+
 # Assembly
 ﻿
 ### Multi-Generation Blam Engine Research Tool ###

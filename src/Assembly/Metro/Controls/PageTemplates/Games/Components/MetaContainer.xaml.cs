@@ -8,6 +8,8 @@ using Blamite.IO;
 using Blamite.RTE;
 using Blamite.Util;
 using System.Windows.Input;
+using Assembly.Metro.Controls.PageTemplates.Tools;
+using Assembly.Metro.SharedViewModelUntil;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 {
@@ -20,7 +22,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 		private readonly ICacheFile _cache;
 		private readonly MetaEditor _metaEditor;
 		private PluginEditor _pluginEditor;
-		private StringEditor _stringEditor;
+        private StringEditor _stringEditor;
 		private RTEProvider _rteProvider;
 		private IStreamManager _streamManager;
 		private string _cacheLocation;
@@ -28,9 +30,11 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 		private TagEntry _tag;
 		private TagHierarchy _tags;
 
-		#region Public Access
+		
 
-		public TagEntry TagEntry
+        #region Public Access
+
+        public TagEntry TagEntry
 		{
 			get { return _tag; }
 			set { _tag = value; }
@@ -71,33 +75,33 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 			_pluginEditor = new PluginEditor(_buildInfo, _tag, this, _metaEditor);
 			tabPluginEditor.Content = _pluginEditor;
 
-			// Create Raw Tabs
+            // Create Raw Tabs
 
-			#region Models
+            #region Models
 
-			//if (_cache.ResourceMetaLoader.SupportsRenderModels && _tag.RawTag.Group.Magic == CharConstant.FromString("mode"))
-			//{
-			//	tabSound.Visibility = Visibility.Visible;
-			//	tabSound.Content = new SoundEditor(_tag, _cache, _streamManager);
-			//}
-			//else
-			//{
-			//	tabSound.Visibility = Visibility.Collapsed;
-			//	if (App.AssemblyStorage.AssemblySettings.halomapLastSelectedMetaEditor == App.AssemblyStorage.AssemblySettings.LastMetaEditorType.Model)
-			//		tbMetaEditors.SelectedIndex = (int)App.AssemblyStorage.AssemblySettings.LastMetaEditorType.MetaEditor;
-			//}
+            //if (_cache.ResourceMetaLoader.SupportsRenderModels && _tag.RawTag.Group.Magic == CharConstant.FromString("mode"))
+            //{
+            //	tabSound.Visibility = Visibility.Visible;
+            //	tabSound.Content = new SoundEditor(_tag, _cache, _streamManager);
+            //}
+            //else
+            //{
+            //	tabSound.Visibility = Visibility.Collapsed;
+            //	if (App.AssemblyStorage.AssemblySettings.halomapLastSelectedMetaEditor == App.AssemblyStorage.AssemblySettings.LastMetaEditorType.Model)
+            //		tbMetaEditors.SelectedIndex = (int)App.AssemblyStorage.AssemblySettings.LastMetaEditorType.MetaEditor;
+            //}
 
-			#endregion
+            #endregion
 
-			#region Sound
+            #region Sound
 
-			//if (_cache.ResourceMetaLoader.SupportsSounds && _tag.RawTag.Group.Magic == CharConstant.FromString("snd!"))
-			//{
-			//	tabSoundEditor.Visibility = Visibility.Visible;
-			//	tabSoundEditor.Content = new SoundEditor(_buildInfo, _cacheLocation, _tag, _cache, _streamManager);
-			//}
-			//else
-			{
+            //if (_cache.ResourceMetaLoader.SupportsSounds && _tag.RawTag.Group.Magic == CharConstant.FromString("snd!"))
+            //{
+            //	tabSoundEditor.Visibility = Visibility.Visible;
+            //	tabSoundEditor.Content = new SoundEditor(_buildInfo, _cacheLocation, _tag, _cache, _streamManager);
+            //}
+            //else
+            {
 				tabSoundEditor.Visibility = Visibility.Collapsed;
 				if (App.AssemblyStorage.AssemblySettings.HalomapLastSelectedMetaEditor == 
 					Settings.LastMetaEditorType.Sound)
@@ -156,16 +160,16 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 
 			// Create Plugin Editor Tab
 			_pluginEditor = new PluginEditor(_buildInfo, _tag, this, _metaEditor);
-			tabPluginEditor.Content = _pluginEditor;
+            tabPluginEditor.Content = _pluginEditor;
 
 		}
 
 		private void tbMetaEditors_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if ((int)App.AssemblyStorage.AssemblySettings.HalomapLastSelectedMetaEditor != tbMetaEditors.SelectedIndex)
-				App.AssemblyStorage.AssemblySettings.HalomapLastSelectedMetaEditor =
+                App.AssemblyStorage.AssemblySettings.HalomapLastSelectedMetaEditor =
 				(Settings.LastMetaEditorType)tbMetaEditors.SelectedIndex;
-		}
+        }
 
 		public void Dispose()
 		{

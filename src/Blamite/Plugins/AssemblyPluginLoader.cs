@@ -119,6 +119,7 @@ namespace Blamite.Plugins
 			string tooltip = "";
 			if (reader.MoveToAttribute("name"))
             name = reader.Value;
+            string fullXmlNode = reader.ReadOuterXml();
             //Console.WriteLine(name);
             tra = DictionaryDict.GetChineseTranslation(name);
             if (reader.MoveToAttribute("offset"))
@@ -579,16 +580,5 @@ namespace Blamite.Plugins
 		{
 			return (str == "1" || str.ToLowerInvariant() == "true");
 		}
-
-
-
-
-
-        
-
-
-
-
-
     }
 }

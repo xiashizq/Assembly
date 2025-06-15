@@ -56,9 +56,8 @@
 
 		<TextBlock Grid.Column="7" x:Name="lblDValueName" Style="{StaticResource GenericTextblock}" TextAlignment="Right" Width="12" VerticalAlignment="Center" Text="d" ToolTip="Dimension Value" Margin="14,0,4,0" />
 
-		<TextBox Grid.Column="8" x:Name="txtDValue" Text="{Binding D}" Language="" VerticalAlignment="Center" />
-        <Button  Grid.Column="9" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
-        <TextBlock Grid.Column="10" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
+        <TextBox Grid.Column="8" x:Name="txtDValue" Text="{Binding D}" Language="" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="9" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
 				           VerticalAlignment="Center" Margin="10,0,0,0" />
 	</Grid>
 </UserControl>

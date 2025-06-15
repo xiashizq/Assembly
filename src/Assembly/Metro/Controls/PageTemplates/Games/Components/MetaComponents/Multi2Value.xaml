@@ -15,7 +15,6 @@
             <ColumnDefinition Width="100*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="100*" />
-            <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="70"/>
         </Grid.ColumnDefinitions>
 
@@ -77,8 +76,7 @@
         </TextBlock>
 
         <TextBox Grid.Column="3" x:Name="txtBValue" Text="{Binding B}" Language="" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="22" Margin="14,0,0,0" />
-        <Button  Grid.Column="5" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
-        <TextBlock Grid.Column="6" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
+        <TextBlock Grid.Column="5" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
 				           VerticalAlignment="Center" Margin="10,0,0,0" Height="16" />
     </Grid>
 </UserControl>

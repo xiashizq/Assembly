@@ -41,7 +41,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Tools
             // 获取TranslationAppId 和 TranslationSecretKey
             string gptAppId = ConfigManager.GetSetting("Assembly", "GptAppId");
             string gptAppKey = ConfigManager.GetSetting("Assembly", "GptAppKey");
-            appIdInput.Text = gptAppId;
+            //appIdInput.Text = gptAppId;
             appKeyInput.Text = gptAppKey;
         }
 
@@ -56,11 +56,11 @@ namespace Assembly.Metro.Controls.PageTemplates.Tools
             // 获取当前选中的翻译应用名称
             string selectedGptApp = ((SimpleOption)comboBoxOptions.SelectedItem)?.Content ?? "Qwen";
             // 获取用户输入的AppId和SecretKey
-            string gptAppId = appIdInput.Text;
+            //string gptAppId = appIdInput.Text;
             string gptAppKey = appKeyInput.Text;
             // 使用ConfigManager保存这些设置
             ConfigManager.SetSetting("Assembly", "GptApp", selectedGptApp);
-            ConfigManager.SetSetting("Assembly", "GptAppId", gptAppId);
+            //ConfigManager.SetSetting("Assembly", "GptAppId", gptAppId);
             ConfigManager.SetSetting("Assembly", "GptAppKey", gptAppKey);
             MetroMessageBox.Show("Successfully saved");
         }
@@ -74,9 +74,9 @@ namespace Assembly.Metro.Controls.PageTemplates.Tools
                 {
                     string selectedValueString = selectedOption.Content;
                     // 根据所选的应用程序名称获取对应的Id和SecretKey
-                    string gptAppId = ConfigManager.GetSetting("Assembly", "GptAppId");
+                    //string gptAppId = ConfigManager.GetSetting("Assembly", "GptAppId");
                     string gptAppKey = ConfigManager.GetSetting("Assembly", "GptAppKey");
-                    appIdInput.Text = gptAppId;
+                    //appIdInput.Text = gptAppId;
                     appKeyInput.Text = gptAppKey;
                 }
             }

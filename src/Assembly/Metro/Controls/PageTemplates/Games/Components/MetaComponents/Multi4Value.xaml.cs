@@ -25,12 +25,6 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 			InitializeComponent();
 		}
 
-        private async void btnAI_Click(object sender, RoutedEventArgs e)
-        {
-            string name = lblValueName.Text;
-            await GPTstreamClient.GPT_Async(name);
-        }
-
         private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // 这里获取绑定的文本值

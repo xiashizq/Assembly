@@ -12,7 +12,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="130"/>
         </Grid.ColumnDefinitions>
 
@@ -35,8 +34,7 @@
 			           TextTrimming="CharacterEllipsis" />
         </DockPanel>
         <TextBox Grid.Column="1" x:Name="txtValue" Text="{Binding Value}" Language="" VerticalAlignment="Center" Padding="0,0,0,0" Height="22" />
-        <Button Grid.Column="2" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,4,3" Click="btnAI_Click"/>
-        <TextBlock Grid.Column="3" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
+        <TextBlock Grid.Column="2" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
 			           VerticalAlignment="Center" Margin="10,0,24,0" Height="16" />
     </Grid>
 </UserControl>

@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml;
 using Assembly.Helpers;
 using Assembly.Helpers.CodeCompletion.XML;
 using Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData;
+using Assembly.Metro.SharedViewModelUntil;
 using Assembly.SyntaxHighlighting;
 using Blamite.Serialization;
 using Blamite.Util;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
+
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 {
@@ -160,9 +163,37 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 				bestPluginPath = _pluginPath;
 
 			txtPlugin.Text = File.ReadAllText(bestPluginPath);
-		}
+			_sibling.SettestNameValue(ConvertXmlToTxt(bestPluginPath));
+			_sibling.SettestName2Value(bestPluginPath);
+        }
 
-		private void LoadCodeCompletion()
+        private static string ConvertXmlToTxt(string xmlFilePath)
+        {
+            try
+            {
+                if (!File.Exists(xmlFilePath))
+                {
+                    Console.WriteLine("指定的XML文件不存在。");
+                    return null;
+                }
+                XmlDocument doc = new XmlDocument();
+                doc.Load(xmlFilePath);
+                // 构建TXT文件路径（与XML文件同名，仅扩展名不同）
+                string directory = Path.GetDirectoryName(xmlFilePath);
+                string fileNameWithoutExt = Path.GetFileNameWithoutExtension(xmlFilePath);
+                string txtFilePath = Path.Combine(directory, fileNameWithoutExt + ".txt");
+                // 写入TXT内容（这里以XML原始文本写入为例）
+                File.WriteAllText(txtFilePath, doc.OuterXml);
+                return txtFilePath;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"发生错误：{ex.Message}");
+                return null;
+            }
+        }
+
+        private void LoadCodeCompletion()
 		{
 			RegisterMetaTag("uint8", "Unsigned 8-bit integer");
 			RegisterMetaTag("int8", "Signed 8-bit integer");

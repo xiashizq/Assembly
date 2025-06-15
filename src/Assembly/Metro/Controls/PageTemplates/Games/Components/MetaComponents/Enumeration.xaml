@@ -12,7 +12,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition />
-            <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="160"/>
         </Grid.ColumnDefinitions>
 
@@ -109,8 +108,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button  Grid.Column="2" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
-        <TextBlock Grid.Column="3" x:Name="lblType" Text="{Binding TypeStr}" Style="{DynamicResource GenericTextblock}"
+        <TextBlock Grid.Column="2" x:Name="lblType" Text="{Binding TypeStr}" Style="{DynamicResource GenericTextblock}"
 			           VerticalAlignment="Center" Margin="10,0,0,0" Height="16" />
     </Grid>
 </UserControl>

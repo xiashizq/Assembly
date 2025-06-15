@@ -16,7 +16,6 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
             <ColumnDefinition Width="Auto" MinWidth="40" />
-            <ColumnDefinition Width="26"/>
             <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
 
@@ -52,8 +51,7 @@
                 <TextBlock Text="Sets this datum to null. (Both values 65535)" FontSize="12" Foreground="White"/>
             </Button.ToolTip>
         </Button>
-        <Button  Grid.Column="6" x:Name="btnAI" Content="AI" FontSize="10" Margin="2,3,2,3" Click="btnAI_Click"/>
-        <TextBlock Grid.Column="7" x:Name="lblType" Text="datum" Style="{DynamicResource GenericTextblock}"
+        <TextBlock Grid.Column="6" x:Name="lblType" Text="datum" Style="{DynamicResource GenericTextblock}"
 				           VerticalAlignment="Center" Margin="2,0,2,0" Height="16" />
     </Grid>
 </UserControl>

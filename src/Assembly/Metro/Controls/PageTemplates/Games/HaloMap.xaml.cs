@@ -34,6 +34,7 @@ using Newtonsoft.Json;
 using Blamite.Blam.ThirdGen;
 using Blamite.Blam.Resources.Sounds;
 using Blamite.Blam.Eldorado;
+using Assembly.Metro.SharedViewModelUntil;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games
 {

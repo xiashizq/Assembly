@@ -23,12 +23,6 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 			InitializeComponent();
 		}
 
-        private async void btnAI_Click(object sender, RoutedEventArgs e)
-        {
-            string name = lblValueName.Text;
-            await GPTstreamClient.GPT_Async(name);
-        }
-
         private void btnNull_Click(object sender, System.Windows.RoutedEventArgs e)
 		{
 			DatumData datum = (DatumData)DataContext;

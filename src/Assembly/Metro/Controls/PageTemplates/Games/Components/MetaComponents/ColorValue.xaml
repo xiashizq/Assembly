@@ -12,9 +12,8 @@
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="200"/>
-			<ColumnDefinition Width="*" />
-            <ColumnDefinition Width="40"/>
-			<ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200"/>
 		</Grid.ColumnDefinitions>
 
         <DockPanel Grid.Column="0" Background="Transparent" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
@@ -35,11 +34,10 @@
 			           Style="{DynamicResource GenericTextblock}" VerticalAlignment="Center"
 			           TextTrimming="CharacterEllipsis" />
 		</DockPanel>
-		<xctk:ColorPicker Grid.Column="1" DisplayColorAndName="True" SelectedColor="{Binding Value}" VerticalAlignment="Center" Height="22"
+        <xctk:ColorPicker Grid.Column="1" DisplayColorAndName="True" SelectedColor="{Binding Value}" VerticalAlignment="Center" Height="22"
 				                  Padding="0,0,0,0" ShowRecentColors="True"
 				                  ShowStandardColors="False" UsingAlphaChannel="{Binding Alpha}" />
-        <Button  Grid.Column="2" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
-        <TextBlock Grid.Column="3" x:Name="lblType" Text="{Binding DataType}" Style="{DynamicResource GenericTextblock}"
+        <TextBlock Grid.Column="2" x:Name="lblType" Text="{Binding DataType}" Style="{DynamicResource GenericTextblock}"
 				           VerticalAlignment="Center" Margin="10,0,0,0" />
 	</Grid>
 </UserControl>

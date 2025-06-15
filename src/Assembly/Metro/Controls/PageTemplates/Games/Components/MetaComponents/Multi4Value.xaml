@@ -19,9 +19,8 @@
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition Width="*" />
-			<ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="30"/>
-			<ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="80"/>
 		</Grid.ColumnDefinitions>
 
         <DockPanel Grid.Column="0" Background="Transparent" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
@@ -137,35 +136,34 @@
 				</Style>
 			</ToggleButton.Style>
 		</ToggleButton>
-		<Popup x:Name="popOptions" IsOpen="{Binding IsChecked, ElementName=btnOptions}" PlacementTarget="{x:Reference btnOptions}" StaysOpen="False">
-			<Border BorderThickness="1" Background="#1b1b1c" BorderBrush="#333337" Padding="20,8">
-				<StackPanel>
-					<TextBlock Text="Quaternion Converter" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#CCC" />
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="16" />
-							<ColumnDefinition Width="150" />
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
+        <Popup x:Name="popOptions" IsOpen="{Binding IsChecked, ElementName=btnOptions}" PlacementTarget="{x:Reference btnOptions}" StaysOpen="False">
+            <Border BorderThickness="1" Background="#1b1b1c" BorderBrush="#333337" Padding="20,8">
+                <StackPanel>
+                    <TextBlock Text="Quaternion Converter" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#CCC" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-						<TextBlock Grid.Row="0" Text="y" Style="{StaticResource GenericTextblock}" ToolTip="Yaw" TextAlignment="Right" Margin="0,0,4,0" VerticalAlignment="Center" />
-						<TextBlock Grid.Row="1" Text="p" Style="{StaticResource GenericTextblock}" ToolTip="Pitch" TextAlignment="Right" Margin="0,0,4,0" VerticalAlignment="Center" />
-						<TextBlock Grid.Row="2" Text="r" Style="{StaticResource GenericTextblock}" ToolTip="Roll" TextAlignment="Right" Margin="0,0,4,0" VerticalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Text="y" Style="{StaticResource GenericTextblock}" ToolTip="Yaw" TextAlignment="Right" Margin="0,0,4,0" VerticalAlignment="Center" />
+                        <TextBlock Grid.Row="1" Text="p" Style="{StaticResource GenericTextblock}" ToolTip="Pitch" TextAlignment="Right" Margin="0,0,4,0" VerticalAlignment="Center" />
+                        <TextBlock Grid.Row="2" Text="r" Style="{StaticResource GenericTextblock}" ToolTip="Roll" TextAlignment="Right" Margin="0,0,4,0" VerticalAlignment="Center" />
 
-						<TextBox Grid.Row="0" Grid.Column="1" x:Name="txtConvY" Margin="0,3" Language="" TextChanged="TxtConv_TextChanged" />
-						<TextBox Grid.Row="1" Grid.Column="1" x:Name="txtConvP" Margin="0,3" Language="" TextChanged="TxtConv_TextChanged" />
-						<TextBox Grid.Row="2" Grid.Column="1" x:Name="txtConvR" Margin="0,3" Language="" TextChanged="TxtConv_TextChanged" />
-					</Grid>
-					<TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="Updates automatically." HorizontalAlignment="Center" FontSize="10" Foreground="#CCC" />
-				</StackPanel>
-			</Border>
-		</Popup>
-        <Button  Grid.Column="10" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
-        <TextBlock Grid.Column="11" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtConvY" Margin="0,3" Language="" TextChanged="TxtConv_TextChanged" />
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtConvP" Margin="0,3" Language="" TextChanged="TxtConv_TextChanged" />
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtConvR" Margin="0,3" Language="" TextChanged="TxtConv_TextChanged" />
+                    </Grid>
+                    <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="Updates automatically." HorizontalAlignment="Center" FontSize="10" Foreground="#CCC" />
+                </StackPanel>
+            </Border>
+        </Popup>
+        <TextBlock Grid.Column="10" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
 				           VerticalAlignment="Center" Margin="10,0,0,0" />
 	</Grid>
 </UserControl>

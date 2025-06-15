@@ -39,10 +39,9 @@
 			           TextTrimming="CharacterEllipsis" />
 		</DockPanel>
 
-		<c:StringIDInput Grid.Column="1" x:Name="cbStringIDs" Text="{Binding Value}" SearchTrie="{Binding AutocompleteTrie}"
+        <c:StringIDInput Grid.Column="1" x:Name="cbStringIDs" Text="{Binding Value}" SearchTrie="{Binding AutocompleteTrie}"
 			                 VerticalAlignment="Center" Focusable="True" ToolTip="{Binding Value}" />
-        <Button  Grid.Column="2" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
-		<TextBlock Grid.Column="3" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
+        <TextBlock Grid.Column="2" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
 			           VerticalAlignment="Center" Margin="10,0,0,0" />
 	</Grid>
 </UserControl>

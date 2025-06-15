@@ -5,6 +5,9 @@ using Assembly.Metro.Dialogs;
 using Assembly.Tool.TranslateService;
 using System.Windows.Input;
 using Assembly.Tool.GPTservice;
+using Assembly.Metro.Controls.PageTemplates.Tools;
+using Assembly.Metro.SharedViewModelUntil;
+using XboxChaos.Models;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 {
@@ -15,16 +18,12 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 	{
 		public static readonly DependencyProperty SearchTrieProperty = DependencyProperty.Register("SearchTrie", typeof (Trie),
 			typeof (StringIDValue));
+        private readonly MetaEditor _sibling;
 
-		public StringIDValue()
+        public StringIDValue()
 		{
 			InitializeComponent();
 		}
-        private async void btnAI_Click(object sender, RoutedEventArgs e)
-        {
-            string name = lblValueName.Text;
-            await GPTstreamClient.GPT_Async(name);
-        }
         public Trie SearchTrie
 		{
 			get { return (Trie) GetValue(SearchTrieProperty); }
@@ -33,7 +32,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 
         private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // 这里获取绑定的文本值
+            //这里获取绑定的文本值
             var dockPanel = sender as DockPanel;
             var dataContext = dockPanel?.DataContext;
             var name = dataContext?.GetType().GetProperty("Name")?.GetValue(dataContext)?.ToString();

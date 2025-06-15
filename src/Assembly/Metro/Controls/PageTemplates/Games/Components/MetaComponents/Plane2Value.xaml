@@ -16,9 +16,8 @@
 			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="Auto" />
-			<ColumnDefinition Width="*" />
-            <ColumnDefinition Width="30"/>
-			<ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="70"/>
 		</Grid.ColumnDefinitions>
 
         <DockPanel Grid.Column="0" Background="Transparent" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
@@ -50,9 +49,8 @@
 
 		<TextBlock Grid.Column="5" x:Name="lblCValueName" Style="{StaticResource GenericTextblock}" TextAlignment="Right" Width="12" VerticalAlignment="Center" Text="d" ToolTip="Dimension Value" Margin="14,0,4,0" />
 
-		<TextBox Grid.Column="6" x:Name="txtCValue" Text="{Binding C}" Language="" VerticalAlignment="Center" />
-        <Button  Grid.Column="7" x:Name="btnAI" Content="AI" FontSize="10" Margin="5,3,5,3" Click="btnAI_Click"/>
-        <TextBlock Grid.Column="8" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
+        <TextBox Grid.Column="6" x:Name="txtCValue" Text="{Binding C}" Language="" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="7" x:Name="lblType" Text="{Binding Type}" Style="{DynamicResource GenericTextblock}"
 				           VerticalAlignment="Center" Margin="10,0,0,0" />
 	</Grid>
 </UserControl>

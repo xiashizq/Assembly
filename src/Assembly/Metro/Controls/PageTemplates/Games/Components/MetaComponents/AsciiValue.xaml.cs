@@ -10,6 +10,12 @@ using Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData;
 using Assembly.Metro.Dialogs;
 using Assembly.Tool.TranslateService;
 using Assembly.Tool.GPTservice;
+using System.Xml.Linq;
+using System.IO;
+using System.Text;
+using XboxChaos.Models;
+using System.Web.Http.Results;
+using Assembly.Metro.Controls.PageTemplates.Tools;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 {
@@ -18,15 +24,11 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 	/// </summary>
 	public partial class AsciiValue : UserControl
 	{
-		public AsciiValue()
+        
+        
+        public AsciiValue()
 		{
 			InitializeComponent();
-		}
-
-        private async void btnAI_Click(object sender, RoutedEventArgs e)
-        {
-            string name = lblValueName.Text;
-            await GPTstreamClient.GPT_Async(name);
         }
 
         private void DockPane2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -51,5 +53,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
                 MetroMessageBox.Show($"{result}");
             }
         }
+
+        
     }
 }

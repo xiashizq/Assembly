@@ -21,6 +21,12 @@ using Blamite.Util;
 using System.CodeDom.Compiler;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using Assembly.Tool.GPTservice;
+using System.Threading.Tasks;
+using static Assembly.Metro.Controls.PageTemplates.Games.Components.Editors.SoundEditor;
+using Assembly.Metro.SharedViewModelUntil;
+using Assembly.Metro.Controls.PageTemplates.Tools;
+using XboxChaos.Models;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 {
@@ -47,15 +53,17 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 		public TagBlockData TagBlock { get; private set; }
 	}
 
-	/// <summary>
-	///     Interaction logic for MetaEditor.xaml
-	/// </summary>
-	public partial class MetaEditor : UserControl
-	{
+
+        /// <summary>
+        ///     Interaction logic for MetaEditor.xaml
+        /// </summary>
+        public partial class MetaEditor : UserControl
+	    {
 		public static RoutedCommand ViewValueAsCommand = new RoutedCommand();
 		public static RoutedCommand ContentViewValueAsCommand = new RoutedCommand();
 		public static RoutedCommand GoToPlugin = new RoutedCommand();
-		private readonly EngineDescription _buildInfo;
+        public static RoutedCommand AIanalysis = new RoutedCommand();
+        private readonly EngineDescription _buildInfo;
 		private readonly ICacheFile _cache;
 		private readonly IStreamManager _fileManager;
 		private readonly MetaContainer _parentMetaContainer;
@@ -77,7 +85,10 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 		private FileSegmentGroup _srcSegmentGroup;
 		private TagDataCommandState _tagCommandState;
 
-		public MetaEditor(EngineDescription buildInfo, TagEntry tag, MetaContainer parentContainer, TagHierarchy tags,
+
+
+
+        public MetaEditor(EngineDescription buildInfo, TagEntry tag, MetaContainer parentContainer, TagHierarchy tags,
 			ICacheFile cache, IStreamManager streamManager, RTEProvider rteProvider, Trie stringIDTrie)
 		{
 			InitializeComponent();
@@ -89,13 +100,14 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 			_fileManager = streamManager;
 			_rteProvider = rteProvider;
 			_searchTimer = new Timer(SearchTimer);
-			_stringIdTrie = stringIDTrie;
+            _stringIdTrie = stringIDTrie;
 			_srcSegmentGroup = tag.RawTag.MetaLocation.BaseGroup;
 
-			LoadNewTagEntry(tag);
+            LoadNewTagEntry(tag);
 
 			// Set init finished
 			hasInitFinished = true;
+
 		}
 
 		private TagDataCommandState CheckTagDataCommand()
@@ -322,7 +334,33 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 			}
 		}
 
-		public void LoadNewTagEntry(TagEntry tag)
+        public void SettestNameValue(string value)
+        {
+            testName.Text = value;
+        }
+
+        public void SettestName2Value(string value)
+        {
+            testName2.Text = value;
+        }
+
+        public string GettestName2Value()
+        {
+            return testName2.Text;
+        }
+
+        private async void btnReturnAiRes_Click(object sender, RoutedEventArgs e)
+        {
+			if(questInfo.Text == "")
+			{
+                MetroMessageBox.Show("提示","您还未输入任何问题");
+                return;
+            }
+            await GPTstreamClient.UploadFileAndQueryAsync(testName.Text, questInfo.Text);
+            questInfo.Text = "";
+        }
+
+        public void LoadNewTagEntry(TagEntry tag)
 		{
 			_tag = tag;
 			_tagCommandState = CheckTagDataCommand();
@@ -337,16 +375,16 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 
 			// Load Meta
 			RefreshEditor(MetaReader.LoadType.File);
-
-			// Load Info
-			lblTagName.Text = tag.TagFileName != null
+            
+            // Load Info
+            lblTagName.Text = tag.TagFileName != null
 				? tag.TagFileName + "." + tag.GroupName
 				: "0x" + tag.RawTag.Index.Value.ToString("X");
 
 			lblDatum.Text = string.Format("{0}", tag.RawTag.Index);
 			lblAddress.Text = string.Format("0x{0:X8}", tag.RawTag.MetaLocation.AsPointer());
 			lblOffset.Text = string.Format("0x{0:X}", tag.RawTag.MetaLocation.AsOffset());
-		}
+        }
 
 		private void btnPluginRefresh_Click(object sender, RoutedEventArgs e)
 		{
@@ -718,7 +756,23 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 			_parentMetaContainer.GoToRawPluginLine((int) field.PluginLine);
 		}
 
-		private static MetaField GetWrappedField(MetaField field)
+        private void AIanalysis_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            MetaField field = GetWrappedField(e.Source);
+            e.CanExecute = (field != null && field.PluginLine > 0);
+        }
+
+        private async void AIanalysis_ExecutedAsync(object sender, ExecutedRoutedEventArgs e)
+        {
+            MetaField field = GetWrappedField(e.Source);
+            if (field == null) return;
+            var finder = new GetXmlStringByLine(testName2.Text);
+            string nodeXml = finder.GetNodeXmlAtLine((int)field.PluginLine);
+            await GPTstreamClient.QwenLongTextQueryAsync(nodeXml);
+        }
+
+
+        private static MetaField GetWrappedField(MetaField field)
 		{
 			WrappedTagBlockEntry wrapper = null;
 			while (true)

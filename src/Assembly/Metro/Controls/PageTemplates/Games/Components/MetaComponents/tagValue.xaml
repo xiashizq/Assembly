@@ -123,8 +123,6 @@
                     <TextBlock Text="Opens the selected tag in a new tab." FontSize="12" Foreground="White"/>
                 </Button.ToolTip>
             </Button>
-            <Button x:Name="btnAI" Content="AI" FontSize="10" Margin="5,0,0,0" Width="30" Click="btnAI_Click">
-            </Button>
             <StackPanel.Style>
                 <Style TargetType="{x:Type StackPanel}">
                     <Style.Triggers>

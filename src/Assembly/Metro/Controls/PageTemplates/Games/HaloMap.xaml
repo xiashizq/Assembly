@@ -57,6 +57,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="colLeft" Width="350" />
                 <ColumnDefinition x:Name="colRight" Width="*" />
+                <!--<ColumnDefinition x:Name="colRightAI" Width="350" />-->
             </Grid.ColumnDefinitions>
 
             <Grid x:Name="sideBar" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
@@ -456,15 +457,29 @@
                     </TabItem>
                 </TabControl>
             </Grid>
-            <GridSplitter Width="2" Background="#FF545456" Foreground="{x:Null}" ResizeDirection="Columns" />
-            <Grid x:Name="mainContent" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-			      Margin="0,0,0,0">
+            <GridSplitter Width="2" Background="#FF545456" Foreground="{x:Null}" ResizeDirection="Columns"/>
+            <Grid x:Name="mainContent" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="497*"/>
+                    <RowDefinition Height="103*"/>
+                </Grid.RowDefinitions>
                 <TabControl x:Name="contentTabs" Background="{x:Null}" BorderBrush="{DynamicResource ExtryzeAccentBrush}"
-				            Foreground="White" BorderThickness="0,2,0,0" Margin="0" Padding="0"
+				            Foreground="White" BorderThickness="0,2,0,0" Padding="0"
 				            dd:DragDropHelper.IsDragSource="true"
 				            dd:DragDropHelper.IsDropTarget="true"
-				            dd:DragDropHelper.DragDropTemplate="{StaticResource Local_TabItemDragTemplate}" />
+				            dd:DragDropHelper.DragDropTemplate="{StaticResource Local_TabItemDragTemplate}" Grid.RowSpan="2" />
             </Grid>
+            <!--<GridSplitter Grid.Column="2" Width="2" Background="#FF545456" ResizeDirection="Columns"/>
+            <Grid x:Name="rightAI" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                <Border BorderThickness="0,1,0,0" BorderBrush="#434346" Background="#FF303032">
+                    <DockPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <TextBlock DockPanel.Dock="Right" Style="{DynamicResource GenericTextblock}" SnapsToDevicePixels="True" FontSize="14" Margin="5,5,5,5" TextWrapping="Wrap" Text="{Binding Source={StaticResource SharedViewModel}, Path=AiLongText}" Foreground="White">
+                            </TextBlock>
+                        </ScrollViewer>
+                    </DockPanel>
+                </Border>
+            </Grid>-->
         </Grid>
 
         <Grid x:Name="doingAction" Background="#BC2D2D30" Visibility="Collapsed">

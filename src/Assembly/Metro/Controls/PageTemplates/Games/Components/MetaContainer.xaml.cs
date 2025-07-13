@@ -7,9 +7,6 @@ using Blamite.Serialization;
 using Blamite.IO;
 using Blamite.RTE;
 using Blamite.Util;
-using System.Windows.Input;
-using Assembly.Metro.Controls.PageTemplates.Tools;
-using Assembly.Metro.SharedViewModelUntil;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 {

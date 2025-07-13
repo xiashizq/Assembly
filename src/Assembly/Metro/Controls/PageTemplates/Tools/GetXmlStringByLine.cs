@@ -1,18 +1,6 @@
-﻿using Assembly.Metro.Dialogs;
-using System;
-using System.Windows;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using System.IO;
-using Assembly.Metro.Controls.PageTemplates.Games.Components;
-using Assembly.Metro.Controls.PageTemplates.Games;
-using Assembly.Metro.SharedViewModelUntil;
-using System.Windows.Shapes;
-using System.Xml;
-using System.Xml.XPath;
 
 namespace Assembly.Metro.Controls.PageTemplates.Tools
 {

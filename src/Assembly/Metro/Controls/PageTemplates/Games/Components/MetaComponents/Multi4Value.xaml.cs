@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using Assembly.Metro.Dialogs.ControlDialogs;
 using Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData;
 using Assembly.Metro.Dialogs;
 using Assembly.Tool.TranslateService;
-using Assembly.Tool.GPTservice;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 {

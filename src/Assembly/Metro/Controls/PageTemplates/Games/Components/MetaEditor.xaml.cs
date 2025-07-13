@@ -22,11 +22,7 @@ using System.CodeDom.Compiler;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Assembly.Tool.GPTservice;
-using System.Threading.Tasks;
-using static Assembly.Metro.Controls.PageTemplates.Games.Components.Editors.SoundEditor;
-using Assembly.Metro.SharedViewModelUntil;
 using Assembly.Metro.Controls.PageTemplates.Tools;
-using XboxChaos.Models;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 {

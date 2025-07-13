@@ -4,10 +4,8 @@ using Assembly.Metro.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using System.Windows;
 using Assembly.Helpers;
-using Assembly.Helpers.Net;
 using Blamite.RTE.Console;
 using Microsoft.Shell;
 
@@ -37,14 +35,13 @@ namespace Assembly
 
 			var application = new App();
 
-			application.InitializeComponent();
-            
-
+            application.InitializeComponent();
             application.Run();
 			// Allow single instance code to perform cleanup operations
 			SingleInstance<App>.Cleanup();
             Application_Config();
         }
+
 
         private static void Application_Config()
         {
@@ -77,6 +74,7 @@ namespace Assembly
                 }
             }
         }
+
 
         protected override void OnStartup(StartupEventArgs e)
 		{

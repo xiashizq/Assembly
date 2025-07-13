@@ -7,7 +7,6 @@ using System.Xml;
 using Assembly.Helpers;
 using Assembly.Helpers.CodeCompletion.XML;
 using Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData;
-using Assembly.Metro.SharedViewModelUntil;
 using Assembly.SyntaxHighlighting;
 using Blamite.Serialization;
 using Blamite.Util;

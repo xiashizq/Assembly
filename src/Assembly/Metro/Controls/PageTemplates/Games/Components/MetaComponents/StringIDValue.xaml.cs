@@ -4,10 +4,6 @@ using Blamite.Util;
 using Assembly.Metro.Dialogs;
 using Assembly.Tool.TranslateService;
 using System.Windows.Input;
-using Assembly.Tool.GPTservice;
-using Assembly.Metro.Controls.PageTemplates.Tools;
-using Assembly.Metro.SharedViewModelUntil;
-using XboxChaos.Models;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaComponents
 {

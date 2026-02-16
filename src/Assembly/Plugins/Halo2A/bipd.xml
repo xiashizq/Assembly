@@ -1954,7 +1954,7 @@ IOW: As velocity exceeds 'min speed' and approaches 'max speed', turn rates are 
 	<float32 name="Ground Normal Dampening" offset="0x8A0" visible="true" tooltip="react to slope changes (0=slow, 1= fast)" />
 	<float32 name="Root Offset Maximum Scale Idle" offset="0x8A4" visible="true" tooltip="vertical drop to ground allowed (0=none, 1=full)" />
 	<float32 name="Root Offset Maximum Scale Moving" offset="0x8A8" visible="true" tooltip="vertical drop to ground allowed (0=none, 1=full)" />
-	<float32 name="Root Offset Dampening" offset="0x8AA" visible="true" tooltip="react to root changes (0=slow, 1= fast)" />
+	<float32 name="Root Offset Dampening" offset="0x8AC" visible="true" tooltip="react to root changes (0=slow, 1= fast)" />
 	<float32 name="Following Camera Scale" offset="0x8B0" visible="true" tooltip="root offset effect on following cam (0=none, 1=full)" />
 	<float32 name="Root Leaning Scale" offset="0x8B4" visible="true" tooltip="lean into slopes (0=none, 1=full)" />
 	<float32 name="Stance Width Scale" offset="0x8B8" visible="true" tooltip="scale pill width to use as stance radius" />

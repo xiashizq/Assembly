@@ -849,6 +849,62 @@
 	<engine name="Halo 4 TC 20703" version="12" build="20703.12.09.16.0400.main" inherits="Halo 4" />
 	<engine name="Halo 4 TC 20744" version="12" build="20744.12.09.18.0100.main" inherits="Halo 4" />
 
+	<!-- Groundhog builds -->
+	<engine name="Halo 2A 21646" version="12" build="21646.14.03.21.0841.ca">
+		<shortName>H2A_646</shortName>
+		<plugins>Halo2A</plugins>
+		<fallbackPlugins>Halo4</fallbackPlugins>
+		<engineInfo>
+			<generation>third</generation>
+			<endian>big</endian>
+			<segmentAlignment>0x1000</segmentAlignment>
+			<encryption>
+				<tagNameKey>LetsAllPlayNice!</tagNameKey>
+				<stringIdKey>ILikeSafeStrings</stringIdKey>
+				<localeKey>BungieHaloReach!</localeKey>
+				<!-- 343.jpg -->
+			</encryption>
+			<sortLocalesByStringId>true</sortLocalesByStringId>
+			<optimizedShaders>true</optimizedShaders>
+		</engineInfo>
+		<pokingInfo>
+			<platform>xbox360</platform>
+		</pokingInfo>
+		<databases>
+			<localeSymbols type="localeSymbols" path="Formats/Halo2A/H2A_LocaleSymbols.xml" />
+			<stringIds type="stringIds" path="Formats/Halo2A/H2A_21646_StringIDs.xml" />
+			<layouts type="layouts" path="Formats/Halo4/Layouts" />
+		</databases>
+	</engine>
+
+	<engine name="Halo 2A 21651" version="12" build="21651.14.03.28.1525.ca" inherits="Halo 2A 21646">
+		<shortName>H2A_651</shortName>
+		<databases>
+			<stringIds type="stringIds" path="Formats/Halo2A/H2A_21651_StringIDs.xml" />
+		</databases>
+	</engine>
+
+	<engine name="Halo 2A 21652" version="12" build="21652.14.04.04.1153.ca" inherits="Halo 2A 21646">
+		<shortName>H2A_652</shortName>
+		<databases>
+			<stringIds type="stringIds" path="Formats/Halo2A/H2A_21651_StringIDs.xml" />
+		</databases>
+	</engine>
+
+	<engine name="Halo 2A 21655" version="12" build="21655.14.04.10.1321.ca" inherits="Halo 2A 21646">
+		<shortName>H2A_655</shortName>
+		<databases>
+			<stringIds type="stringIds" path="Formats/Halo2A/H2A_21655_StringIDs.xml" />
+		</databases>
+	</engine>
+	
+	<engine name="Halo 2A 21659" version="12" build="21659.14.04.17.1655.ca" inherits="Halo 2A 21646">
+		<shortName>H2A_659</shortName>
+		<databases>
+			<stringIds type="stringIds" path="Formats/Halo2A/H2A_21659_StringIDs.xml" />
+		</databases>
+	</engine>
+
 	<!-- Reach MCC -->
 	<engine name="Halo: Reach MCC Flight 1" version="12" build="Jun 24 2019 00:36:03">
 		<shortName>ReachMCC_F1</shortName>

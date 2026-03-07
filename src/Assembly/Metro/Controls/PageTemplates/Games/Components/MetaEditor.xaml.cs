@@ -761,6 +761,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
             MetaField field = GetWrappedField(e.Source);
             if (field == null) return;
             var finder = new GetXmlStringByLine(testName2.Text);
+            btnToggleAI.IsChecked = true;
+            ToggleAIPanel();
             string nodeXml = finder.GetNodeXmlAtLine((int)field.PluginLine);
             await GPTstreamClient.QwenLongTextQueryAsync(nodeXml);
         }
@@ -1398,6 +1400,20 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
         public void ExternalDump(string basePath)
         {
             HandleDump(Path.Combine(basePath, _tag.TagFileName + "[" + _tag.GroupName + "]" + ".json"), 1);
+        }
+
+        private const double AiPanelWidth = 350.0;
+        private void btnToggleAI_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleAIPanel();
+        }
+
+        private void ToggleAIPanel()
+        {
+            bool isExpand = btnToggleAI.IsChecked == true;
+            rightAIContentGrid.Visibility = isExpand ? Visibility.Visible : Visibility.Collapsed;
+            rightAIContent.Width = new GridLength(isExpand ? AiPanelWidth : 0);
+            btnToggleAI.Content = isExpand ? "Collapse" : "Expand";
         }
     }
 }

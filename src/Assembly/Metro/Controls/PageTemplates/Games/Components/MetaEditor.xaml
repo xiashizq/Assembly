@@ -35,7 +35,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="mianContent" Width="*" />
-            <ColumnDefinition x:Name="rightAIContent" Width="350" />
+            <ColumnDefinition x:Name="rightAIContent" Width="0" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -173,6 +173,9 @@
                             <ToggleButton x:Name="btnOptions" VerticalAlignment="Center" Margin="5,0,0,0" IsChecked="False" ToolTip="Click to view options and tools regarding the editor.">
                                 <Path VerticalAlignment="Center" Margin="2" Fill="#989898" Style="{StaticResource GearIcon}" />
                             </ToggleButton>
+                            <ToggleButton x:Name="btnToggleAI" Width="70" Height="25" IsChecked="False" Margin="5,0,0,0" Content="Expand" Click="btnToggleAI_Click">
+                                
+                            </ToggleButton>
                             <Popup x:Name="popOptions" IsOpen="{Binding IsChecked, ElementName=btnOptions}" PlacementTarget="{x:Reference btnOptions}" StaysOpen="False" >
                                 <Border BorderThickness="1" Background="#1b1b1c" BorderBrush="#333337">
                                     <StackPanel>
@@ -217,10 +220,10 @@
             </Grid>
         </Grid>
         <GridSplitter Width="2" Background="#FF545456" ResizeDirection="Columns"/>
-        <Grid Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+        <Grid Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0" x:Name="rightAIContentGrid" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="0"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" HorizontalAlignment="Stretch">
                 <Border BorderThickness="0,1,0,0" BorderBrush="#434346" Background="#FF303032">
@@ -232,7 +235,7 @@
                     </DockPanel>
                 </Border>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Visibility="Hidden">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0"/>
                     <ColumnDefinition Width="0"/>

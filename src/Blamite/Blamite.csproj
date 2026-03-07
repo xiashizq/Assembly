@@ -408,7 +408,6 @@
     <Compile Include="Plugins\TestPluginVisitor.cs" />
     <Compile Include="Plugins\UniversalPluginLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RTE\RTEStreamManager.cs" />
     <Compile Include="Util\7zip\Common\CRC.cs" />
     <Compile Include="Util\7zip\Compress\LZMA\LzmaBase.cs" />
     <Compile Include="Util\7zip\Compress\LZMA\LzmaDecoder.cs" />
@@ -591,6 +590,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\Halo2AMCC\Layouts\H2AMCC_Layouts_Scenario.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo2A\H2A_21651_StringIDs.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo2A\H2A_21646_StringIDs.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo2A\H2A_21659_StringIDs.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo2A\H2A_LocaleSymbols.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\Halo2Beta\H2Beta_Scripting.xml">
@@ -942,6 +953,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\Halo4MCC\LayoutsU4\H4MCC_LayoutsU4_Scenario.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo2A\H2A_21655_StringIDs.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\Halo4_2011\H4Dec2011_StringIDs.xml">

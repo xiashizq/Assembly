@@ -142,6 +142,8 @@ namespace Blamite.Blam.FirstGen.Structures
 
             Checksum = (uint)values.GetIntegerOrDefault("checksum", 0);
 
+			BuildDate = CacheFileExtensions.AssembleFileTime(values, "cache build date high", "cache build date low");
+
             BuildDate = CacheFileExtensions.AssembleFileTime(values, "cache build date high", "cache build date low");
 
             // dummy partition

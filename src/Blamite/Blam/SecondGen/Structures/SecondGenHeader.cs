@@ -214,6 +214,8 @@ namespace Blamite.Blam.SecondGen.Structures
 
             Checksum = (uint)values.GetIntegerOrDefault("checksum", 0);
 
+			BuildDate = CacheFileExtensions.AssembleFileTime(values, "cache build date high", "cache build date low");
+
             BuildDate = CacheFileExtensions.AssembleFileTime(values, "cache build date high", "cache build date low");
 
             //vista mp maps dont have a globals tag so its referenced in the header

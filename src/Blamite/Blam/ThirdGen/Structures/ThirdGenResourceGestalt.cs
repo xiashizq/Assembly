@@ -390,6 +390,7 @@ namespace Blamite.Blam.ThirdGen.Structures
             if (prediction.Salt == 0xFFFF)
                 newSalt = (ushort)salt;
 
+
             var newDatum = new DatumIndex(newSalt, (ushort)bStart);
             result.SetInteger("atom datum", newDatum.Value);
 

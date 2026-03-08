@@ -41,18 +41,14 @@ jobs:
         Compress-Archive -Path Assembly -DestinationPath Assembly.zip
     
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Assembly
         path: output/Assembly.zip
     
     - name: Upload release asset
       if: github.event_name == 'release'
-      uses: actions/upload-release-asset@v1
+      run: |
+        gh release upload ${{ github.event.release.tag_name }} output/Assembly.zip --name "Assembly-${{ github.event.release.tag_name }}.zip"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: output/Assembly.zip
-        asset_name: Assembly-${{ github.event.release.tag_name }}.zip
-        asset_content_type: application/zip

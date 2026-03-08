@@ -1,0 +1,58 @@
+name: Build and Package
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  release:
+    types: [ published ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+    
+    - name: Restore NuGet packages
+      run: nuget restore src/Assembly.sln
+    
+    - name: Build solution
+      run: msbuild src/Assembly.sln /p:Configuration=Release /p:Platform=x64
+    
+    - name: Create release package
+      run: |
+        New-Item -ItemType Directory -Path output/Assembly -Force
+        Copy-Item -Path src/Assembly/bin/x64/Release/* -Destination output/Assembly/ -Recurse -Force
+        Copy-Item -Path fe/Assembly/* -Destination output/Assembly/ -Recurse -Force
+    
+    - name: Zip package
+      run: |
+        cd output
+        Compress-Archive -Path Assembly -DestinationPath Assembly.zip
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Assembly
+        path: output/Assembly.zip
+    
+    - name: Upload release asset
+      if: github.event_name == 'release'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: output/Assembly.zip
+        asset_name: Assembly-${{ github.event.release.tag_name }}.zip
+        asset_content_type: application/zip

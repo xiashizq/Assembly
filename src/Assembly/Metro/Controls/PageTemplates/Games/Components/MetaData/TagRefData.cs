@@ -12,8 +12,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private TagEntry _value;
 
 		public TagRefData(string name, uint offset, long address, TagHierarchy allTags, bool showButtons, bool withGroup,
-			uint pluginLine, string tooltip,string tra)
-			: base(name, offset, address, pluginLine, tooltip,tra)
+			uint pluginLine, string tooltip,string tra,string tooltipTra)
+			: base(name, offset, address, pluginLine, tooltip,tra, tooltipTra)
 		{
 			_allTags = allTags;
 			_withGroup = withGroup;
@@ -72,7 +72,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public override MetaField CloneValue()
 		{
-			var result = new TagRefData(Name, Offset, FieldAddress, _allTags, _showButtons, _withGroup, PluginLine, ToolTip,Tra);
+			var result = new TagRefData(Name, Offset, FieldAddress, _allTags, _showButtons, _withGroup, PluginLine, ToolTip,Tra, TooltipTra);
 			result.Group = _group;
 			result.Value = _value;
 			return result;

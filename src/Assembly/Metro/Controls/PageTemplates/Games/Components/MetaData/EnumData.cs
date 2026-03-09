@@ -17,8 +17,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private EnumType _type;
 		private int _value;
 
-		public EnumData(string name, uint offset, long address, EnumType type, int value, uint pluginLine, string tooltip,string tra)
-			: base(name, offset, address, pluginLine, tooltip,tra)
+		public EnumData(string name, uint offset, long address, EnumType type, int value, uint pluginLine, string tooltip,string tra,string tooltipTra)
+			: base(name, offset, address, pluginLine, tooltip,tra, tooltipTra)
 		{
 			_type = type;
 			_value = value;
@@ -71,10 +71,10 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public override MetaField CloneValue()
 		{
-			var result = new EnumData(Name, Offset, FieldAddress, _type, _value, PluginLine, ToolTip,Tra);
+			var result = new EnumData(Name, Offset, FieldAddress, _type, _value, PluginLine, ToolTip,Tra, TooltipTra);
 			foreach (EnumValue option in Values)
 			{
-				var copiedValue = new EnumValue(option.Name, option.Value, option.ToolTip, option.Tra);
+				var copiedValue = new EnumValue(option.Name, option.Value, option.ToolTip, option.Tra,option.TooltipTra);
 				result.Values.Add(copiedValue);
 				if (_selectedValue != null && copiedValue.Value == _selectedValue.Value)
 					result._selectedValue = copiedValue;
@@ -104,13 +104,15 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private int _value;
 		private string _tooltip;
         private string _tra;
+        private string _tooltipTra;
 
-        public EnumValue(string name, int value, string tooltip,string tra)
+        public EnumValue(string name, int value, string tooltip,string tra,string tooltipTra)
 		{
 			_name = name;
 			_value = value;
 			_tooltip = tooltip;
 			_tra = tra;
+			_tooltipTra = tooltipTra;
         }
 
 		public string Name
@@ -151,7 +153,20 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 			}
 		}
 
-		public bool ToolTipExists
+        public string TooltipTra
+        {
+            get
+            {
+                return _tooltipTra;
+            }
+            set
+            {
+                _tooltipTra = value;
+                NotifyPropertyChanged("TooltipTra");
+            }
+        }
+
+        public bool ToolTipExists
 		{
 			get { return !string.IsNullOrEmpty(_tooltip); }
 		}

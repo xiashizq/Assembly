@@ -122,6 +122,8 @@
                             <TextBlock Text="{Binding ToolTip}" TextWrapping="WrapWithOverflow" 
 							   Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}, ConverterParameter={x:Static Visibility.Collapsed}}" />
                             <TextBlock Text="{Binding Tra}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
+                            <TextBlock Text="{Binding TooltipTra}" TextWrapping="WrapWithOverflow" FontWeight="Bold"
+                                       Visibility="{Binding ToolTipExists, Converter={StaticResource cb2v}, ConverterParameter={x:Static Visibility.Collapsed}}"/>
                         </StackPanel>
                     </Expander.ToolTip>
                     <Expander.Header>

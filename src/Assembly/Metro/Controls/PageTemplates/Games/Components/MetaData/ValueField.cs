@@ -13,8 +13,9 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private uint _offset;
 		private string _tooltip;
         private string _tra;
+        private string _tooltipTra;
 
-        public ValueField(string name, uint offset, long address, uint pluginLine, string tooltip,string tra)
+        public ValueField(string name, uint offset, long address, uint pluginLine, string tooltip,string tra,string tooltipTra)
 		{
 			_name = name;
 			_offset = offset;
@@ -22,6 +23,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 			PluginLine = pluginLine;
 			_tooltip = tooltip;
 			_tra = tra;
+			_tooltipTra = tooltipTra;
         }
 
 		/// <summary>
@@ -44,6 +46,16 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
             {
                 _tra = value;
                 NotifyPropertyChanged("Tra");
+            }
+        }
+
+        public string TooltipTra
+        {
+            get { return _tooltipTra; }
+            set
+            {
+                _tooltipTra = value;
+                NotifyPropertyChanged("TooltipTra");
             }
         }
 

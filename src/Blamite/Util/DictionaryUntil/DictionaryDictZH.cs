@@ -1230,7 +1230,8 @@ namespace Blamite.Util.DictionaryUntil
             { "Overrides Unit And Camera Screen Effects", "覆盖单元和相机屏幕效果" },
             { "Unzoomed", "未缩放" },
             { "Zoom Level 1", "缩放级别1" },
-            { "Zoom Level 2", "缩放级别2" }
+            { "Zoom Level 2", "缩放级别2" },
+            { "changing this would not be wise","改变这一点并非明智之举"}
         };
     }
 }

@@ -13,8 +13,8 @@
 		private StringType _type;
 		private string _value;
 
-		public StringData(string name, uint offset, long address, StringType type, string value, int size, uint pluginLine, string tooltip, string tra)
-			: base(name, offset, address, pluginLine, tooltip, tra)
+		public StringData(string name, uint offset, long address, StringType type, string value, int size, uint pluginLine, string tooltip, string tra,string tooltipTra)
+			: base(name, offset, address, pluginLine, tooltip, tra, tooltipTra)
 		{
 			_value = value;
 			_size = size;
@@ -83,7 +83,7 @@
 
 		public override MetaField CloneValue()
 		{
-			return new StringData(Name, Offset, FieldAddress, _type, _value, _size, PluginLine, ToolTip,Tra);
+			return new StringData(Name, Offset, FieldAddress, _type, _value, _size, PluginLine, ToolTip,Tra, TooltipTra);
 		}
 
 		public override string AsString()

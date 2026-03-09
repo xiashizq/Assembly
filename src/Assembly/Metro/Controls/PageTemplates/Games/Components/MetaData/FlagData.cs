@@ -20,8 +20,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private FlagsType _type;
 		private ulong _value;
 
-		public FlagData(string name, uint offset, long address, FlagsType type, uint pluginLine, string tooltip,string tra)
-			: base(name, offset, address, pluginLine, tooltip,tra)
+		public FlagData(string name, uint offset, long address, FlagsType type, uint pluginLine, string tooltip,string tra,string tooltipTra)
+			: base(name, offset, address, pluginLine, tooltip,tra, tooltipTra)
 		{
 			_type = type;
 			CheckAllCommand = new QuickCheckCommand(this, true);
@@ -64,9 +64,9 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public ICommand UncheckAllCommand { get; private set; }
 
-		public void DefineBit(int index, string name, string tooltip,string tra)
+		public void DefineBit(int index, string name, string tooltip,string tra,string tooltipTra)
 		{
-			var data = new BitData(this, name, index, tooltip,tra);
+			var data = new BitData(this, name, index, tooltip,tra, tooltipTra);
 			_bits[index] = data;
 		}
 
@@ -77,9 +77,9 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 
 		public override MetaField CloneValue()
 		{
-			var result = new FlagData(Name, Offset, FieldAddress, _type, PluginLine, ToolTip,Tra);
+			var result = new FlagData(Name, Offset, FieldAddress, _type, PluginLine, ToolTip,Tra, TooltipTra);
 			foreach (var bit in _bits)
-				result.DefineBit(bit.Key, bit.Value.Name, bit.Value.ToolTip, Tra);
+				result.DefineBit(bit.Key, bit.Value.Name, bit.Value.ToolTip, Tra, TooltipTra);
 			result.Value = _value;
 			return result;
 		}
@@ -169,9 +169,10 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 		private string _name;
 		private string _tooltip;
         private string _tra;
+        private string _tooltipTra;
         private int _index;
 
-		public BitData(FlagData parent, string name, int index, string tooltip,string tra)
+		public BitData(FlagData parent, string name, int index, string tooltip,string tra,string tooltipTra)
 		{
 			_parent = parent;
 			_name = name;
@@ -179,6 +180,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.MetaData
 			_mask = (ulong)1U << index;
 			_tooltip = tooltip;
             _tra = tra;
+			_tooltipTra = tooltipTra;
         }
 
 		public string Name

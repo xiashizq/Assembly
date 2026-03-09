@@ -51,160 +51,160 @@ namespace Blamite.Plugins
 			Debug.WriteLine(Indent() + "Comment \"{0}\": {1}", title, text);
 		}
 
-		public void VisitUInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitUInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("UInt8", name, offset, visible, tooltip,tra);
+			PrintBasicValue("UInt8", name, offset, visible, tooltip,tra,tooltipTra);
 		}
 
-		public void VisitInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitInt8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Int8", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Int8", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitUInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitUInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("UInt16", name, offset, visible, tooltip, tra);
+			PrintBasicValue("UInt16", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Int16", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Int16", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitUInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitUInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("UInt32", name, offset, visible, tooltip, tra);
+			PrintBasicValue("UInt32", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitInt32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Int32", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Int32", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitUInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitUInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("UInt64", name, offset, visible, tooltip, tra);
+			PrintBasicValue("UInt64", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitInt64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Int64", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Int64", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Float32", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Float32", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitUndefined(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitUndefined(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Undefined", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Undefined", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitPoint2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitPoint2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Point2", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Point2", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitPoint3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitPoint3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Point3", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Point3", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitVector2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitVector2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Vector2", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Vector2", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitVector3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitVector3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Vector3", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Vector3", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitVector4(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitVector4(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Vector4", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Vector4", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Degree", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Degree", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitDegree2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitDegree2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Degree2", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Degree2", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitDegree3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitDegree3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Degree3", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Degree3", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitPlane2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitPlane2(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Plane2", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Plane2", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitPlane3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitPlane3(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Plane3", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Plane3", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitRect16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitRect16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Rect16", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Rect16", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitQuat16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitQuat16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Quat16", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Quat16", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitPoint16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitPoint16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Point16", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Point16", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("StringID", name, offset, visible, tooltip, tra);
+			PrintBasicValue("StringID", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitTagReference(string name, uint offset, bool visible, bool withGroup, uint pluginLine, string tooltip, string tra)
+		public void VisitTagReference(string name, uint offset, bool visible, bool withGroup, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Tag reference", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Tag reference", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public bool EnterFlags8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public bool EnterFlags8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Flags8", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Flags8", name, offset, visible, tooltip, tra, tooltipTra);
 			_level++;
 			return true;
 		}
 
-		public bool EnterFlags16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public bool EnterFlags16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Flags16", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Flags16", name, offset, visible, tooltip, tra, tooltipTra);
 			_level++;
 			return true;
 		}
 
-		public bool EnterFlags32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public bool EnterFlags32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Flags32", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Flags32", name, offset, visible, tooltip, tra, tooltipTra);
 			_level++;
 			return true;
 		}
 
-		public bool EnterFlags64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public bool EnterFlags64(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Flags64", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Flags64", name, offset, visible, tooltip, tra, tooltipTra);
 			_level++;
 			return true;
 		}
 
-		public void VisitBit(string name, int index, string tooltip,string tra)
+		public void VisitBit(string name, int index, string tooltip,string tra,string tooltipTra)
 		{
 			Debug.WriteLine(Indent() + "Bit \"{0}\" at position {1}, tooltip = {2}", name, index, tooltip);
 		}
@@ -214,30 +214,30 @@ namespace Blamite.Plugins
 			_level--;
 		}
 
-		public bool EnterEnum8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public bool EnterEnum8(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Enum8", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Enum8", name, offset, visible, tooltip, tra, tooltipTra);
 			_level++;
 			return true;
 		}
 
-		public bool EnterEnum16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public bool EnterEnum16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Enum16", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Enum16", name, offset, visible, tooltip, tra, tooltipTra);
 			_level++;
 			return true;
 		}
 
-		public bool EnterEnum32(string name, uint offset, bool visible, uint pluginLine, string tooltip,string tra)
+		public bool EnterEnum32(string name, uint offset, bool visible, uint pluginLine, string tooltip,string tra,string tooltipTra)
 		{
-			PrintBasicValue("Enum32", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Enum32", name, offset, visible, tooltip, tra, tooltipTra);
 			_level++;
 			return true;
 		}
 
-		public void VisitOption(string name, int value, string tooltip,string tra)
+		public void VisitOption(string name, int value, string tooltip,string tra,string tooltipTra)
 		{
-			Debug.WriteLine(Indent() + "{0} = {1}, tooltip = {2}", name, value, tooltip,tra);
+			Debug.WriteLine(Indent() + "{0} = {1}, tooltip = {2}", name, value, tooltip,tra,tooltipTra);
 		}
 
 		public void LeaveEnum()
@@ -245,7 +245,7 @@ namespace Blamite.Plugins
 			_level--;
 		}
 
-		public bool EnterTagBlock(string name, uint offset, bool visible, uint elementSize, int align, bool sort, uint pluginLine, string tooltip,string tra)
+		public bool EnterTagBlock(string name, uint offset, bool visible, uint elementSize, int align, bool sort, uint pluginLine, string tooltip,string tra,string tooltipTra)
 		{
 			Debug.WriteLine(Indent() + "Tag block \"{0}\" at {1}, visible = {2}, elementSize = {3}, align = {4}, sort = {5}, tooltip = {6}", name, offset, visible, elementSize, align, sort, tooltip);
 			_level++;
@@ -257,79 +257,79 @@ namespace Blamite.Plugins
 			_level--;
 		}
 
-		public void VisitDataReference(string name, uint offset, string format, bool visible, int align, uint pluginLine, string tooltip,string tra)
+		public void VisitDataReference(string name, uint offset, string format, bool visible, int align, uint pluginLine, string tooltip,string tra,string tooltipTra)
 		{
 			Debug.WriteLine(Indent() + "Data reference \"{0}\" at {1}, format = {2}, visible = {3}, align = {4}, tooltip = {5}", name, offset, format, visible, align, tooltip);
 		}
 
-		public void VisitAscii(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip,string tra)
+		public void VisitAscii(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip,string tra,string tooltipTra)
 		{
 			Debug.WriteLine(Indent() + "Ascii string \"{0}\" at {1}, visible = {2}, size = {3}, tooltip = {4}", name, offset, visible, size, tooltip);
 		}
 
-		public void VisitUtf16(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip,string tra)
+		public void VisitUtf16(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip,string tra,string tooltipTra)
 		{
 			Debug.WriteLine(Indent() + "Utf16 string \"{0}\" at {1}, visible = {2}, size = {3}, tooltip = {4}", name, offset, visible, size, tooltip);
 		}
 
-		public void VisitHexString(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip, string tra)
+		public void VisitHexString(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
 			Debug.WriteLine(Indent() + "Hex string \"{0}\" at {1}, visible = {2}, size = {3}, tooltip = {4}", name, offset, visible, size, tooltip);
 		}
 
-		public void VisitColorInt(string name, uint offset, bool visible, bool alpha, uint pluginLine, string tooltip,string tra)
+		public void VisitColorInt(string name, uint offset, bool visible, bool alpha, uint pluginLine, string tooltip,string tra,string tooltipTra)
 		{
 			Debug.WriteLine(Indent() + "Color32 \"{0}\" at {1}, visible = {2}, alpha = {3}, tooltip = {4}", name, offset, visible, alpha, tooltip);
 		}
 
-		public void VisitColorF(string name, uint offset, bool visible, bool alpha, bool basic, uint pluginLine, string tooltip, string tra)
+		public void VisitColorF(string name, uint offset, bool visible, bool alpha, bool basic, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
 			Debug.WriteLine(Indent() + "ColorF \"{0}\" at {1}, visible = {2}, alpha = {3}, basic = {4}, tooltip = {5}", name, offset, visible, alpha, basic, tooltip);
 		}
 
-		public void VisitRawData(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip,string tra)
+		public void VisitRawData(string name, uint offset, bool visible, int size, uint pluginLine, string tooltip,string tra,string tooltipTra)
 		{
-			Debug.WriteLine(Indent() + "Raw data block \"{0}\" at {1}, visible = {2}, size = {3}, tooltip = {4}", name, offset, visible, size, tooltip,tra);
+			Debug.WriteLine(Indent() + "Raw data block \"{0}\" at {1}, visible = {2}, size = {3}, tooltip = {4}", name, offset, visible, size, tooltip,tra,tooltipTra);
 		}
 
-		private static void PrintBasicValue(string type, string name, uint offset, bool visible, string tooltip, string tra)
+		private static void PrintBasicValue(string type, string name, uint offset, bool visible, string tooltip, string tra,string tooltipTra)
 		{
-			Debug.WriteLine("{0} \"{1}\" at {2}, visible = {3}, tooltip = {4}", type, name, offset, visible, tooltip,tra);
+			Debug.WriteLine("{0} \"{1}\" at {2}, visible = {3}, tooltip = {4}", type, name, offset, visible, tooltip,tra,tooltipTra);
 		}
 
-		public void VisitShader(string name, uint offset, bool visible, ShaderType type, uint pluginLine, string tooltip, string tra)
+		public void VisitShader(string name, uint offset, bool visible, ShaderType type, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
 			Debug.WriteLine(Indent() + "Shader \"{0}\" at {1}, visible = {2}, type = {3}, tooltip = {4}", name, offset, visible, type, tooltip);
 		}
 
-		public void VisitRangeInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitRangeInt16(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Range16", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Range16", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitRangeFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitRangeFloat32(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("RangeF", name, offset, visible, tooltip, tra);
+			PrintBasicValue("RangeF", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitRangeDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitRangeDegree(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("RangeD", name, offset, visible, tooltip, tra);
+			PrintBasicValue("RangeD", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitUnicList(string name, uint offset, bool visible, int languages, uint pluginLine, string tooltip,string tra)
+		public void VisitUnicList(string name, uint offset, bool visible, int languages, uint pluginLine, string tooltip,string tra,string tooltipTra)
 		{
 			Debug.WriteLine(Indent() + "Unicode string list \"{0}\" at {1}, visible = {2}, languages = {3}, tooltip = {4}", name, offset, visible, languages, tooltip);
 		}
 
-		public void VisitDatum(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitDatum(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("Datum", name, offset, visible, tooltip, tra);
+			PrintBasicValue("Datum", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 
-		public void VisitOldStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra)
+		public void VisitOldStringID(string name, uint offset, bool visible, uint pluginLine, string tooltip, string tra,string tooltipTra)
 		{
-			PrintBasicValue("OldStringID", name, offset, visible, tooltip, tra);
+			PrintBasicValue("OldStringID", name, offset, visible, tooltip, tra, tooltipTra);
 		}
 	}
 }

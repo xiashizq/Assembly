@@ -2,12 +2,13 @@
 {
 	public class CommentData : MetaField
 	{
-		private string _name, _text;
+		private string _name, _text, _translatedText;
 
 		public CommentData(string name, string text, uint pluginLine)
 		{
 			_name = name;
 			_text = text;
+			_translatedText = null;
 			PluginLine = pluginLine;
 		}
 
@@ -31,9 +32,25 @@
 			}
 		}
 
+		public string TranslatedText
+		{
+			get { return _translatedText; }
+			set
+			{
+				_translatedText = value;
+				NotifyPropertyChanged("TranslatedText");
+				NotifyPropertyChanged("HasTranslatedText");
+			}
+		}
+
 		public bool TextExists
 		{
 			get { return !string.IsNullOrEmpty(_text); }
+		}
+
+		public bool HasTranslatedText
+		{
+			get { return !string.IsNullOrEmpty(_translatedText); }
 		}
 
 		public override void Accept(IMetaFieldVisitor visitor)
@@ -43,7 +60,9 @@
 
 		public override MetaField CloneValue()
 		{
-			return new CommentData(_name, _text, PluginLine);
+			CommentData cloned = new CommentData(_name, _text, PluginLine);
+			cloned.TranslatedText = _translatedText;
+			return cloned;
 		}
 
 		public override string AsString()

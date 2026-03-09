@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Globalization;
 using System.Xml;
 using Blamite.Blam.Shaders;
@@ -31,7 +31,6 @@ namespace Blamite.Plugins
 
 		private static void ReadElements(XmlReader reader, bool topLevel, IPluginVisitor visitor)
 		{
-            DictionaryDict.InitializeDictionary();
             while (reader.Read())
 			{
 				if (reader.NodeType != XmlNodeType.Element) continue;
@@ -112,14 +111,15 @@ namespace Blamite.Plugins
 			if (reader.MoveToAttribute("name"))
             name = reader.Value;
             string fullXmlNode = reader.ReadOuterXml();
-            //Console.WriteLine(name);
-            tra = DictionaryDict.GetChineseTranslation(name);
+			//Console.WriteLine(name);
+			tra = DictionaryDict.GetTranslation(name);
             if (reader.MoveToAttribute("offset"))
 				offset = ParseUInt(reader.Value);
 			if (reader.MoveToAttribute("visible"))
 				visible = ParseBool(reader.Value);
 			if (reader.MoveToAttribute("tooltip"))
 				tooltip = reader.Value;
+			    Console.WriteLine(tooltip);
 			reader.MoveToElement();
 			// 在这里处理翻译完成后的逻辑
 			switch (elementName.ToLowerInvariant()) // FIXME: Using ToLower() here violates XML standards
@@ -420,7 +420,7 @@ namespace Blamite.Plugins
 				name = reader.Value;
             //未知1
             //Console.WriteLine(name);
-            tra = DictionaryDict.GetChineseTranslation(name);
+            tra = DictionaryDict.GetTranslation(name);
             if (!reader.MoveToAttribute("index"))
 				throw new ArgumentException("Bit definitions must have an index." + PositionInfo(reader));
 			int index = ParseInt(reader.Value);
@@ -452,12 +452,11 @@ namespace Blamite.Plugins
 				name = reader.Value;
                 //Console.WriteLine(name);
             //下拉框所在地
-            tra = DictionaryDict.GetChineseTranslation(name);
+            tra = DictionaryDict.GetTranslation(name);
             if (reader.MoveToAttribute("value"))
 				value = ParseInt(reader.Value);
 			if (reader.MoveToAttribute("tooltip"))
 				tooltip = reader.Value;
-
 			visitor.VisitOption(name, value, tooltip, tra);
 		}
 

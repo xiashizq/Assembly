@@ -760,7 +760,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
         {
             MetaField field = GetWrappedField(e.Source);
             if (field == null) return;
-            var finder = new GetXmlStringByLine(testName2.Text);
+            var finder = new GetXmlStringByLine(_pluginPath);
             btnToggleAI.IsChecked = true;
             ToggleAIPanel();
             string nodeXml = finder.GetNodeXmlAtLine((int)field.PluginLine);

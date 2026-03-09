@@ -424,6 +424,9 @@
     <Compile Include="Util\AES.cs" />
     <Compile Include="Util\CharConstant.cs" />
     <Compile Include="Util\DictionaryUntil\DictionaryDict.cs" />
+    <Compile Include="Util\DictionaryUntil\DictionaryDictBase.cs" />
+    <Compile Include="Util\DictionaryUntil\DictionaryDictJP.cs" />
+    <Compile Include="Util\DictionaryUntil\DictionaryDictZH.cs" />
     <Compile Include="Util\FIFOStack.cs" />
     <Compile Include="Util\FileSystem.cs" />
     <Compile Include="Util\FunctionHelpers.cs" />

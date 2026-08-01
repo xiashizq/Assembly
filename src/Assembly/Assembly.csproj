@@ -118,16 +118,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>E40405FA5030F585C4600259B4EB8AEF66111428</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
+    <!-- Old temporary ClickOnce cert (thumbprint E40405FA...) expired 2026-06-15. -->
     <ManifestKeyFile>Assembly_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <!-- Temporary ClickOnce cert expired 2026-06-15; disable signing so Release builds succeed. -->
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>

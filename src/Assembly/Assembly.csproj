@@ -127,7 +127,8 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <!-- Temporary ClickOnce cert expired 2026-06-15; disable signing so Release builds succeed. -->
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

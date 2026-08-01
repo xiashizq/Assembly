@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Globalization;
 using System.Xml;
 using Blamite.Blam.Shaders;
@@ -429,6 +429,7 @@ namespace Blamite.Plugins
 			int index = ParseInt(reader.Value);
 			if (reader.MoveToAttribute("tooltip"))
 				tooltip = reader.Value;
+			tooltipTra = DictionaryDict.GetTranslation(tooltip);
 
 			visitor.VisitBit(name, index, tooltip, tra,tooltipTra);
 		}

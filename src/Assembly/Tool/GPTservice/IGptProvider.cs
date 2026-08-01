@@ -3,7 +3,8 @@ namespace Assembly.Tool.GPTservice
 	internal enum GptApiStyle
 	{
 		OpenAiCompatible,
-		AzureOpenAi
+		AzureOpenAi,
+		Anthropic
 	}
 
 	internal interface IGptProvider

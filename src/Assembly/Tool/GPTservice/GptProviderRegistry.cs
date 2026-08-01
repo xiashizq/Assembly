@@ -8,6 +8,7 @@ namespace Assembly.Tool.GPTservice
 	{
 		private static readonly IGptProvider[] Providers =
 		{
+			// ---- Domestic ----
 			new GptProviderInfo
 			{
 				Id = "Qwen",
@@ -73,6 +74,8 @@ namespace Assembly.Tool.GPTservice
 				DefaultLongModel = "Baichuan4-Turbo",
 				HelpText = "百川智能：https://platform.baichuan-ai.com/"
 			},
+
+			// ---- International ----
 			new GptProviderInfo
 			{
 				Id = "OpenAI",
@@ -84,12 +87,112 @@ namespace Assembly.Tool.GPTservice
 			},
 			new GptProviderInfo
 			{
+				Id = "Anthropic",
+				DisplayName = "Anthropic (Claude)",
+				ApiStyle = GptApiStyle.Anthropic,
+				DefaultBaseUrl = "https://api.anthropic.com",
+				DefaultModel = "claude-sonnet-4-20250514",
+				DefaultLongModel = "claude-sonnet-4-20250514",
+				HelpText = "Anthropic Console：https://console.anthropic.com/ 使用 x-api-key。"
+			},
+			new GptProviderInfo
+			{
+				Id = "Gemini",
+				DisplayName = "Google Gemini",
+				DefaultBaseUrl = "https://generativelanguage.googleapis.com/v1beta/openai",
+				DefaultModel = "gemini-2.0-flash",
+				DefaultLongModel = "gemini-2.0-flash",
+				HelpText = "Google AI Studio：https://aistudio.google.com/apikey （OpenAI 兼容接口）。"
+			},
+			new GptProviderInfo
+			{
+				Id = "xAI",
+				DisplayName = "xAI (Grok)",
+				DefaultBaseUrl = "https://api.x.ai/v1",
+				DefaultModel = "grok-2-latest",
+				DefaultLongModel = "grok-2-latest",
+				HelpText = "xAI Console：https://console.x.ai/"
+			},
+			new GptProviderInfo
+			{
+				Id = "Mistral",
+				DisplayName = "Mistral AI",
+				DefaultBaseUrl = "https://api.mistral.ai/v1",
+				DefaultModel = "mistral-small-latest",
+				DefaultLongModel = "mistral-large-latest",
+				HelpText = "Mistral Console：https://console.mistral.ai/"
+			},
+			new GptProviderInfo
+			{
 				Id = "Groq",
 				DisplayName = "Groq",
 				DefaultBaseUrl = "https://api.groq.com/openai/v1",
 				DefaultModel = "llama-3.3-70b-versatile",
 				DefaultLongModel = "llama-3.3-70b-versatile",
 				HelpText = "Groq Cloud：https://console.groq.com/"
+			},
+			new GptProviderInfo
+			{
+				Id = "OpenRouter",
+				DisplayName = "OpenRouter",
+				DefaultBaseUrl = "https://openrouter.ai/api/v1",
+				DefaultModel = "openai/gpt-4o-mini",
+				DefaultLongModel = "anthropic/claude-sonnet-4",
+				HelpText = "OpenRouter：https://openrouter.ai/ 可统一调用多家国际模型。"
+			},
+			new GptProviderInfo
+			{
+				Id = "Together",
+				DisplayName = "Together AI",
+				DefaultBaseUrl = "https://api.together.xyz/v1",
+				DefaultModel = "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+				DefaultLongModel = "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+				HelpText = "Together AI：https://api.together.xyz/"
+			},
+			new GptProviderInfo
+			{
+				Id = "Fireworks",
+				DisplayName = "Fireworks AI",
+				DefaultBaseUrl = "https://api.fireworks.ai/inference/v1",
+				DefaultModel = "accounts/fireworks/models/llama-v3p1-8b-instruct",
+				DefaultLongModel = "accounts/fireworks/models/llama-v3p1-70b-instruct",
+				HelpText = "Fireworks AI：https://fireworks.ai/"
+			},
+			new GptProviderInfo
+			{
+				Id = "Perplexity",
+				DisplayName = "Perplexity",
+				DefaultBaseUrl = "https://api.perplexity.ai",
+				DefaultModel = "sonar",
+				DefaultLongModel = "sonar-pro",
+				HelpText = "Perplexity API：https://www.perplexity.ai/settings/api"
+			},
+			new GptProviderInfo
+			{
+				Id = "Cerebras",
+				DisplayName = "Cerebras",
+				DefaultBaseUrl = "https://api.cerebras.ai/v1",
+				DefaultModel = "llama3.1-8b",
+				DefaultLongModel = "llama3.1-70b",
+				HelpText = "Cerebras Cloud：https://cloud.cerebras.ai/"
+			},
+			new GptProviderInfo
+			{
+				Id = "DeepInfra",
+				DisplayName = "DeepInfra",
+				DefaultBaseUrl = "https://api.deepinfra.com/v1/openai",
+				DefaultModel = "meta-llama/Meta-Llama-3.1-8B-Instruct",
+				DefaultLongModel = "meta-llama/Meta-Llama-3.1-70B-Instruct",
+				HelpText = "DeepInfra：https://deepinfra.com/"
+			},
+			new GptProviderInfo
+			{
+				Id = "HuggingFace",
+				DisplayName = "Hugging Face",
+				DefaultBaseUrl = "https://router.huggingface.co/v1",
+				DefaultModel = "meta-llama/Meta-Llama-3.1-8B-Instruct",
+				DefaultLongModel = "meta-llama/Meta-Llama-3.1-70B-Instruct",
+				HelpText = "Hugging Face Inference：https://huggingface.co/settings/tokens"
 			},
 			new GptProviderInfo
 			{
@@ -113,7 +216,7 @@ namespace Assembly.Tool.GPTservice
 				DefaultLongModel = "llama3.2",
 				ExtraLabel = "Base URL (OpenAI Compatible)",
 				RequiresExtra = true,
-				HelpText = "任意 OpenAI 兼容接口，例如 Ollama、OneAPI、LocalAI、自建网关。"
+				HelpText = "任意 OpenAI 兼容接口，例如 Ollama、OneAPI、LocalAI、LiteLLM、自建网关。"
 			}
 		};
 

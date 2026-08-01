@@ -34,7 +34,9 @@
 							<LineBreak />
 							International:
 							<LineBreak />
-							OpenAI, Groq, Azure OpenAI
+							OpenAI, Anthropic/Claude, Gemini, xAI/Grok, Mistral,
+							Groq, OpenRouter, Together, Fireworks, Perplexity,
+							Cerebras, DeepInfra, Hugging Face, Azure OpenAI
 							<LineBreak />
 							<LineBreak />
 							Also supports Custom / Ollama OpenAI-compatible endpoints.

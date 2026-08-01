@@ -17,6 +17,7 @@ using System.Windows.Resources;
 using System.Windows.Threading;
 using Assembly.Helpers;
 using Assembly.Helpers.Native;
+using Assembly.Helpers.UIX;
 using Assembly.Helpers.Net;
 using Assembly.Metro.Controls.PageTemplates;
 using Assembly.Metro.Controls.PageTemplates.Games;
@@ -75,6 +76,12 @@ namespace Assembly.Windows
 
             AllowDrop = true;
             App.AssemblyStorage.AssemblySettings.HomeWindow = this;
+            ApplyMenuLocalization();
+        }
+
+        public void ApplyMenuLocalization()
+        {
+            UiMenuLocalizer.Apply(mainMenuBar);
         }
 
         protected override async void OnSourceInitialized(EventArgs e)
@@ -1055,6 +1062,8 @@ namespace Assembly.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            ApplyMenuLocalization();
+
             if (!App.AssemblyStorage.AssemblySettings.ShownCheatingDialog)
             {
                 App.AssemblyStorage.AssemblySettings.ShownCheatingDialog = true;

@@ -9,16 +9,23 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string Id => "DeepL";
 		public string DisplayName => "DeepL";
 		public string AppIdLabel => "Auth Key";
-		public string SecretKeyLabel => "(optional)";
-		public string ExtraLabel => "Endpoint (optional: free / pro)";
+		public string SecretKeyLabel => "";
+		public string ExtraLabel => "";
+		public string ApiUrlLabel => "API URL";
+		public bool UsesAppId => true;
+		public bool UsesSecretKey => false;
+		public bool UsesExtra => false;
+		public bool UsesApiUrl => true;
 		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => false;
 		public bool RequiresExtra => false;
-		public string HelpText => "DeepL API: https://www.deepl.com/pro-api (free keys usually end with :fx)";
+		public bool RequiresApiUrl => false;
+		public string DefaultApiUrl => "https://api-free.deepl.com";
+		public string HelpText => "DeepL API: https://www.deepl.com/pro-api (Auth Key only; free keys end with :fx ? api-free.deepl.com, pro ? api.deepl.com)";
 
-		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
+		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra, string apiUrl)
 		{
-			string host = ResolveHost(appId, extra);
+			string host = ResolveHost(appId, apiUrl);
 			string url = host + "/v2/translate";
 			var payload = new JObject
 			{
@@ -37,14 +44,12 @@ namespace Assembly.Tool.TranslateService.Providers
 				?? throw new Exception("DeepL: empty translation result");
 		}
 
-		private static string ResolveHost(string authKey, string extra)
+		private string ResolveHost(string authKey, string apiUrl)
 		{
-			string mode = (extra ?? string.Empty).Trim().ToLowerInvariant();
-			if (mode == "pro" || mode == "api.deepl.com")
-				return "https://api.deepl.com";
-			if (mode == "free" || mode == "api-free.deepl.com")
-				return "https://api-free.deepl.com";
+			if (!string.IsNullOrWhiteSpace(apiUrl))
+				return TranslateEndpoint.Resolve(apiUrl, DefaultApiUrl);
 
+			// Backward compat: Extra used to store free/pro; still honor via empty apiUrl + key suffix.
 			return (authKey ?? string.Empty).EndsWith(":fx", StringComparison.OrdinalIgnoreCase)
 				? "https://api-free.deepl.com"
 				: "https://api.deepl.com";

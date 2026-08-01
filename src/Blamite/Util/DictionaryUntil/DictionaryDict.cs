@@ -1,77 +1,106 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Blamite.Util.DictionaryUntil
 {
-    internal class DictionaryDict
-    {
-        // 语言字典实例
-        private static Dictionary<string, DictionaryDictBase> languageDictionaries = new Dictionary<string, DictionaryDictBase>
-        {
-            { "zh", new DictionaryDictZH() },
-            { "ja", new DictionaryDictJP() }
-        };
+	public class DictionaryDict
+	{
+		private const string NotFound = "Translation not found.";
 
-        // 初始化所有字典
-        static DictionaryDict()
-        {
-            foreach (var dict in languageDictionaries.Values)
-            {
-                dict.InitializeDictionary();
-            }
-        }
+		// 语言字典实例
+		private static readonly Dictionary<string, DictionaryDictBase> languageDictionaries =
+			new Dictionary<string, DictionaryDictBase>(StringComparer.OrdinalIgnoreCase)
+			{
+				{ "zh", new DictionaryDictZH() },
+				{ "ja", new DictionaryDictJP() }
+			};
 
-        // 从配置文件读取设置
-        private static string GetLocalLanguageSetting()
-        {
-            try
-            {
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string configFilePath = Path.Combine(appDataPath, "Assembly", "config.ini");
-                if (File.Exists(configFilePath))
-                {
-                    var lines = File.ReadAllLines(configFilePath);
-                    foreach (var line in lines)
-                    {
-                        var parts = line.Split(new[] { '=' }, 2);
-                        if (parts.Length == 2 && parts[0].Trim().Equals("LocalLanguage", StringComparison.OrdinalIgnoreCase))
-                        {
-                            return parts[1].Trim();
-                        }
-                    }
-                }
-            }
-            catch { }
-            return "zh";
-        }
+		static DictionaryDict()
+		{
+			foreach (var dict in languageDictionaries.Values)
+				dict.InitializeDictionary();
+		}
 
-        // 根据语言获取翻译
-        public static string GetTranslation(string englishTerm, string language = null)
-        {
-            if (string.IsNullOrEmpty(language))
-            {
-                language = GetLocalLanguageSetting();
-            }
-            
-            if (languageDictionaries.TryGetValue(language, out var dictionary))
-            {
-                string translation = dictionary.GetTranslation(englishTerm);
-                if (translation != "Translation not found.")
-                {
-                    return translation;
-                }
-            }
-            return "Translation not found.";
-        }
+		public static IEnumerable<string> GetAvailableDictionaryLanguages()
+		{
+			return languageDictionaries.Keys;
+		}
 
-        // 兼容旧方法
-        public static string GetChineseTranslation(string englishTerm)
-        {
-            return GetTranslation(englishTerm, "zh");
-        }
-    }
+		private static string GetLocalLanguageSetting()
+		{
+			try
+			{
+				string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+				string configFilePath = Path.Combine(appDataPath, "Assembly", "config.ini");
+				if (File.Exists(configFilePath))
+				{
+					var lines = File.ReadAllLines(configFilePath);
+					foreach (var line in lines)
+					{
+						var parts = line.Split(new[] { '=' }, 2);
+						if (parts.Length == 2 && parts[0].Trim().Equals("LocalLanguage", StringComparison.OrdinalIgnoreCase))
+							return parts[1].Trim();
+					}
+				}
+			}
+			catch { }
+			return "zh";
+		}
+
+		private static string NormalizeLanguage(string language)
+		{
+			string code = (language ?? "zh").Trim().ToLowerInvariant().Replace('_', '-');
+			if (code == "zh-cn" || code == "zh-hans" || code == "cn" || code == "zh-tw" || code == "zh-hant" || code == "cht")
+				return "zh";
+			if (code == "jp")
+				return "ja";
+			return code;
+		}
+
+		/// <summary>
+		/// Plugin-field style lookup. Returns "Translation not found." when missing.
+		/// </summary>
+		public static string GetTranslation(string englishTerm, string language = null)
+		{
+			if (string.IsNullOrEmpty(englishTerm))
+				return string.Empty;
+
+			if (string.IsNullOrEmpty(language))
+				language = GetLocalLanguageSetting();
+
+			string normalized = NormalizeLanguage(language);
+
+			if (normalized == "en" || !languageDictionaries.ContainsKey(normalized))
+				return englishTerm;
+
+			if (languageDictionaries.TryGetValue(normalized, out var dictionary))
+			{
+				string translation = dictionary.GetTranslation(englishTerm);
+				if (translation != NotFound)
+					return translation;
+			}
+
+			return NotFound;
+		}
+
+		/// <summary>
+		/// UI localization lookup. Falls back to the English key when not in dictionary.
+		/// </summary>
+		public static string GetUiTranslation(string englishTerm, string language = null)
+		{
+			if (string.IsNullOrEmpty(englishTerm))
+				return string.Empty;
+
+			string translation = GetTranslation(englishTerm, language);
+			if (string.IsNullOrEmpty(translation) || translation == NotFound)
+				return englishTerm;
+			return translation;
+		}
+
+		public static string GetChineseTranslation(string englishTerm)
+		{
+			return GetTranslation(englishTerm, "zh");
+		}
+	}
 }

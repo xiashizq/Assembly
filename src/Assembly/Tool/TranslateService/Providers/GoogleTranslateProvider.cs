@@ -9,16 +9,23 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string Id => "Google";
 		public string DisplayName => "Google Cloud Translation";
 		public string AppIdLabel => "API Key";
-		public string SecretKeyLabel => "(optional)";
+		public string SecretKeyLabel => "";
 		public string ExtraLabel => "";
+		public string ApiUrlLabel => "API URL";
+		public bool UsesAppId => true;
+		public bool UsesSecretKey => false;
+		public bool UsesExtra => false;
+		public bool UsesApiUrl => true;
 		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => false;
 		public bool RequiresExtra => false;
-		public string HelpText => "Google Cloud Translation API: https://cloud.google.com/translate";
+		public bool RequiresApiUrl => false;
+		public string DefaultApiUrl => "https://translation.googleapis.com/language/translate/v2";
+		public string HelpText => "Google Cloud Translation API: https://cloud.google.com/translate (API Key only)";
 
-		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
+		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra, string apiUrl)
 		{
-			string url = "https://translation.googleapis.com/language/translate/v2?key=" + HttpUtility.UrlEncode(appId);
+			string url = TranslateEndpoint.Resolve(apiUrl, DefaultApiUrl) + "?key=" + HttpUtility.UrlEncode(appId);
 			var payload = new JObject
 			{
 				["q"] = text,

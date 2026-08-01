@@ -13,19 +13,26 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string AppIdLabel => "APP ID";
 		public string SecretKeyLabel => "Secret Key";
 		public string ExtraLabel => "";
+		public string ApiUrlLabel => "API URL";
+		public bool UsesAppId => true;
+		public bool UsesSecretKey => true;
+		public bool UsesExtra => false;
+		public bool UsesApiUrl => true;
 		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => true;
 		public bool RequiresExtra => false;
-		public string HelpText => "Baidu Translate API: https://fanyi-api.baidu.com/";
+		public bool RequiresApiUrl => false;
+		public string DefaultApiUrl => "https://fanyi-api.baidu.com/api/trans/vip/translate";
+		public string HelpText => "Baidu Translate API: https://fanyi-api.baidu.com/ (APP ID + Secret Key)";
 
-		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
+		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra, string apiUrl)
 		{
 			string from = "en";
 			string to = TranslateLanguageMapper.Map(Id, targetLanguage);
 			string salt = new Random().Next(100000, 999999).ToString();
 			string sign = Md5Hex(appId + text + salt + secretKey);
 
-			string url = "https://fanyi-api.baidu.com/api/trans/vip/translate"
+			string url = TranslateEndpoint.Resolve(apiUrl, DefaultApiUrl)
 				+ "?q=" + HttpUtility.UrlEncode(text)
 				+ "&from=" + from
 				+ "&to=" + to

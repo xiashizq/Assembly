@@ -2454,6 +2454,7 @@
     <Compile Include="Helpers\TagDataCommandState.cs" />
     <Compile Include="Helpers\UIX\AnimationHelper.cs" />
     <Compile Include="Helpers\UIX\ImagerLoader.cs" />
+    <Compile Include="Helpers\UIX\UiMenuLocalizer.cs" />
     <Compile Include="Helpers\Updater.cs" />
     <Compile Include="Helpers\VariousFunctions.cs" />
     <Compile Include="Helpers\CodeCompletion\XML\XMLTagCompletionData.cs" />
@@ -2809,7 +2810,9 @@
     <Compile Include="Metro\SharedViewModelUntil\SharedViewModel.cs" />
     <Compile Include="Tool\TranslateService\ITranslateProvider.cs" />
     <Compile Include="Tool\TranslateService\PublicTranslateService.cs" />
+    <Compile Include="Tool\TranslateService\TranslateEndpoint.cs" />
     <Compile Include="Tool\TranslateService\TranslateHttp.cs" />
+    <Compile Include="Tool\TranslateService\TranslateLanguageCatalog.cs" />
     <Compile Include="Tool\TranslateService\TranslateLanguageMapper.cs" />
     <Compile Include="Tool\TranslateService\Providers\AliyunTranslateProvider.cs" />
     <Compile Include="Tool\TranslateService\Providers\AmazonTranslateProvider.cs" />

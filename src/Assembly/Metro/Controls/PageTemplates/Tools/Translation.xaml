@@ -36,17 +36,24 @@
 							LibreTranslate, MyMemory
 							<LineBreak />
 							<LineBreak />
-							Select a platform, fill credentials, then save.
-							Each provider stores its own keys.
+							Credentials differ by provider:
+							<LineBreak />
+							- Some need APP ID + Secret Key
+							<LineBreak />
+							- Some need only an API Key / Token
+							<LineBreak />
+							- Region / Folder ID appear only when needed
+							<LineBreak />
+							- API URL is editable; defaults are pre-filled
 							<LineBreak />
 							<LineBreak />
-							Local language settings:
+							Target language = online API result language.
 							<LineBreak />
-							- Default dictionary language for the UI
-							<LineBreak />
-							- Supported: Chinese (zh), Japanese (ja)
-							<LineBreak />
-							- Restart required after changes
+							Local language = offline dictionary preference
+							(built-in: zh / ja; others keep English).
+							Menu bar reloads from the selected dictionary
+							immediately after save; plugin fields need
+							reopen/restart to refresh.
                         </TextBlock>
 					</Grid>
 				</ScrollViewer>
@@ -54,13 +61,14 @@
 		</Grid>
 
 		<Grid Margin="350,0,0,0" HorizontalAlignment="Stretch">
-			<Border Margin="30,30,0,0" BorderThickness="0" VerticalAlignment="Top" Padding="10" BorderBrush="#FF999999">
+			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+			<Border Margin="30,30,30,30" BorderThickness="0" VerticalAlignment="Top" Padding="10" BorderBrush="#FF999999">
                 <StackPanel Margin="0,10,0,0">
                     <TextBlock Text="Online translation API settings:" Foreground="White" FontSize="13" />
                     
                     <Grid Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="160" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="platform:" Foreground="White" FontSize="13" Grid.Column="0" />
@@ -75,7 +83,7 @@
 
                     <Grid Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="160" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="target language:" Foreground="White" FontSize="13" Grid.Column="0" />
@@ -88,25 +96,34 @@
                         </ComboBox>
                     </Grid>
 
-                    <Grid Margin="0,10,0,0">
+                    <Grid x:Name="apiUrlRow" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="160" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="appIdLabel" Text="appId:" Foreground="White" FontSize="13" />
+                        <TextBlock x:Name="apiUrlLabel" Text="API URL:" Foreground="White" FontSize="13" TextWrapping="Wrap" />
+                        <TextBox x:Name="apiUrlInput" Text="" Grid.Column="1" />
+                    </Grid>
+
+                    <Grid x:Name="appIdRow" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="appIdLabel" Text="appId:" Foreground="White" FontSize="13" TextWrapping="Wrap" />
                         <TextBox x:Name="appIdInput" Text="" Grid.Column="1" />
                     </Grid>
                     <Grid x:Name="secretKeyRow" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="160" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="secretKeyLabel" Text="secretKey:" Foreground="White" FontSize="13" />
+                        <TextBlock x:Name="secretKeyLabel" Text="secretKey:" Foreground="White" FontSize="13" TextWrapping="Wrap" />
                         <TextBox x:Name="secretKeyInput" Text="" Grid.Column="1"/>
                     </Grid>
                     <Grid x:Name="extraRow" Margin="0,10,0,0" Visibility="Collapsed">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="160" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock x:Name="extraLabel" Text="extra:" Foreground="White" FontSize="13" TextWrapping="Wrap" />
@@ -121,7 +138,7 @@
                     <TextBlock Text="Local Language Settings" Foreground="White" FontSize="16" Margin="0,20,0,0" />
                     <Grid Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="160" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="local language:" Foreground="White" FontSize="13" Grid.Column="0" />
@@ -136,6 +153,7 @@
                     <Button x:Name="btnSaveLocal" Content="Save Local Language" Click="btnSaveLocal_Click" Margin="0,10,0,0" />
                 </StackPanel>
             </Border>
+			</ScrollViewer>
 		</Grid>
 
 		<Grid x:Name="MaskingPage" Visibility="Collapsed">

@@ -10,17 +10,24 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string Id => "Microsoft";
 		public string DisplayName => "Microsoft Translator (Azure)";
 		public string AppIdLabel => "Subscription Key";
-		public string SecretKeyLabel => "(optional)";
+		public string SecretKeyLabel => "";
 		public string ExtraLabel => "Region (e.g. global / eastasia)";
+		public string ApiUrlLabel => "API URL";
+		public bool UsesAppId => true;
+		public bool UsesSecretKey => false;
+		public bool UsesExtra => true;
+		public bool UsesApiUrl => true;
 		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => false;
 		public bool RequiresExtra => false;
-		public string HelpText => "Azure Translator: https://portal.azure.com/";
+		public bool RequiresApiUrl => false;
+		public string DefaultApiUrl => "https://api.cognitive.microsofttranslator.com";
+		public string HelpText => "Azure Translator: https://portal.azure.com/ (Subscription Key + Region; no Secret Key)";
 
-		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
+		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra, string apiUrl)
 		{
 			string to = TranslateLanguageMapper.Map(Id, targetLanguage);
-			string url = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0"
+			string url = TranslateEndpoint.Resolve(apiUrl, DefaultApiUrl) + "/translate?api-version=3.0"
 				+ "&from=en"
 				+ "&to=" + HttpUtility.UrlEncode(to);
 

@@ -8,19 +8,27 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string Id => "LibreTranslate";
 		public string DisplayName => "LibreTranslate";
 		public string AppIdLabel => "API Key (optional)";
-		public string SecretKeyLabel => "(optional)";
-		public string ExtraLabel => "Endpoint URL (default https://libretranslate.com)";
+		public string SecretKeyLabel => "";
+		public string ExtraLabel => "";
+		public string ApiUrlLabel => "API URL";
+		public bool UsesAppId => true;
+		public bool UsesSecretKey => false;
+		public bool UsesExtra => false;
+		public bool UsesApiUrl => true;
 		public bool RequiresAppId => false;
 		public bool RequiresSecretKey => false;
 		public bool RequiresExtra => false;
-		public string HelpText => "LibreTranslate public/self-hosted: https://libretranslate.com/";
+		public bool RequiresApiUrl => false;
+		public string DefaultApiUrl => "https://libretranslate.com";
+		public string HelpText => "LibreTranslate public/self-hosted: https://libretranslate.com/ (optional API Key; set API URL for self-hosted)";
 
-		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
+		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra, string apiUrl)
 		{
-			string endpoint = string.IsNullOrWhiteSpace(extra)
-				? "https://libretranslate.com"
-				: extra.Trim().TrimEnd('/');
-			string url = endpoint + "/translate";
+			// Migrate old Extra-based endpoint.
+			string baseUrl = !string.IsNullOrWhiteSpace(apiUrl)
+				? apiUrl
+				: (!string.IsNullOrWhiteSpace(extra) ? extra : DefaultApiUrl);
+			string url = TranslateEndpoint.Resolve(baseUrl, DefaultApiUrl) + "/translate";
 
 			var payload = new JObject
 			{

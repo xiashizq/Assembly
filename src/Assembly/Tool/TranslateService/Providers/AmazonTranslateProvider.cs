@@ -14,17 +14,35 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string AppIdLabel => "Access Key ID";
 		public string SecretKeyLabel => "Secret Access Key";
 		public string ExtraLabel => "Region (default us-east-1)";
+		public string ApiUrlLabel => "API URL";
+		public bool UsesAppId => true;
+		public bool UsesSecretKey => true;
+		public bool UsesExtra => true;
+		public bool UsesApiUrl => true;
 		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => true;
 		public bool RequiresExtra => false;
-		public string HelpText => "AWS Translate: https://aws.amazon.com/translate/ (IAM Access Key)";
+		public bool RequiresApiUrl => false;
+		public string DefaultApiUrl => "https://translate.us-east-1.amazonaws.com/";
+		public string HelpText => "AWS Translate: https://aws.amazon.com/translate/ (Access Key ID + Secret Access Key + Region)";
 
-		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
+		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra, string apiUrl)
 		{
 			string region = string.IsNullOrWhiteSpace(extra) ? "us-east-1" : extra.Trim();
 			string service = "translate";
-			string host = "translate." + region + ".amazonaws.com";
-			string endpoint = "https://" + host + "/";
+			string host;
+			string endpoint;
+			if (!string.IsNullOrWhiteSpace(apiUrl))
+			{
+				endpoint = TranslateEndpoint.Resolve(apiUrl, DefaultApiUrl) + "/";
+				host = TranslateEndpoint.ResolveHost(endpoint, "translate." + region + ".amazonaws.com");
+			}
+			else
+			{
+				host = "translate." + region + ".amazonaws.com";
+				endpoint = "https://" + host + "/";
+			}
+
 			string amzTarget = "AWSShineFrontendService_20170701.TranslateText";
 			string contentType = "application/x-amz-json-1.1";
 

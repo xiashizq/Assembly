@@ -9,14 +9,21 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string Id => "Yandex";
 		public string DisplayName => "Yandex Translate";
 		public string AppIdLabel => "API Key";
-		public string SecretKeyLabel => "(optional)";
+		public string SecretKeyLabel => "";
 		public string ExtraLabel => "Folder ID (optional)";
+		public string ApiUrlLabel => "API URL";
+		public bool UsesAppId => true;
+		public bool UsesSecretKey => false;
+		public bool UsesExtra => true;
+		public bool UsesApiUrl => true;
 		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => false;
 		public bool RequiresExtra => false;
-		public string HelpText => "Yandex Cloud Translate: https://cloud.yandex.com/services/translate";
+		public bool RequiresApiUrl => false;
+		public string DefaultApiUrl => "https://translate.api.cloud.yandex.net/translate/v2/translate";
+		public string HelpText => "Yandex Cloud Translate: https://cloud.yandex.com/services/translate (API Key + optional Folder ID)";
 
-		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
+		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra, string apiUrl)
 		{
 			var payload = new JObject
 			{
@@ -33,7 +40,7 @@ namespace Assembly.Tool.TranslateService.Providers
 			};
 
 			JObject json = JObject.Parse(TranslateHttp.PostJson(
-				"https://translate.api.cloud.yandex.net/translate/v2/translate",
+				TranslateEndpoint.Resolve(apiUrl, DefaultApiUrl),
 				payload.ToString(Newtonsoft.Json.Formatting.None),
 				headers));
 

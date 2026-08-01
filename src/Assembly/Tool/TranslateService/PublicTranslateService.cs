@@ -53,6 +53,7 @@ namespace Assembly.Tool.TranslateService
 			string appId = ConfigManager.GetSetting("Assembly", GetAppIdKey(provider.Id));
 			string secretKey = ConfigManager.GetSetting("Assembly", GetSecretKeyKey(provider.Id));
 			string extra = ConfigManager.GetSetting("Assembly", GetExtraKey(provider.Id));
+			string apiUrl = ConfigManager.GetSetting("Assembly", GetApiUrlKey(provider.Id));
 
 			// Backward compatible fallback for older Baidu-only config.
 			if (string.IsNullOrWhiteSpace(appId))
@@ -66,13 +67,18 @@ namespace Assembly.Tool.TranslateService
 				return "Translation secret key not configured";
 			if (provider.RequiresExtra && string.IsNullOrWhiteSpace(extra))
 				return "Translation extra setting not configured";
+			if (provider.RequiresApiUrl && string.IsNullOrWhiteSpace(apiUrl) && string.IsNullOrWhiteSpace(provider.DefaultApiUrl))
+				return "Translation API URL not configured";
 
 			string targetLanguage = ConfigManager.GetSetting("Assembly", "TranslationTargetlanguage", "zh");
 
 			try
 			{
-				return provider.Translate(q, targetLanguage, (appId ?? string.Empty).Trim(),
-					(secretKey ?? string.Empty).Trim(), (extra ?? string.Empty).Trim());
+				return provider.Translate(q, targetLanguage,
+					(appId ?? string.Empty).Trim(),
+					(secretKey ?? string.Empty).Trim(),
+					(extra ?? string.Empty).Trim(),
+					(apiUrl ?? string.Empty).Trim());
 			}
 			catch (Exception ex)
 			{
@@ -93,6 +99,11 @@ namespace Assembly.Tool.TranslateService
 		internal static string GetExtraKey(string providerId)
 		{
 			return "TranslationExtra_" + providerId;
+		}
+
+		internal static string GetApiUrlKey(string providerId)
+		{
+			return "TranslationApiUrl_" + providerId;
 		}
 	}
 }

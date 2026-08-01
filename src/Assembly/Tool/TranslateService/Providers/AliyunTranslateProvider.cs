@@ -15,16 +15,33 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string AppIdLabel => "AccessKey ID";
 		public string SecretKeyLabel => "AccessKey Secret";
 		public string ExtraLabel => "Region (optional, default cn-hangzhou)";
+		public string ApiUrlLabel => "API URL";
+		public bool UsesAppId => true;
+		public bool UsesSecretKey => true;
+		public bool UsesExtra => true;
+		public bool UsesApiUrl => true;
 		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => true;
 		public bool RequiresExtra => false;
-		public string HelpText => "Aliyun Machine Translation: https://www.aliyun.com/product/ai/alimt";
+		public bool RequiresApiUrl => false;
+		public string DefaultApiUrl => "https://mt.cn-hangzhou.aliyuncs.com/";
+		public string HelpText => "Aliyun Machine Translation: https://www.aliyun.com/product/ai/alimt (AccessKey ID + Secret)";
 
-		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
+		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra, string apiUrl)
 		{
 			string region = string.IsNullOrWhiteSpace(extra) ? "cn-hangzhou" : extra.Trim();
-			string host = "mt." + region + ".aliyuncs.com";
-			string endpoint = "https://" + host + "/";
+			string endpoint;
+			string host;
+			if (!string.IsNullOrWhiteSpace(apiUrl))
+			{
+				endpoint = TranslateEndpoint.Resolve(apiUrl, DefaultApiUrl) + "/";
+				host = TranslateEndpoint.ResolveHost(endpoint, "mt." + region + ".aliyuncs.com");
+			}
+			else
+			{
+				host = "mt." + region + ".aliyuncs.com";
+				endpoint = "https://" + host + "/";
+			}
 
 			var parameters = new SortedDictionary<string, string>(StringComparer.Ordinal)
 			{

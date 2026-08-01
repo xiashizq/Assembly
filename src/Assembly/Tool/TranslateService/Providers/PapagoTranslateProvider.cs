@@ -12,12 +12,19 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string AppIdLabel => "Client ID";
 		public string SecretKeyLabel => "Client Secret";
 		public string ExtraLabel => "";
+		public string ApiUrlLabel => "API URL";
+		public bool UsesAppId => true;
+		public bool UsesSecretKey => true;
+		public bool UsesExtra => false;
+		public bool UsesApiUrl => true;
 		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => true;
 		public bool RequiresExtra => false;
-		public string HelpText => "Naver Papago API: https://developers.naver.com/products/papago/";
+		public bool RequiresApiUrl => false;
+		public string DefaultApiUrl => "https://openapi.naver.com/v1/papago/n2mt";
+		public string HelpText => "Naver Papago API: https://developers.naver.com/products/papago/ (Client ID + Client Secret)";
 
-		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
+		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra, string apiUrl)
 		{
 			string body =
 				"source=en"
@@ -31,7 +38,7 @@ namespace Assembly.Tool.TranslateService.Providers
 			};
 
 			JObject json = JObject.Parse(TranslateHttp.PostForm(
-				"https://openapi.naver.com/v1/papago/n2mt", body, headers));
+				TranslateEndpoint.Resolve(apiUrl, DefaultApiUrl), body, headers));
 
 			if (json["errorCode"] != null)
 				throw new Exception("Papago error " + json["errorCode"] + ": " + json["errorMessage"]);

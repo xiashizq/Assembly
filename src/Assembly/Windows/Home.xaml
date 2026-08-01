@@ -62,7 +62,7 @@
 						</Button>
 					</StackPanel>
 
-					<Menu Margin="0,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="{x:Null}"
+					<Menu x:Name="mainMenuBar" Margin="0,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="{x:Null}"
 					      Foreground="{x:Null}">
 						<MenuItem Margin="5,0,0,0" Header="FILE" Foreground="White" FontFamily="{DynamicResource MetroFontLight}"
 						          BorderBrush="{x:Null}" FontSize="12">

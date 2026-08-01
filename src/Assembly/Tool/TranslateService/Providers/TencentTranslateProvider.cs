@@ -14,14 +14,22 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string AppIdLabel => "SecretId";
 		public string SecretKeyLabel => "SecretKey";
 		public string ExtraLabel => "Region (optional, default ap-guangzhou)";
+		public string ApiUrlLabel => "API URL";
+		public bool UsesAppId => true;
+		public bool UsesSecretKey => true;
+		public bool UsesExtra => true;
+		public bool UsesApiUrl => true;
 		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => true;
 		public bool RequiresExtra => false;
-		public string HelpText => "Tencent Cloud TMT: https://cloud.tencent.com/product/tmt";
+		public bool RequiresApiUrl => false;
+		public string DefaultApiUrl => "https://tmt.tencentcloudapi.com";
+		public string HelpText => "Tencent Cloud TMT: https://cloud.tencent.com/product/tmt (SecretId + SecretKey)";
 
-		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
+		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra, string apiUrl)
 		{
-			string host = "tmt.tencentcloudapi.com";
+			string endpoint = TranslateEndpoint.Resolve(apiUrl, DefaultApiUrl);
+			string host = TranslateEndpoint.ResolveHost(endpoint, "tmt.tencentcloudapi.com");
 			string service = "tmt";
 			string action = "TextTranslate";
 			string version = "2018-03-21";
@@ -65,7 +73,11 @@ namespace Assembly.Tool.TranslateService.Providers
 				["X-TC-Region"] = region
 			};
 
-			JObject json = JObject.Parse(TranslateHttp.PostJson("https://" + host, payload, headers));
+			string postUrl = endpoint.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+				? endpoint
+				: "https://" + host;
+
+			JObject json = JObject.Parse(TranslateHttp.PostJson(postUrl, payload, headers));
 			JToken error = json["Response"]?["Error"];
 			if (error != null)
 				throw new Exception("Tencent error " + error["Code"] + ": " + error["Message"]);

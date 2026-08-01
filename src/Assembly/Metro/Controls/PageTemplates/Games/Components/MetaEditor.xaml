@@ -15,6 +15,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="MetaComponents/ComponentDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.CommandBindings>
@@ -35,13 +36,13 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="mianContent" Width="*" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition x:Name="rightAIContent" Width="0" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
-                <!--<RowDefinition Height="70"/>-->
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Name="gridSearch">
@@ -148,7 +149,7 @@
                     </DockPanel>
                 </Border>
             </Grid>-->
-            <Grid Grid.Row="3" HorizontalAlignment="Stretch">
+            <Grid Grid.Row="2" HorizontalAlignment="Stretch">
                 <Border BorderThickness="0,1,0,0" BorderBrush="#434346" Background="#FF303032">
                     <DockPanel>
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="10,0,0,0">
@@ -173,9 +174,8 @@
                             <ToggleButton x:Name="btnOptions" VerticalAlignment="Center" Margin="5,0,0,0" IsChecked="False" ToolTip="Click to view options and tools regarding the editor.">
                                 <Path VerticalAlignment="Center" Margin="2" Fill="#989898" Style="{StaticResource GearIcon}" />
                             </ToggleButton>
-                            <ToggleButton x:Name="btnToggleAI" Width="70" Height="25" IsChecked="False" Margin="5,0,0,0" Content="Expand" Click="btnToggleAI_Click">
-                                
-                            </ToggleButton>
+                            <ToggleButton x:Name="btnToggleAI" MinWidth="72" Height="25" IsChecked="False" Margin="5,0,0,0"
+                                          Content="AI" Click="btnToggleAI_Click" ToolTip="Open / close AI assistant panel" />
                             <Popup x:Name="popOptions" IsOpen="{Binding IsChecked, ElementName=btnOptions}" PlacementTarget="{x:Reference btnOptions}" StaysOpen="False" >
                                 <Border BorderThickness="1" Background="#1b1b1c" BorderBrush="#333337">
                                     <StackPanel>
@@ -219,34 +219,141 @@
                 </Border>
             </Grid>
         </Grid>
-        <GridSplitter Width="2" Background="#FF545456" ResizeDirection="Columns"/>
-        <Grid Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0" x:Name="rightAIContentGrid" Visibility="Collapsed">
+        <GridSplitter Grid.Column="1" Width="3" Background="#FF3A3A3E" ResizeDirection="Columns" ShowsPreview="True"
+                      VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+        <Grid Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0"
+              x:Name="rightAIContentGrid" Visibility="Collapsed"
+              DataContext="{StaticResource SharedViewModel}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="0"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" HorizontalAlignment="Stretch">
-                <Border BorderThickness="0,1,0,0" BorderBrush="#434346" Background="#FF303032">
-                    <DockPanel>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <TextBlock DockPanel.Dock="Right" FontFamily="Microsoft YaHei" SnapsToDevicePixels="True" FontSize="14" Margin="5,5,5,5" TextWrapping="Wrap" Text="{Binding Source={StaticResource SharedViewModel}, Path=AiLongText}" Foreground="White">
-                            </TextBlock>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
-            </Grid>
-            <Grid Grid.Row="1" Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0"/>
-                    <ColumnDefinition Width="0"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="64"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" x:Name="testName"></TextBox>
-                <TextBox Grid.Column="1" x:Name="testName2"></TextBox>
-                <TextBox Grid.Column="2" x:Name="questInfo" FontFamily="Microsoft YaHei"></TextBox>
-                <Button Content="发送" Width="64" Click="btnReturnAiRes_Click" Grid.Column="3" />
-            </Grid>
+
+            <!-- Header -->
+            <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="#3F3F43" Background="#252528" Padding="12,10">
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                        <Border Width="8" Height="8" CornerRadius="4" Margin="0,0,8,0" VerticalAlignment="Center"
+                                Background="{DynamicResource ExtryzeAccentBrush}" />
+                        <TextBlock Text="AI Assistant" FontSize="14" FontWeight="SemiBold" Foreground="#F2F2F2"
+                                   VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" />
+                        <Border Margin="10,0,0,0" CornerRadius="9" Padding="8,2" VerticalAlignment="Center"
+                                Background="#333338">
+                            <TextBlock Text="{Binding AiStatusText}" FontSize="11" Foreground="#B8B8BC"
+                                       FontFamily="Microsoft YaHei UI" />
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                        <Button Content="Copy" Width="52" Height="24" Margin="0,0,6,0" Click="btnAiCopy_Click"
+                                ToolTip="Copy AI response" />
+                        <Button Content="Clear" Width="52" Height="24" Click="btnAiClear_Click"
+                                ToolTip="Clear conversation" />
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <!-- Messages -->
+            <Border Grid.Row="1" Background="#1E1E21">
+                <ScrollViewer x:Name="aiChatScrollViewer" VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled" Padding="10">
+                    <StackPanel>
+                        <!-- Empty state -->
+                        <StackPanel Margin="8,36,8,8"
+                                    Visibility="{Binding ShowEmptyState, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock Text="Ask AI about this tag" FontSize="15" FontWeight="SemiBold"
+                                       Foreground="#E8E8EA" HorizontalAlignment="Center"
+                                       FontFamily="Microsoft YaHei UI" />
+                            <TextBlock Margin="0,8,0,0" TextWrapping="Wrap" TextAlignment="Center"
+                                       Foreground="#8E8E95" FontSize="12" FontFamily="Microsoft YaHei UI"
+                                       Text="Use context menu &quot;AI理解&quot; on a field, or type a question below." />
+                        </StackPanel>
+
+                        <!-- Busy indicator -->
+                        <Border Margin="4,8,4,4" Padding="12,10" CornerRadius="10" Background="#2A2A30"
+                                BorderBrush="#3F3F46" BorderThickness="1"
+                                Visibility="{Binding IsAiBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <ProgressBar Width="80" Height="3" IsIndeterminate="True" Margin="0,0,10,0"
+                                             VerticalAlignment="Center" />
+                                <TextBlock Text="Generating response..." Foreground="#C8C8CE" FontSize="12"
+                                           VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Quick answer bubble (field-level) -->
+                        <Border Margin="4,8,4,4" Padding="12,10" CornerRadius="12" Background="#2B3340"
+                                BorderBrush="{DynamicResource ExtryzeAccentBrush}" BorderThickness="1,1,1,1"
+                                Visibility="{Binding HasAiText, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel>
+                                <TextBlock Text="Quick Insight" FontSize="11" Foreground="{DynamicResource ExtryzeAccentBrushSecondary}"
+                                           Margin="0,0,0,6" FontFamily="Microsoft YaHei UI" />
+                                <TextBlock Text="{Binding AiText}" TextWrapping="Wrap" Foreground="#F4F4F6"
+                                           FontSize="13" LineHeight="22" FontFamily="Microsoft YaHei UI" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Long analysis bubble -->
+                        <Border Margin="4,8,4,12" Padding="12,12" CornerRadius="12" Background="#29292F"
+                                BorderBrush="#404048" BorderThickness="1"
+                                Visibility="{Binding HasAiLongText, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel>
+                                <DockPanel Margin="0,0,0,8">
+                                    <Border Width="22" Height="22" CornerRadius="11" Background="#3A3A42"
+                                            DockPanel.Dock="Left" Margin="0,0,8,0">
+                                        <TextBlock Text="AI" FontSize="9" Foreground="#D0D0D6"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   FontFamily="Microsoft YaHei UI" />
+                                    </Border>
+                                    <TextBlock Text="Analysis" FontSize="12" Foreground="#AFAFB6"
+                                               VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" />
+                                </DockPanel>
+                                <TextBox Text="{Binding AiLongText, Mode=OneWay}" TextWrapping="Wrap"
+                                         IsReadOnly="True" BorderThickness="0" Background="Transparent"
+                                         Foreground="#F1F1F3" FontSize="13"
+                                         FontFamily="Microsoft YaHei UI" CaretBrush="Transparent"
+                                         IsTabStop="False" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- Composer -->
+            <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#3F3F43" Background="#252528" Padding="10,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Keep hidden fields for existing file-query APIs -->
+                    <TextBox x:Name="testName" Visibility="Collapsed" />
+                    <TextBox x:Name="testName2" Visibility="Collapsed" />
+
+                    <Border Grid.Row="0" Grid.Column="0" CornerRadius="8" Background="#1B1B1F"
+                            BorderBrush="#3A3A40" BorderThickness="1" Margin="0,0,8,0" Padding="2">
+                        <TextBox x:Name="questInfo" MinHeight="54" MaxHeight="120"
+                                 AcceptsReturn="True" TextWrapping="Wrap"
+                                 BorderThickness="0" Background="Transparent"
+                                 Foreground="#F0F0F2" CaretBrush="White"
+                                 FontFamily="Microsoft YaHei UI" FontSize="12.5"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Padding="8,6"
+                                 ToolTip="Ask a question about the current plugin/tag document" />
+                    </Border>
+                    <Button Grid.Row="0" Grid.Column="1" Content="Send" Width="64" Height="54"
+                            Click="btnReturnAiRes_Click" VerticalAlignment="Stretch"
+                            ToolTip="Send question" />
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="2,6,0,0"
+                               Text="Tip: right-click a field and choose AI理解 for node analysis."
+                               Foreground="#7A7A82" FontSize="10.5" FontFamily="Microsoft YaHei UI" />
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>

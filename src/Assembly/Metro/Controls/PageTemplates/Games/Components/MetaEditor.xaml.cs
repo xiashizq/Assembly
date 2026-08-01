@@ -23,6 +23,9 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using Assembly.Tool.GPTservice;
 using Assembly.Metro.Controls.PageTemplates.Tools;
+using Assembly.Metro.SharedViewModelUntil;
+using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 {
@@ -96,9 +99,46 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
             _srcSegmentGroup = tag.RawTag.MetaLocation.BaseGroup;
 
             LoadNewTagEntry(tag);
+            HookAiViewModel();
 
             // Set init finished
             hasInitFinished = true;
+        }
+
+        private void HookAiViewModel()
+        {
+            var sharedVm = Application.Current.TryFindResource("SharedViewModel") as SharedViewModel;
+            if (sharedVm == null)
+                return;
+
+            sharedVm.PropertyChanged += SharedViewModel_PropertyChanged;
+            Unloaded += (s, e) => sharedVm.PropertyChanged -= SharedViewModel_PropertyChanged;
+        }
+
+        private void SharedViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SharedViewModel.AiPanelOpenRequest))
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    btnToggleAI.IsChecked = true;
+                    ToggleAIPanel();
+                }));
+                return;
+            }
+
+            if (e.PropertyName == nameof(SharedViewModel.AiText)
+                || e.PropertyName == nameof(SharedViewModel.AiLongText))
+            {
+                Dispatcher.BeginInvoke(new Action(ScrollAiChatToEnd), DispatcherPriority.Background);
+            }
+        }
+
+        private void ScrollAiChatToEnd()
+        {
+            if (aiChatScrollViewer == null)
+                return;
+            aiChatScrollViewer.ScrollToEnd();
         }
 
         private TagDataCommandState CheckTagDataCommand()
@@ -342,13 +382,25 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 
         private async void btnReturnAiRes_Click(object sender, RoutedEventArgs e)
         {
-            if (questInfo.Text == "")
+            if (string.IsNullOrWhiteSpace(questInfo.Text))
             {
-                MetroMessageBox.Show("提示", "您还未输入任何问题");
+                MetroMessageBox.Show("AI", "Please enter a question first.");
                 return;
             }
-            await GPTstreamClient.UploadFileAndQueryAsync(testName.Text, questInfo.Text);
-            questInfo.Text = "";
+
+            string question = questInfo.Text.Trim();
+            questInfo.Text = string.Empty;
+
+            string docPath = !string.IsNullOrWhiteSpace(testName.Text) ? testName.Text : _pluginPath;
+            if (!string.IsNullOrWhiteSpace(docPath) && File.Exists(docPath))
+            {
+                await GPTstreamClient.UploadFileAndQueryAsync(docPath, question);
+                return;
+            }
+
+            await GPTstreamClient.LongTextQueryAsync(
+                "当前没有可用的插件文档上下文，请根据光环/Blam引擎常识回答。",
+                question);
         }
 
         public void LoadNewTagEntry(TagEntry tag)
@@ -761,8 +813,6 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
             MetaField field = GetWrappedField(e.Source);
             if (field == null) return;
             var finder = new GetXmlStringByLine(_pluginPath);
-            btnToggleAI.IsChecked = true;
-            ToggleAIPanel();
             string nodeXml = finder.GetNodeXmlAtLine((int)field.PluginLine);
             await GPTstreamClient.QwenLongTextQueryAsync(nodeXml);
         }
@@ -1402,7 +1452,8 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
             HandleDump(Path.Combine(basePath, _tag.TagFileName + "[" + _tag.GroupName + "]" + ".json"), 1);
         }
 
-        private const double AiPanelWidth = 350.0;
+        private const double AiPanelWidth = 400.0;
+
         private void btnToggleAI_Click(object sender, RoutedEventArgs e)
         {
             ToggleAIPanel();
@@ -1413,7 +1464,43 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
             bool isExpand = btnToggleAI.IsChecked == true;
             rightAIContentGrid.Visibility = isExpand ? Visibility.Visible : Visibility.Collapsed;
             rightAIContent.Width = new GridLength(isExpand ? AiPanelWidth : 0);
-            btnToggleAI.Content = isExpand ? "Collapse" : "Expand";
+            btnToggleAI.Content = isExpand ? "AI ▸" : "AI";
+            if (isExpand)
+                ScrollAiChatToEnd();
+        }
+
+        private void btnAiCopy_Click(object sender, RoutedEventArgs e)
+        {
+            var sharedVm = Application.Current.TryFindResource("SharedViewModel") as SharedViewModel;
+            if (sharedVm == null)
+                return;
+
+            string text = string.Empty;
+            if (!string.IsNullOrWhiteSpace(sharedVm.AiLongText))
+                text = sharedVm.AiLongText;
+            else if (!string.IsNullOrWhiteSpace(sharedVm.AiText))
+                text = sharedVm.AiText;
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                MetroMessageBox.Show("AI", "Nothing to copy yet.");
+                return;
+            }
+
+            Clipboard.SetText(text);
+            StatusUpdater.Update("AI response copied.");
+        }
+
+        private void btnAiClear_Click(object sender, RoutedEventArgs e)
+        {
+            var sharedVm = Application.Current.TryFindResource("SharedViewModel") as SharedViewModel;
+            if (sharedVm == null)
+                return;
+
+            sharedVm.AiText = string.Empty;
+            sharedVm.AiLongText = string.Empty;
+            sharedVm.EndAi();
+            questInfo.Text = string.Empty;
         }
     }
 }

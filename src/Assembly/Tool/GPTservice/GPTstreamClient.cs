@@ -19,10 +19,15 @@ namespace Assembly.Tool.GPTservice
 	{
 		public static async Task GPT_Async(string name)
 		{
+			var sharedVm = GetSharedVm();
+			sharedVm.BeginAi();
+			sharedVm.AiText = string.Empty;
+
 			IGptProvider provider = ResolveProvider();
 			if (provider == null)
 			{
 				await SetAiTextAsync("Unsupported GPT provider");
+				sharedVm.EndAi();
 				return;
 			}
 
@@ -36,62 +41,86 @@ namespace Assembly.Tool.GPTservice
 				new Dictionary<string, string> { ["role"] = "user", ["content"] = name }
 			};
 
-			await OpenAiCompatibleClient.StreamChatAsync(
-				provider,
-				apiKey,
-				model,
-				ResolveBaseUrl(provider, extra),
-				messages,
-				status => { SetAiText(status); },
-				delta =>
-				{
-					Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+			try
+			{
+				await OpenAiCompatibleClient.StreamChatAsync(
+					provider,
+					apiKey,
+					model,
+					ResolveBaseUrl(provider, extra),
+					messages,
+					status =>
 					{
-						var sharedVm = (SharedViewModel)Application.Current.FindResource("SharedViewModel");
-						sharedVm.AiText += delta;
-					}));
-				},
-				error => { SetAiText(error); });
+						if (!string.IsNullOrEmpty(status))
+							SetAiText(status);
+						else
+							SetAiText(string.Empty);
+					},
+					delta =>
+					{
+						Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+						{
+							GetSharedVm().AiText += delta;
+						}));
+					},
+					error => { SetAiText(error); });
+			}
+			finally
+			{
+				GetSharedVm().EndAi();
+			}
 		}
 
 		public static async Task UploadFileAndQueryAsync(string filePath, string questInfo)
 		{
-			IGptProvider provider = ResolveProvider();
-			if (provider == null)
-			{
-				await SetAiLongTextAsync("Unsupported GPT provider");
-				return;
-			}
+			var sharedVm = GetSharedVm();
+			sharedVm.BeginAi();
+			sharedVm.AiLongText = string.Empty;
 
-			string apiKey = ResolveApiKey(provider.Id);
-			if (string.IsNullOrWhiteSpace(apiKey))
-			{
-				await SetAiLongTextAsync("API Key is not configured");
-				return;
-			}
-
-			if (provider.SupportsNativeFileUpload)
-			{
-				await UploadFileAndQueryQwenAsync(filePath, questInfo, apiKey, provider);
-				return;
-			}
-
-			string fileText;
 			try
 			{
-				fileText = File.ReadAllText(filePath);
-			}
-			catch (Exception ex)
-			{
-				await SetAiLongTextAsync("Failed to read file: " + ex.Message);
-				return;
-			}
+				IGptProvider provider = ResolveProvider();
+				if (provider == null)
+				{
+					await SetAiLongTextAsync("Unsupported GPT provider");
+					return;
+				}
 
-			await LongTextQueryAsync(
-				"以下是文档内容：\n" + fileText,
-				string.IsNullOrWhiteSpace(questInfo)
-					? "请根据文档内容进行解析与翻译说明。"
-					: questInfo);
+				string apiKey = ResolveApiKey(provider.Id);
+				if (string.IsNullOrWhiteSpace(apiKey))
+				{
+					await SetAiLongTextAsync("API Key is not configured");
+					return;
+				}
+
+				if (provider.SupportsNativeFileUpload)
+				{
+					await UploadFileAndQueryQwenAsync(filePath, questInfo, apiKey, provider);
+					return;
+				}
+
+				string fileText;
+				try
+				{
+					fileText = File.ReadAllText(filePath);
+				}
+				catch (Exception ex)
+				{
+					await SetAiLongTextAsync("Failed to read file: " + ex.Message);
+					return;
+				}
+
+				await LongTextQueryCoreAsync(
+					"以下是文档内容：\n" + fileText,
+					string.IsNullOrWhiteSpace(questInfo)
+						? "请根据文档内容进行解析与翻译说明。"
+						: questInfo,
+					manageBusyState: false);
+			}
+			finally
+			{
+				GetSharedVm().EndAi();
+			}
 		}
 
 		public static async Task QwenLongTextQueryAsync(string xmlLongText)
@@ -103,40 +132,65 @@ namespace Assembly.Tool.GPTservice
 
 		public static async Task LongTextQueryAsync(string contextText, string userQuestion)
 		{
-			IGptProvider provider = ResolveProvider();
-			if (provider == null)
+			await LongTextQueryCoreAsync(contextText, userQuestion, manageBusyState: true);
+		}
+
+		private static async Task LongTextQueryCoreAsync(string contextText, string userQuestion, bool manageBusyState)
+		{
+			var sharedVm = GetSharedVm();
+			if (manageBusyState)
 			{
-				await SetAiLongTextAsync("Unsupported GPT provider");
-				return;
+				sharedVm.BeginAi();
+				sharedVm.AiLongText = string.Empty;
 			}
 
-			string apiKey = ResolveApiKey(provider.Id);
-			string model = ResolveModel(provider, true);
-			string extra = ResolveExtra(provider.Id);
-
-			var messages = new List<Dictionary<string, string>>
+			try
 			{
-				new Dictionary<string, string> { ["role"] = "system", ["content"] = OpenAiCompatibleClient.LongSystemPrompt },
-				new Dictionary<string, string> { ["role"] = "system", ["content"] = contextText ?? string.Empty },
-				new Dictionary<string, string> { ["role"] = "user", ["content"] = userQuestion ?? string.Empty }
-			};
-
-			await OpenAiCompatibleClient.StreamChatAsync(
-				provider,
-				apiKey,
-				model,
-				ResolveBaseUrl(provider, extra),
-				messages,
-				status => { SetAiLongText(status); },
-				delta =>
+				IGptProvider provider = ResolveProvider();
+				if (provider == null)
 				{
-					Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+					await SetAiLongTextAsync("Unsupported GPT provider");
+					return;
+				}
+
+				string apiKey = ResolveApiKey(provider.Id);
+				string model = ResolveModel(provider, true);
+				string extra = ResolveExtra(provider.Id);
+
+				var messages = new List<Dictionary<string, string>>
+				{
+					new Dictionary<string, string> { ["role"] = "system", ["content"] = OpenAiCompatibleClient.LongSystemPrompt },
+					new Dictionary<string, string> { ["role"] = "system", ["content"] = contextText ?? string.Empty },
+					new Dictionary<string, string> { ["role"] = "user", ["content"] = userQuestion ?? string.Empty }
+				};
+
+				await OpenAiCompatibleClient.StreamChatAsync(
+					provider,
+					apiKey,
+					model,
+					ResolveBaseUrl(provider, extra),
+					messages,
+					status =>
 					{
-						var sharedVm = (SharedViewModel)Application.Current.FindResource("SharedViewModel");
-						sharedVm.AiLongText += delta;
-					}));
-				},
-				error => { SetAiLongText(error); });
+						if (!string.IsNullOrEmpty(status))
+							SetAiLongText(status);
+						else
+							SetAiLongText(string.Empty);
+					},
+					delta =>
+					{
+						Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+						{
+							GetSharedVm().AiLongText += delta;
+						}));
+					},
+					error => { SetAiLongText(error); });
+			}
+			finally
+			{
+				if (manageBusyState)
+					GetSharedVm().EndAi();
+			}
 		}
 
 		private static async Task UploadFileAndQueryQwenAsync(string filePath, string questInfo, string apiKey, IGptProvider provider)
@@ -384,16 +438,19 @@ namespace Assembly.Tool.GPTservice
 			return provider.DefaultBaseUrl;
 		}
 
+		private static SharedViewModel GetSharedVm()
+		{
+			return (SharedViewModel)Application.Current.FindResource("SharedViewModel");
+		}
+
 		private static void SetAiText(string text)
 		{
-			var sharedVm = (SharedViewModel)Application.Current.FindResource("SharedViewModel");
-			sharedVm.AiText = text ?? string.Empty;
+			GetSharedVm().AiText = text ?? string.Empty;
 		}
 
 		private static void SetAiLongText(string text)
 		{
-			var sharedVm = (SharedViewModel)Application.Current.FindResource("SharedViewModel");
-			sharedVm.AiLongText = text ?? string.Empty;
+			GetSharedVm().AiLongText = text ?? string.Empty;
 		}
 
 		private static Task SetAiTextAsync(string text)

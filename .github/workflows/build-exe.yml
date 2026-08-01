@@ -1,0 +1,113 @@
+name: Build EXE
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build clean win-x64 package
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        working-directory: src
+        run: nuget restore Assembly.sln -PackagesDirectory packages
+
+      - name: Build AssemblyIconLibrary
+        run: >
+          msbuild src/AssemblyIconLibrary/AssemblyIconLibrary.vcxproj
+          /restore:false
+          /p:Configuration=Release
+          /p:Platform=x64
+          /p:PlatformToolset=v143
+          /p:WindowsTargetPlatformVersion=10.0
+          /v:m
+
+      - name: Build Assembly (Release x64)
+        run: >
+          msbuild src/Assembly/Assembly.csproj
+          /t:Rebuild
+          /p:Configuration=Release
+          /p:Platform=x64
+          /p:SignManifests=false
+          /p:GenerateManifests=false
+          /p:BuildProjectReferences=true
+          /v:m
+
+      - name: Stage clean package
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $src = "src/Assembly/bin/x64/Release"
+          $dst = "dist/Assembly"
+          $icon = "src/AssemblyIconLibrary/bin/AssemblyIconLibrary.dll"
+
+          if (-not (Test-Path "$src/Assembly.exe")) {
+            throw "Assembly.exe not found in $src"
+          }
+
+          New-Item -ItemType Directory -Force -Path $dst | Out-Null
+
+          # Core binary (Costura embeds managed dependencies into the exe)
+          Copy-Item "$src/Assembly.exe" $dst
+          Copy-Item "$src/Assembly.exe.config" $dst
+
+          if (Test-Path "$src/AssemblySettings.ason") {
+            Copy-Item "$src/AssemblySettings.ason" $dst
+          }
+
+          # Runtime data required by Blamite/Assembly
+          Copy-Item "$src/Formats" "$dst/Formats" -Recurse
+          Copy-Item "$src/Plugins" "$dst/Plugins" -Recurse
+
+          # Used for protocol/file association icons
+          if (Test-Path $icon) {
+            Copy-Item $icon $dst
+          }
+
+          Write-Host "Clean package contents:"
+          Get-ChildItem $dst -Recurse | Select-Object FullName, Length | Format-Table -AutoSize
+
+          # Fail if managed dependency DLLs leaked into package root
+          $leaked = Get-ChildItem $dst -File -Filter "*.dll" |
+            Where-Object { $_.Name -ne "AssemblyIconLibrary.dll" }
+          if ($leaked) {
+            throw ("Unexpected DLL(s) in package root: " + ($leaked.Name -join ", "))
+          }
+
+      - name: Zip package
+        shell: pwsh
+        run: |
+          $zip = "dist/Assembly-win-x64.zip"
+          if (Test-Path $zip) { Remove-Item $zip -Force }
+          Compress-Archive -Path "dist/Assembly/*" -DestinationPath $zip -CompressionLevel Optimal
+          Get-Item $zip | Format-List FullName, Length
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Assembly-win-x64
+          path: dist/Assembly-win-x64.zip
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/Assembly-win-x64.zip
+          generate_release_notes: true

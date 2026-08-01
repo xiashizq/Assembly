@@ -256,10 +256,19 @@
             <!-- Messages -->
             <Border Grid.Row="1" Background="#1E1E21">
                 <ScrollViewer x:Name="aiChatScrollViewer" VerticalScrollBarVisibility="Auto"
-                              HorizontalScrollBarVisibility="Disabled" Padding="10">
-                    <StackPanel>
+                              HorizontalScrollBarVisibility="Disabled" Padding="10"
+                              CanContentScroll="False">
+                    <!-- Grid (not StackPanel) so children get a finite width and text can wrap -->
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
                         <!-- Empty state -->
-                        <StackPanel Margin="8,36,8,8"
+                        <StackPanel Grid.Row="0" Margin="8,36,8,8"
                                     Visibility="{Binding ShowEmptyState, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <TextBlock Text="Ask AI about this tag" FontSize="15" FontWeight="SemiBold"
                                        Foreground="#E8E8EA" HorizontalAlignment="Center"
@@ -270,8 +279,8 @@
                         </StackPanel>
 
                         <!-- Busy indicator -->
-                        <Border Margin="4,8,4,4" Padding="12,10" CornerRadius="10" Background="#2A2A30"
-                                BorderBrush="#3F3F46" BorderThickness="1"
+                        <Border Grid.Row="1" Margin="4,8,4,4" Padding="12,10" CornerRadius="10" Background="#2A2A30"
+                                BorderBrush="#3F3F46" BorderThickness="1" HorizontalAlignment="Stretch"
                                 Visibility="{Binding IsAiBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal">
                                 <ProgressBar Width="80" Height="3" IsIndeterminate="True" Margin="0,0,10,0"
@@ -282,23 +291,35 @@
                         </Border>
 
                         <!-- Quick answer bubble (field-level) -->
-                        <Border Margin="4,8,4,4" Padding="12,10" CornerRadius="12" Background="#2B3340"
-                                BorderBrush="{DynamicResource ExtryzeAccentBrush}" BorderThickness="1,1,1,1"
+                        <Border Grid.Row="2" Margin="4,8,4,4" Padding="12,10" CornerRadius="12" Background="#2B3340"
+                                BorderBrush="{DynamicResource ExtryzeAccentBrush}" BorderThickness="1"
+                                HorizontalAlignment="Stretch"
                                 Visibility="{Binding HasAiText, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <StackPanel>
-                                <TextBlock Text="Quick Insight" FontSize="11" Foreground="{DynamicResource ExtryzeAccentBrushSecondary}"
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="Quick Insight" FontSize="11"
+                                           Foreground="{DynamicResource ExtryzeAccentBrushSecondary}"
                                            Margin="0,0,0,6" FontFamily="Microsoft YaHei UI" />
-                                <TextBlock Text="{Binding AiText}" TextWrapping="Wrap" Foreground="#F4F4F6"
-                                           FontSize="13" LineHeight="22" FontFamily="Microsoft YaHei UI" />
-                            </StackPanel>
+                                <TextBlock Grid.Row="1" Text="{Binding AiText}" TextWrapping="Wrap" TextTrimming="None"
+                                           Foreground="#F4F4F6" FontSize="13" LineHeight="22"
+                                           FontFamily="Microsoft YaHei UI"
+                                           MaxWidth="{Binding ViewportWidth, ElementName=aiChatScrollViewer}" />
+                            </Grid>
                         </Border>
 
                         <!-- Long analysis bubble -->
-                        <Border Margin="4,8,4,12" Padding="12,12" CornerRadius="12" Background="#29292F"
-                                BorderBrush="#404048" BorderThickness="1"
+                        <Border Grid.Row="3" Margin="4,8,4,12" Padding="12,12" CornerRadius="12" Background="#29292F"
+                                BorderBrush="#404048" BorderThickness="1" HorizontalAlignment="Stretch"
                                 Visibility="{Binding HasAiLongText, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <StackPanel>
-                                <DockPanel Margin="0,0,0,8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <DockPanel Grid.Row="0" Margin="0,0,0,8">
                                     <Border Width="22" Height="22" CornerRadius="11" Background="#3A3A42"
                                             DockPanel.Dock="Left" Margin="0,0,8,0">
                                         <TextBlock Text="AI" FontSize="9" Foreground="#D0D0D6"
@@ -308,14 +329,14 @@
                                     <TextBlock Text="Analysis" FontSize="12" Foreground="#AFAFB6"
                                                VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" />
                                 </DockPanel>
-                                <TextBox Text="{Binding AiLongText, Mode=OneWay}" TextWrapping="Wrap"
-                                         IsReadOnly="True" BorderThickness="0" Background="Transparent"
-                                         Foreground="#F1F1F3" FontSize="13"
-                                         FontFamily="Microsoft YaHei UI" CaretBrush="Transparent"
-                                         IsTabStop="False" />
-                            </StackPanel>
+                                <!-- TextBlock grows with wrapped/multiline content; MaxWidth forces wrap inside ScrollViewer -->
+                                <TextBlock Grid.Row="1" Text="{Binding AiLongText}" TextWrapping="Wrap" TextTrimming="None"
+                                           Foreground="#F1F1F3" FontSize="13" LineHeight="22"
+                                           FontFamily="Microsoft YaHei UI"
+                                           MaxWidth="{Binding ViewportWidth, ElementName=aiChatScrollViewer}" />
+                            </Grid>
                         </Border>
-                    </StackPanel>
+                    </Grid>
                 </ScrollViewer>
             </Border>
 

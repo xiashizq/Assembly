@@ -2673,7 +2673,11 @@
     <Compile Include="Metro\Controls\XamlStyleSandbox.xaml.cs">
       <DependentUpon>XamlStyleSandbox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tool\GPTservice\GptProviderInfo.cs" />
+    <Compile Include="Tool\GPTservice\GptProviderRegistry.cs" />
     <Compile Include="Tool\GPTservice\GPTstreamClient.cs" />
+    <Compile Include="Tool\GPTservice\IGptProvider.cs" />
+    <Compile Include="Tool\GPTservice\OpenAiCompatibleClient.cs" />
     <Compile Include="Metro\Dialogs\ControlDialogs\DupeSettings.xaml.cs">
       <DependentUpon>DupeSettings.xaml</DependentUpon>
     </Compile>

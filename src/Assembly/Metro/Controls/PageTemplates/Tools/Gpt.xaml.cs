@@ -1,85 +1,136 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Forms;
-using Assembly.Helpers;
 using Assembly.Metro.Dialogs;
 using Assembly.Tool;
-using Blamite.Compression;
+using Assembly.Tool.GPTservice;
 
 namespace Assembly.Metro.Controls.PageTemplates.Tools
 {
-    /// <summary>
-    /// Interaction logic for MapCompressor.xaml
-    /// </summary>
-    public partial class Gpt
-    {
-        public Gpt()
-        {
-            InitializeComponent();
-            // 初始化ComboBox选项
-            var options = new ObservableCollection<SimpleOption>
-            {
-                new SimpleOption { Content = "Qwen" },
-            // 继续添加更多选项...
-            };
+	public partial class Gpt
+	{
+		public Gpt()
+		{
+			InitializeComponent();
 
+			var options = new ObservableCollection<SimpleOption>(
+				GptProviderRegistry.GetProviders().Select(p => new SimpleOption
+				{
+					Content = p.DisplayName,
+					Id = p.Id
+				}));
 
-            comboBoxOptions.ItemsSource = options;
-            // 获取当前配置的翻译应用名称
-            string currentTranslationApp = ConfigManager.GetSetting("Assembly", "GptApp", "Qwen");
-            // 使用LINQ简化设置选中项的过程
-            var selectedOption = options.FirstOrDefault(o => o.Content.Equals(currentTranslationApp));
-            if (selectedOption != null)
-            {
-                comboBoxOptions.SelectedItem = selectedOption;
-            }
+			comboBoxOptions.ItemsSource = options;
 
-            // 获取TranslationAppId 和 TranslationSecretKey
-            string gptAppId = ConfigManager.GetSetting("Assembly", "GptAppId");
-            string gptAppKey = ConfigManager.GetSetting("Assembly", "GptAppKey");
-            //appIdInput.Text = gptAppId;
-            appKeyInput.Text = gptAppKey;
-        }
+			string currentGptApp = ConfigManager.GetSetting("Assembly", "GptApp", "Qwen");
+			var selectedOption = options.FirstOrDefault(o => o.Id.Equals(currentGptApp))
+				?? options.FirstOrDefault();
+			if (selectedOption != null)
+				comboBoxOptions.SelectedItem = selectedOption;
 
-        public class SimpleOption
-        {
-            public string Content { get; set; }
+			LoadProviderCredentials(selectedOption?.Id ?? "Qwen");
+		}
 
-        }
+		public class SimpleOption
+		{
+			public string Content { get; set; }
+			public string Id { get; set; }
+		}
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            // 获取当前选中的翻译应用名称
-            string selectedGptApp = ((SimpleOption)comboBoxOptions.SelectedItem)?.Content ?? "Qwen";
-            // 获取用户输入的AppId和SecretKey
-            //string gptAppId = appIdInput.Text;
-            string gptAppKey = appKeyInput.Text;
-            // 使用ConfigManager保存这些设置
-            ConfigManager.SetSetting("Assembly", "GptApp", selectedGptApp);
-            //ConfigManager.SetSetting("Assembly", "GptAppId", gptAppId);
-            ConfigManager.SetSetting("Assembly", "GptAppKey", gptAppKey);
-            MetroMessageBox.Show("Successfully saved");
-        }
+		private void btnSave_Click(object sender, RoutedEventArgs e)
+		{
+			if (!SaveCurrentProvider(true))
+				return;
+			MetroMessageBox.Show("Successfully saved");
+		}
 
-        private void comboBoxOptions_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (comboBoxOptions.SelectedItem != null)
-            {
-                SimpleOption selectedOption = comboBoxOptions.SelectedItem as SimpleOption;
-                if (selectedOption != null)
-                {
-                    string selectedValueString = selectedOption.Content;
-                    // 根据所选的应用程序名称获取对应的Id和SecretKey
-                    //string gptAppId = ConfigManager.GetSetting("Assembly", "GptAppId");
-                    string gptAppKey = ConfigManager.GetSetting("Assembly", "GptAppKey");
-                    //appIdInput.Text = gptAppId;
-                    appKeyInput.Text = gptAppKey;
-                }
-            }
-        }
-    }
+		private async void btnTest_Click(object sender, RoutedEventArgs e)
+		{
+			if (!SaveCurrentProvider(false))
+				return;
+
+			await GPTstreamClient.GPT_Async("Flag");
+			var sharedVm = (Metro.SharedViewModelUntil.SharedViewModel)Application.Current.FindResource("SharedViewModel");
+			MetroMessageBox.Show(string.IsNullOrWhiteSpace(sharedVm.AiText) ? "(empty response)" : sharedVm.AiText);
+		}
+
+		private void comboBoxOptions_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			var selectedOption = comboBoxOptions.SelectedItem as SimpleOption;
+			if (selectedOption == null)
+				return;
+			LoadProviderCredentials(selectedOption.Id);
+		}
+
+		private bool SaveCurrentProvider(bool validate)
+		{
+			var selected = comboBoxOptions.SelectedItem as SimpleOption;
+			string providerId = selected?.Id ?? "Qwen";
+			var provider = GptProviderRegistry.GetProvider(providerId);
+			string apiKey = appKeyInput.Text?.Trim() ?? string.Empty;
+			string model = modelInput.Text?.Trim() ?? string.Empty;
+			string longModel = longModelInput.Text?.Trim() ?? string.Empty;
+			string extra = extraInput.Text?.Trim() ?? string.Empty;
+
+			if (validate && provider != null)
+			{
+				if (string.IsNullOrWhiteSpace(apiKey))
+				{
+					MetroMessageBox.Show("Please fill in " + provider.ApiKeyLabel);
+					return false;
+				}
+				if (provider.RequiresExtra && string.IsNullOrWhiteSpace(extra) && string.IsNullOrWhiteSpace(model))
+				{
+					MetroMessageBox.Show("Please fill in " + (string.IsNullOrWhiteSpace(provider.ExtraLabel) ? provider.ModelLabel : provider.ExtraLabel));
+					return false;
+				}
+			}
+
+			if (string.IsNullOrWhiteSpace(model) && provider != null)
+				model = provider.DefaultModel;
+			if (string.IsNullOrWhiteSpace(longModel) && provider != null)
+				longModel = string.IsNullOrWhiteSpace(provider.DefaultLongModel) ? model : provider.DefaultLongModel;
+
+			ConfigManager.SetSetting("Assembly", "GptApp", providerId);
+			ConfigManager.SetSetting("Assembly", GptProviderRegistry.GetApiKeyKey(providerId), apiKey);
+			ConfigManager.SetSetting("Assembly", GptProviderRegistry.GetModelKey(providerId), model);
+			ConfigManager.SetSetting("Assembly", GptProviderRegistry.GetLongModelKey(providerId), longModel);
+			ConfigManager.SetSetting("Assembly", GptProviderRegistry.GetExtraKey(providerId), extra);
+			ConfigManager.SetSetting("Assembly", "GptAppKey", apiKey);
+			return true;
+		}
+
+		private void LoadProviderCredentials(string providerId)
+		{
+			var provider = GptProviderRegistry.GetProvider(providerId);
+			if (provider == null)
+				return;
+
+			apiKeyLabel.Text = provider.ApiKeyLabel + ":";
+			modelLabel.Text = provider.ModelLabel + ":";
+			bool showExtra = !string.IsNullOrWhiteSpace(provider.ExtraLabel);
+			extraRow.Visibility = showExtra ? Visibility.Visible : Visibility.Collapsed;
+			extraLabel.Text = string.IsNullOrWhiteSpace(provider.ExtraLabel) ? "Extra:" : provider.ExtraLabel + ":";
+			providerHelpText.Text = provider.HelpText;
+
+			string apiKey = ConfigManager.GetSetting("Assembly", GptProviderRegistry.GetApiKeyKey(providerId));
+			string model = ConfigManager.GetSetting("Assembly", GptProviderRegistry.GetModelKey(providerId));
+			string longModel = ConfigManager.GetSetting("Assembly", GptProviderRegistry.GetLongModelKey(providerId));
+			string extra = ConfigManager.GetSetting("Assembly", GptProviderRegistry.GetExtraKey(providerId));
+
+			if (string.IsNullOrWhiteSpace(apiKey) && providerId == "Qwen")
+				apiKey = ConfigManager.GetSetting("Assembly", "GptAppKey");
+			if (string.IsNullOrWhiteSpace(model))
+				model = provider.DefaultModel;
+			if (string.IsNullOrWhiteSpace(longModel))
+				longModel = provider.DefaultLongModel;
+			if (string.IsNullOrWhiteSpace(extra) && provider.Id == "Custom")
+				extra = provider.DefaultBaseUrl;
+
+			appKeyInput.Text = apiKey;
+			modelInput.Text = model;
+			longModelInput.Text = longModel;
+			extraInput.Text = extra;
+		}
+	}
 }

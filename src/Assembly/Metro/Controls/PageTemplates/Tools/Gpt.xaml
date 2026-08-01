@@ -24,7 +24,23 @@
 				<ScrollViewer VerticalScrollBarVisibility="Auto">
 					<Grid>
 						<TextBlock TextWrapping="Wrap" Foreground="White" FontSize="12">
-							Please enter relevant information to activate AI for answering on the tab.
+							AI analysis API settings:
+							<LineBreak />
+							<LineBreak />
+							Domestic:
+							<LineBreak />
+							Qwen, DeepSeek, Moonshot, Zhipu, Doubao, SiliconFlow, Baichuan
+							<LineBreak />
+							<LineBreak />
+							International:
+							<LineBreak />
+							OpenAI, Groq, Azure OpenAI
+							<LineBreak />
+							<LineBreak />
+							Also supports Custom / Ollama OpenAI-compatible endpoints.
+							<LineBreak />
+							<LineBreak />
+							Each provider stores its own API key and model.
                         </TextBlock>
 					</Grid>
 				</ScrollViewer>
@@ -34,11 +50,11 @@
 		<Grid Margin="350,0,0,0" HorizontalAlignment="Stretch">
 			<Border Margin="30,30,0,0" BorderThickness="0" VerticalAlignment="Top" Padding="10" BorderBrush="#FF999999">
                 <StackPanel Margin="0,10,0,0">
-                    <TextBlock Text="Please enter appId and appKey:" Foreground="White" FontSize="13" />
+                    <TextBlock Text="AI provider settings:" Foreground="White" FontSize="13" />
 
                     <Grid Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="150" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="platform:" Foreground="White" FontSize="13" Grid.Column="0" />
@@ -50,23 +66,41 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
-                    <!--<Grid Margin="0,10,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="110" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="appId:" Foreground="White" FontSize="13" />
-                        <TextBox x:Name="appIdInput" Text="" Grid.Column="1" />
-                    </Grid>-->
                     <Grid Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="150" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="appKey:" Foreground="White" FontSize="13" />
+                        <TextBlock x:Name="apiKeyLabel" Text="API Key:" Foreground="White" FontSize="13" />
                         <TextBox x:Name="appKeyInput" Text="" Grid.Column="1"/>
                     </Grid>
+                    <Grid Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="modelLabel" Text="Model:" Foreground="White" FontSize="13" />
+                        <TextBox x:Name="modelInput" Text="" Grid.Column="1"/>
+                    </Grid>
+                    <Grid Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Long Model:" Foreground="White" FontSize="13" />
+                        <TextBox x:Name="longModelInput" Text="" Grid.Column="1"/>
+                    </Grid>
+                    <Grid x:Name="extraRow" Margin="0,10,0,0" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="extraLabel" Text="Extra:" Foreground="White" FontSize="13" TextWrapping="Wrap" />
+                        <TextBox x:Name="extraInput" Text="" Grid.Column="1"/>
+                    </Grid>
+                    <TextBlock x:Name="providerHelpText" TextWrapping="Wrap" Foreground="#FFB0B0B0" FontSize="11" Margin="0,8,0,0" />
                     <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" Margin="0,10,0,0" />
+                    <Button x:Name="btnTest" Content="Test AI" Click="btnTest_Click" Margin="0,8,0,0" />
                 </StackPanel>
             </Border>
 		</Grid>

@@ -10,13 +10,14 @@ namespace Assembly.Tool.TranslateService.Providers
 	internal sealed class TencentTranslateProvider : ITranslateProvider
 	{
 		public string Id => "Tencent";
-		public string DisplayName => "Tencent (腾讯翻译君)";
+		public string DisplayName => "Tencent";
 		public string AppIdLabel => "SecretId";
 		public string SecretKeyLabel => "SecretKey";
-		public string ExtraLabel => "Region (可选, 默认 ap-guangzhou)";
+		public string ExtraLabel => "Region (optional, default ap-guangzhou)";
+		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => true;
 		public bool RequiresExtra => false;
-		public string HelpText => "在腾讯云开通机器翻译并创建 API 密钥：https://cloud.tencent.com/product/tmt";
+		public string HelpText => "Tencent Cloud TMT: https://cloud.tencent.com/product/tmt";
 
 		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
 		{
@@ -76,17 +77,13 @@ namespace Assembly.Tool.TranslateService.Providers
 		private static string Sha256Hex(string input)
 		{
 			using (var sha = SHA256.Create())
-			{
 				return ToHex(sha.ComputeHash(Encoding.UTF8.GetBytes(input)));
-			}
 		}
 
 		private static byte[] HmacSha256(byte[] key, string data)
 		{
 			using (var hmac = new HMACSHA256(key))
-			{
 				return hmac.ComputeHash(Encoding.UTF8.GetBytes(data));
-			}
 		}
 
 		private static string ToHex(byte[] bytes)

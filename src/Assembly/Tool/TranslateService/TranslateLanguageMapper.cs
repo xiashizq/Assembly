@@ -24,6 +24,8 @@ namespace Assembly.Tool.TranslateService
 					return code;
 
 				case "Google":
+				case "Papago":
+				case "MyMemory":
 					if (code == "zh" || code == "zh-hans")
 						return "zh-CN";
 					if (code == "ja" || code == "jp")
@@ -47,6 +49,11 @@ namespace Assembly.Tool.TranslateService
 				case "Tencent":
 				case "Aliyun":
 				case "Caiyun":
+				case "Yandex":
+				case "Amazon":
+				case "LibreTranslate":
+				case "ModernMT":
+				case "IBMWatson":
 					if (code == "zh" || code == "zh-cn" || code == "zh-hans")
 						return "zh";
 					if (code == "ja" || code == "jp")

@@ -9,14 +9,24 @@ namespace Assembly.Tool.TranslateService
 	{
 		private static readonly ITranslateProvider[] Providers =
 		{
+			// Domestic
 			new BaiduTranslateProvider(),
 			new YoudaoTranslateProvider(),
 			new TencentTranslateProvider(),
 			new AliyunTranslateProvider(),
 			new CaiyunTranslateProvider(),
+
+			// International
 			new GoogleTranslateProvider(),
 			new MicrosoftTranslateProvider(),
-			new DeepLTranslateProvider()
+			new DeepLTranslateProvider(),
+			new AmazonTranslateProvider(),
+			new YandexTranslateProvider(),
+			new PapagoTranslateProvider(),
+			new ModernMTTranslateProvider(),
+			new IbmWatsonTranslateProvider(),
+			new LibreTranslateProvider(),
+			new MyMemoryTranslateProvider()
 		};
 
 		internal static IReadOnlyList<ITranslateProvider> GetProviders()
@@ -50,17 +60,19 @@ namespace Assembly.Tool.TranslateService
 			if (string.IsNullOrWhiteSpace(secretKey))
 				secretKey = ConfigManager.GetSetting("Assembly", "TranslationSecretKey");
 
-			if (string.IsNullOrWhiteSpace(appId))
+			if (provider.RequiresAppId && string.IsNullOrWhiteSpace(appId))
 				return "Translation credentials not configured";
 			if (provider.RequiresSecretKey && string.IsNullOrWhiteSpace(secretKey))
 				return "Translation secret key not configured";
+			if (provider.RequiresExtra && string.IsNullOrWhiteSpace(extra))
+				return "Translation extra setting not configured";
 
 			string targetLanguage = ConfigManager.GetSetting("Assembly", "TranslationTargetlanguage", "zh");
 
 			try
 			{
-				return provider.Translate(q, targetLanguage, appId.Trim(), (secretKey ?? string.Empty).Trim(),
-					(extra ?? string.Empty).Trim());
+				return provider.Translate(q, targetLanguage, (appId ?? string.Empty).Trim(),
+					(secretKey ?? string.Empty).Trim(), (extra ?? string.Empty).Trim());
 			}
 			catch (Exception ex)
 			{

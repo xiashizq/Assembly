@@ -9,13 +9,14 @@ namespace Assembly.Tool.TranslateService.Providers
 	internal sealed class YoudaoTranslateProvider : ITranslateProvider
 	{
 		public string Id => "Youdao";
-		public string DisplayName => "Youdao (有道翻译)";
+		public string DisplayName => "Youdao";
 		public string AppIdLabel => "App Key";
 		public string SecretKeyLabel => "App Secret";
 		public string ExtraLabel => "";
+		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => true;
 		public bool RequiresExtra => false;
-		public string HelpText => "在有道智云申请文本翻译服务：https://ai.youdao.com/";
+		public string HelpText => "Youdao AI Cloud: https://ai.youdao.com/";
 
 		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
 		{

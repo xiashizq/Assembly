@@ -10,11 +10,12 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string Id => "Microsoft";
 		public string DisplayName => "Microsoft Translator (Azure)";
 		public string AppIdLabel => "Subscription Key";
-		public string SecretKeyLabel => "(不需要)";
-		public string ExtraLabel => "Region (如 global / eastasia，多服务资源必填)";
+		public string SecretKeyLabel => "(optional)";
+		public string ExtraLabel => "Region (e.g. global / eastasia)";
+		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => false;
 		public bool RequiresExtra => false;
-		public string HelpText => "在 Azure 创建 Translator 资源：https://portal.azure.com/ ，填入密钥与区域。";
+		public string HelpText => "Azure Translator: https://portal.azure.com/";
 
 		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
 		{

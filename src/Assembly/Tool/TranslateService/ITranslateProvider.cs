@@ -7,6 +7,7 @@ namespace Assembly.Tool.TranslateService
 		string AppIdLabel { get; }
 		string SecretKeyLabel { get; }
 		string ExtraLabel { get; }
+		bool RequiresAppId { get; }
 		bool RequiresSecretKey { get; }
 		bool RequiresExtra { get; }
 		string HelpText { get; }

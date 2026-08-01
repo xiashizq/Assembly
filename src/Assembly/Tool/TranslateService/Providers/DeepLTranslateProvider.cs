@@ -9,11 +9,12 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string Id => "DeepL";
 		public string DisplayName => "DeepL";
 		public string AppIdLabel => "Auth Key";
-		public string SecretKeyLabel => "(不需要)";
-		public string ExtraLabel => "Endpoint (可选: free / pro，默认按密钥自动判断)";
+		public string SecretKeyLabel => "(optional)";
+		public string ExtraLabel => "Endpoint (optional: free / pro)";
+		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => false;
 		public bool RequiresExtra => false;
-		public string HelpText => "在 DeepL 申请 API Key：https://www.deepl.com/pro-api 。免费密钥通常以 :fx 结尾。";
+		public string HelpText => "DeepL API: https://www.deepl.com/pro-api (free keys usually end with :fx)";
 
 		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
 		{

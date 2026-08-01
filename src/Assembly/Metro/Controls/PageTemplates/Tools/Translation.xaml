@@ -31,7 +31,9 @@
 							<LineBreak />
 							Domestic: Baidu, Youdao, Tencent, Aliyun, Caiyun
 							<LineBreak />
-							International: Google, Microsoft Azure, DeepL
+							International: Google, Microsoft Azure, DeepL,
+							Amazon, Yandex, Papago, ModernMT, IBM Watson,
+							LibreTranslate, MyMemory
 							<LineBreak />
 							<LineBreak />
 							Select a platform, fill credentials, then save.

@@ -9,11 +9,12 @@ namespace Assembly.Tool.TranslateService.Providers
 		public string Id => "Google";
 		public string DisplayName => "Google Cloud Translation";
 		public string AppIdLabel => "API Key";
-		public string SecretKeyLabel => "(不需要)";
+		public string SecretKeyLabel => "(optional)";
 		public string ExtraLabel => "";
+		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => false;
 		public bool RequiresExtra => false;
-		public string HelpText => "在 Google Cloud 启用 Cloud Translation API 并创建 API Key：https://cloud.google.com/translate";
+		public string HelpText => "Google Cloud Translation API: https://cloud.google.com/translate";
 
 		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
 		{

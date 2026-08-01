@@ -9,13 +9,14 @@ namespace Assembly.Tool.TranslateService.Providers
 	internal sealed class BaiduTranslateProvider : ITranslateProvider
 	{
 		public string Id => "Baidu";
-		public string DisplayName => "Baidu (百度翻译)";
+		public string DisplayName => "Baidu";
 		public string AppIdLabel => "APP ID";
 		public string SecretKeyLabel => "Secret Key";
 		public string ExtraLabel => "";
+		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => true;
 		public bool RequiresExtra => false;
-		public string HelpText => "在百度翻译开放平台申请通用翻译 API：https://fanyi-api.baidu.com/";
+		public string HelpText => "Baidu Translate API: https://fanyi-api.baidu.com/";
 
 		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
 		{

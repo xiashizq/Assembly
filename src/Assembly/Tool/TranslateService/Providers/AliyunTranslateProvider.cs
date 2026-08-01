@@ -11,13 +11,14 @@ namespace Assembly.Tool.TranslateService.Providers
 	internal sealed class AliyunTranslateProvider : ITranslateProvider
 	{
 		public string Id => "Aliyun";
-		public string DisplayName => "Aliyun (阿里云翻译)";
+		public string DisplayName => "Aliyun";
 		public string AppIdLabel => "AccessKey ID";
 		public string SecretKeyLabel => "AccessKey Secret";
-		public string ExtraLabel => "Region (可选, 默认 cn-hangzhou)";
+		public string ExtraLabel => "Region (optional, default cn-hangzhou)";
+		public bool RequiresAppId => true;
 		public bool RequiresSecretKey => true;
 		public bool RequiresExtra => false;
-		public string HelpText => "在阿里云开通机器翻译并创建 AccessKey：https://www.aliyun.com/product/ai/alimt";
+		public string HelpText => "Aliyun Machine Translation: https://www.aliyun.com/product/ai/alimt";
 
 		public string Translate(string text, string targetLanguage, string appId, string secretKey, string extra)
 		{
@@ -68,9 +69,7 @@ namespace Assembly.Tool.TranslateService.Providers
 		private static string Sign(string stringToSign, string key)
 		{
 			using (var hmac = new HMACSHA1(Encoding.UTF8.GetBytes(key)))
-			{
 				return Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(stringToSign)));
-			}
 		}
 
 		private static string PercentEncode(string value)

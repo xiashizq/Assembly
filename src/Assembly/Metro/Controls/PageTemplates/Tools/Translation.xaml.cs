@@ -73,7 +73,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Tools
 			var provider = PublicTranslateService.GetProvider(providerId);
 			if (provider != null)
 			{
-				if (string.IsNullOrWhiteSpace(translationAppId))
+				if (provider.RequiresAppId && string.IsNullOrWhiteSpace(translationAppId))
 				{
 					MetroMessageBox.Show("Please fill in " + provider.AppIdLabel);
 					return;
@@ -81,6 +81,11 @@ namespace Assembly.Metro.Controls.PageTemplates.Tools
 				if (provider.RequiresSecretKey && string.IsNullOrWhiteSpace(translationSecretKey))
 				{
 					MetroMessageBox.Show("Please fill in " + provider.SecretKeyLabel);
+					return;
+				}
+				if (provider.RequiresExtra && string.IsNullOrWhiteSpace(translationExtra))
+				{
+					MetroMessageBox.Show("Please fill in " + provider.ExtraLabel);
 					return;
 				}
 			}

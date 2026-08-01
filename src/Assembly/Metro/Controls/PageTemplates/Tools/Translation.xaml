@@ -23,25 +23,28 @@
 			<Grid VerticalAlignment="Top" Margin="25,120,15,20">
 				<ScrollViewer VerticalScrollBarVisibility="Auto">
 					<Grid>
-						<TextBlock TextWrapping="Wrap" Foreground="White" FontSize="12">
+						<TextBlock x:Name="helpTextBlock" TextWrapping="Wrap" Foreground="White" FontSize="12">
 							Translation interface settings:
 							<LineBreak />
 							<LineBreak />
-							-Currently only supporting Baidu translation interface
+							Supported providers:
 							<LineBreak />
-							-You need to register a Baidu Translate API account to get appId and secretKey
+							Domestic: Baidu, Youdao, Tencent, Aliyun, Caiyun
 							<LineBreak />
-							-API settings are used for online translation features
+							International: Google, Microsoft Azure, DeepL
+							<LineBreak />
+							<LineBreak />
+							Select a platform, fill credentials, then save.
+							Each provider stores its own keys.
 							<LineBreak />
 							<LineBreak />
 							Local language settings:
 							<LineBreak />
+							- Default dictionary language for the UI
 							<LineBreak />
-							-Sets the default language for the application interface
+							- Supported: Chinese (zh), Japanese (ja)
 							<LineBreak />
-							-Currently supported languages: Chinese (zh), Japanese (ja)
-							<LineBreak />
-							-Changes require application restart to take effect
+							- Restart required after changes
                         </TextBlock>
 					</Grid>
 				</ScrollViewer>
@@ -51,11 +54,11 @@
 		<Grid Margin="350,0,0,0" HorizontalAlignment="Stretch">
 			<Border Margin="30,30,0,0" BorderThickness="0" VerticalAlignment="Top" Padding="10" BorderBrush="#FF999999">
                 <StackPanel Margin="0,10,0,0">
-                    <TextBlock Text="Please enter appId and secretKey:" Foreground="White" FontSize="13" />
+                    <TextBlock Text="Online translation API settings:" Foreground="White" FontSize="13" />
                     
                     <Grid Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="140" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="platform:" Foreground="White" FontSize="13" Grid.Column="0" />
@@ -70,7 +73,7 @@
 
                     <Grid Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="140" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="target language:" Foreground="White" FontSize="13" Grid.Column="0" />
@@ -85,28 +88,38 @@
 
                     <Grid Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="140" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="appId:" Foreground="White" FontSize="13" />
+                        <TextBlock x:Name="appIdLabel" Text="appId:" Foreground="White" FontSize="13" />
                         <TextBox x:Name="appIdInput" Text="" Grid.Column="1" />
                     </Grid>
-                    <Grid Margin="0,10,0,0">
+                    <Grid x:Name="secretKeyRow" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="140" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="secretKey:" Foreground="White" FontSize="13" />
+                        <TextBlock x:Name="secretKeyLabel" Text="secretKey:" Foreground="White" FontSize="13" />
                         <TextBox x:Name="secretKeyInput" Text="" Grid.Column="1"/>
                     </Grid>
+                    <Grid x:Name="extraRow" Margin="0,10,0,0" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="extraLabel" Text="extra:" Foreground="White" FontSize="13" TextWrapping="Wrap" />
+                        <TextBox x:Name="extraInput" Text="" Grid.Column="1"/>
+                    </Grid>
+                    <TextBlock x:Name="providerHelpText" TextWrapping="Wrap" Foreground="#FFB0B0B0" FontSize="11" Margin="0,8,0,0" />
                     <Button x:Name="btnSaveAPI" Content="Save API Settings" Click="btnSaveAPI_Click" Margin="0,10,0,0" />
+                    <Button x:Name="btnTestAPI" Content="Test Translation" Click="btnTestAPI_Click" Margin="0,8,0,0" />
 
                     <Border BorderBrush="#FF545456" BorderThickness="0,2,0,0" Margin="0,20,0,0" />
 
                     <TextBlock Text="Local Language Settings" Foreground="White" FontSize="16" Margin="0,20,0,0" />
                     <Grid Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="140" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="local language:" Foreground="White" FontSize="13" Grid.Column="0" />
